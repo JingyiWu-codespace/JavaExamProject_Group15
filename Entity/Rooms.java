@@ -1,0 +1,55 @@
+package WPO_final.Entity;
+
+import WPO_final.Inventory;
+
+public enum Rooms {
+    ROOM_HALLWAY("hallway", "First floor, the elevators are here"),
+    ROOM_2nd_HALLWAY("2nd hallway", "Second floor, access to patient rooms"), // Assuming the elevator goes back to the first hallway
+    ROOM_402("402", "Room 402, where patient Alice is staying"), // Assuming you can go back to the second hallway
+    ROOM_LOBBY("lobby", "The main lobby of the hospital, bustling with activity");// Assuming the hallway leads from the lobby
+
+    private final Inventory inventory;
+    private Rooms[] exits; // Adjacent rooms
+    private RoomInfo roomInfo;
+
+
+
+    // ************************************************************
+    private final RoomInfo room_info;
+
+    Rooms(String name, String description) {
+        this.room_info = new RoomInfo(name, description, new String[]{});
+        this.inventory = new Inventory(new Items[]{});
+    }
+    public void setExits(Rooms... exits) {
+        this.exits = exits;
+    }
+    public Rooms[] get_exits() {
+        return exits;
+    }
+    static {
+        ROOM_HALLWAY.setExits(ROOM_2nd_HALLWAY);
+        ROOM_2nd_HALLWAY.setExits(ROOM_HALLWAY, ROOM_402);
+        ROOM_402.setExits(ROOM_2nd_HALLWAY);
+        ROOM_LOBBY.setExits(ROOM_HALLWAY);
+    }
+
+
+    private class RoomInfo extends BaseEntity {
+        RoomInfo(String name, String description, String[] aliases) {
+            super(name, description, aliases);
+        }
+    }
+
+    public String get_name() {
+        return this.room_info.getName();
+    }
+
+    public String get_description() {
+        return this.room_info.getDescription();
+    }
+
+    public Boolean check_command(String alias) {
+        return this.room_info.checkCommand(alias);
+    }
+}
