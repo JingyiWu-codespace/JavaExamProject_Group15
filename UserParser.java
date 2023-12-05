@@ -4,75 +4,99 @@ import WPO_final.Entity.ActionCodes;
 import WPO_final.Entity.Items;
 import WPO_final.Entity.Rooms;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class UserParser {
-    private Scanner scanner;
+    private final Scanner scanner;
+    private final Map<String, Items> word_to_item;
+    private final Map<String, Rooms> word_to_room;
+    private final Map<String, ActionCodes> word_to_action;
 
     public UserParser() {
         scanner = new Scanner(System.in);
-    }
-    public static class ParsedInput {
-        public final ActionCodes actionCode;
-        public final Items objectCode;
-        public final Rooms roomCode;
-        public final Items otherObjectCode;
 
-        public ParsedInput(ActionCodes actionCode, Items objectCode, Rooms roomCode, Items otherObjectCode) {
-            this.actionCode = actionCode;
-            this.objectCode = objectCode;
-            this.roomCode = roomCode;
-            this.otherObjectCode = otherObjectCode;
+        // Initialize the maps
+        this.word_to_item = new HashMap<String, Items>();
+        for (Items item : Items.values())
+            for (String word : item.get_command_array())
+                if (!this.word_to_item.containsKey(word))
+                    this.word_to_item.put(word, item);
+                else System.out.println("Duplicate key: " + word);
+
+        this.word_to_room = new HashMap<String, Rooms>();
+        for (Rooms room : Rooms.values())
+            for (String word : room.get_command_array())
+                if (!this.word_to_room.containsKey(word))
+                    this.word_to_room.put(word, room);
+                else System.out.println("Duplicate key: " + word);
+
+        this.word_to_action = new HashMap<String, ActionCodes>();
+        for (ActionCodes action : ActionCodes.values())
+            for (String word : action.get_command_array())
+                if (!this.word_to_action.containsKey(word))
+                    this.word_to_action.put(word, action);
+                else System.out.println("Duplicate key: " + word);
+
+        // Check for duplicate keys
+        for (String key : this.word_to_action.keySet()) {
+            if (this.word_to_item.containsKey(key))
+                System.out.println("Duplicate key: " + key);
+            if (this.word_to_room.containsKey(key))
+                System.out.println("Duplicate key: " + key);
+        }
+        for (String key : this.word_to_item.keySet()) {
+            if (this.word_to_room.containsKey(key))
+                System.out.println("Duplicate key: " + key);
         }
     }
 
-    public ParsedInput parseInput() {
+    public ParsedData parseInput() {
         System.out.print("> "); // Prompt the user
         String inputLine = scanner.nextLine().toLowerCase();
         String[] inputParts = inputLine.trim().split("\\s+"); // Split input by spaces
         if (inputParts.length == 0) {
             System.out.println("No input given. Please try again."); // Feedback to the user
-            return null; // No input
-        }
-
-        if (inputParts.length == 0) {
             return null;
         }
 
-        // Parse the action code
-        // Parse the action code
-        ActionCodes actionCode = parseActionCode(inputParts[0]);
-        if (actionCode == null) {
-            System.out.println("Invalid command. Try again or type 'help' for a list of commands.");
-            return null; // No action found, return early
-        }
+        ActionCodes actionCode = null;
+        Items objectCode = null;
+        Rooms roomCode = null;
+        Items otherObjectCode = null;
 
-        Items objectCode = null; // Initialize to null, add parsing logic if necessary
-        Items otherObjectCode = null; // Initialize to null, add parsing logic if necessary
-        Rooms roomCode = null; // Initialize to null, add parsing logic if necessary
+        // Parse the input
+        for (String word : inputParts)
+            if (actionCode == null)
+                actionCode = this.word_to_action.get(word);
+            else if (objectCode == null)
+                objectCode = this.word_to_item.get(word);
+            else if (roomCode == null)
+                roomCode = this.word_to_room.get(word);
+            else if (otherObjectCode == null)
+                otherObjectCode = this.word_to_item.get(word);
 
-        // TODO: Add parsing logic for objectCode, roomCode, and otherObjectCode if needed
+        System.out.println("debug\n"+
+                "actionCode: " + actionCode.get_name()+"\n"+
+                "objectCode: " + objectCode.get_name()+"\n"+
+                "roomCode: " + roomCode.get_name()+"\n"+
+                "otherObjectCode: " + otherObjectCode.get_name()+"\n");
 
-        return new ParsedInput(actionCode, objectCode, roomCode, otherObjectCode);
+        return new ParsedData(actionCode, objectCode, roomCode, otherObjectCode);
     }
 
-    private ActionCodes parseActionCode(String action) {
-        for (ActionCodes code : ActionCodes.values()) {
-            if (code.checkCommand(action)) {
-                return code;
-            }
-        }
-        System.out.println("Invalid command. Try again or type 'help' for a list of commands.");
-        return null; // No action found
-    }
+    public static class ParsedData {
+        public final ActionCodes actionCode;
+        public final Items objectCode;
+        public final Rooms roomCode;
+        public final Items otherObjectCode;
 
-    public String[][] getActionStrings() {
-        String[][] actionStrings = new String[ActionCodes.values().length][2];
-        for (int i = 0; i < ActionCodes.values().length; i++) {
-            ActionCodes code = ActionCodes.values()[i];
-            actionStrings[i][0] = code.name(); // Get the name of the enum constant itself
-            actionStrings[i][1] = code.getDescription(); // Get the description from the ActionCodeInfo
+        public ParsedData(ActionCodes actionCode, Items objectCode, Rooms roomCode, Items otherObjectCode) {
+            this.actionCode = actionCode;
+            this.objectCode = objectCode;
+            this.roomCode = roomCode;
+            this.otherObjectCode = otherObjectCode;
         }
-        return actionStrings;
     }
 }
