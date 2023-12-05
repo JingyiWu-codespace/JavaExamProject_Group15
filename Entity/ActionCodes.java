@@ -8,24 +8,33 @@ public enum ActionCodes {
     ACTION_INTERACT("interact", "Interact with an item", new String[]{"use", "grab", "take", "pick up", "open"});
 
     private  ActionCodeInfo action_info;
-    private final String[] aliases;
 
     ActionCodes(String name, String description, String[] aliases) {
-        this.aliases = aliases;
         this.action_info = new ActionCodeInfo(name, description, aliases);
-    }
-
-    public boolean checkCommand(String input) {
-        for (String alias : aliases) {
-            if (alias.equalsIgnoreCase(input)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public ActionCodeInfo getAction_info() {
         return action_info;
+    }
+
+    public String getDescription() {
+        return this.action_info.getDescription();
+    }
+
+    public String get_name() {
+        return this.action_info.getName();
+    }
+
+    public String get_description() {
+        return this.action_info.getDescription();
+    }
+
+    public Boolean check_command(String alias) {
+        return this.action_info.checkCommand(alias);
+    }
+
+    public String[] get_command_array() {
+        return this.action_info.get_command_array();
     }
 
     private class ActionCodeInfo extends BaseEntity {
@@ -44,20 +53,4 @@ public enum ActionCodes {
     public String getName() {
         return this.action_info.getName();
     }
-
-    public String getDescription() {
-        return this.action_info.getDescription();
-    }
-    private ActionCodes parseActionCode(String action) {
-        for (ActionCodes code : ActionCodes.values()) {
-            System.out.println("Checking command: " + action + " against " + code.name());
-            if (code.checkCommand(action)) {
-                System.out.println("Matched: " + code.name());
-                return code;
-            }
-        }
-        System.out.println("No matching action code found.");
-        return null; // No action found
-    }
-
 }
