@@ -20,7 +20,8 @@ public enum Items {
         public void interaction(ActionCodes action, Player player, Items other_item, Inventory other_inv) {
             System.out.println("turns out she was searching for her keys");
             if (other_item == Items.ITEM_402_KEYS) {
-                if (player.removeItemFromInventory(String.valueOf(Items.ITEM_402_KEYS))) {
+                Items temp = player.getInventory().get_item(Items.ITEM_402_KEYS);
+                if (temp != null) {
                     System.out.println("she takes the keys and leaves");
                     this.get_owning_inventory().destroy_item(this);
                 }
