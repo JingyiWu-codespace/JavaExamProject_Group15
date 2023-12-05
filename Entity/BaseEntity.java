@@ -27,4 +27,8 @@ public abstract class BaseEntity {
             if (a.equals(alias)) return true;
         return false;
     }
+
+    public String[] get_command_array() {
+        return this.aliases;
+    }
 }
