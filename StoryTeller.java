@@ -50,18 +50,32 @@ public class StoryTeller {
             // explain available actions
             case ACTION_HELP:
                 System.out.println("You can use the following commands:");
-                for (String[] temp : userIo.getActionStrings()) {
-                    String action_name = temp[0];
-                    String action_desc = temp[1];
-                    System.out.println("    - " + action_name);
-                    System.out.println("                   details: " + action_desc);
+                for (ActionCodes temp: ActionCodes.values()) {
+                    System.out.println("    - " + temp.get_name());
+                    System.out.println("                   details: " + temp.get_description());
                 }
+
+                System.out.println("The following items are in your bag:");
+                for (Items temp: this.player.getInventory().getItemList()) {
+                    System.out.println("    - " + temp.get_name());
+                    System.out.println("                   details: " + temp.get_description());
+                }
+
+                System.out.println("Room includes the following things/people:");
+                for (Items temp: this.player.getCurrentRoom().getInventory().getItemList()) {
+                    System.out.println("    - " + temp.get_name());
+                    System.out.println("                   details: " + temp.get_description());
+                }
+
                 break;
 
             case ACTION_EXITS:
-                System.out.println("You can go to the following rooms:");
-                for (Rooms r : this.player.getCurrentRoom().get_exits())
-                    System.out.println("    - " + r.get_name());
+                System.out.println("You can try to DIRECTLY walk to these exits\n" +
+                        "   some exits require interaction with entities:");
+                for (Rooms temp: this.player.getCurrentRoom().get_exits()) {
+                    System.out.println("    - " + temp.get_name());
+                    System.out.println("                   details: " + temp.get_description());
+                }
                 break;
 
 
