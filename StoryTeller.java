@@ -33,11 +33,11 @@ public class StoryTeller {
                 System.out.println("You are late and people died. You failed.");
 
             // get and run action
-            this.userIo.parseInput();
-            if (this.userIo.parseInput().objectCode == null)
-                this.execute_action(this.userIo.parseInput().actionCode, this.userIo.parseInput().roomCode);
+            UserParser.ParsedData parsed_codes = this.userIo.parseInput();
+            if (parsed_codes.objectCode == null)
+                this.execute_action(parsed_codes.actionCode, parsed_codes.roomCode);
             else
-                this.execute_action(this.userIo.parseInput().actionCode, this.userIo.parseInput().objectCode, this.userIo.parseInput().otherObjectCode);
+                this.execute_action(parsed_codes.actionCode, parsed_codes.objectCode, parsed_codes.otherObjectCode);
         }
     }
 
