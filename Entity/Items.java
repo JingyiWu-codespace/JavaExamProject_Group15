@@ -54,6 +54,8 @@ public enum Items {
         return owner_inv;
     }
 
+    public abstract void interaction(ActionCodes action, Player player, Items other_item, Inventory other_inv);
+
     // ************************************************************
     private final BaseItem item_info;
 
@@ -81,7 +83,9 @@ public enum Items {
         return this.item_info.checkCommand(alias);
     }
 
-    public abstract void interaction(ActionCodes action, Player player, Items other_item, Inventory other_inv);
+    public String[] get_command_array() {
+        return this.item_info.get_command_array();
+    }
 
     class BaseItem extends BaseEntity {
         private Boolean stationary;
