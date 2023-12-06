@@ -1,6 +1,6 @@
-package WPO_final;
+package JavaExamProject_Group15;
 
-import WPO_final.Entity.Items;
+import JavaExamProject_Group15.Entity.Items;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,18 +17,18 @@ public class Inventory {
         return itemList;
     }
 
-    public Boolean check_available(Items item) {
+    public Boolean checkAvailable(Items item) {
         for (Items i : itemList)
             if (i == item) return true;
         return false;
     }
 
     public Boolean move_item(Items item, Inventory destination) {
-        if (item.get_stationary()) {
+        if (item.getStationary()) {
             System.out.println("You can't move this item");
             return false;
         }
-        if (!check_available(item)) {
+        if (!checkAvailable(item)) {
             System.out.println("item is not in this inventory");
             return false;
         }
@@ -38,11 +38,11 @@ public class Inventory {
     }
 
     public void destroy_item(Items item) {
-        if (check_available(item))
+        if (checkAvailable(item))
             this.itemList.remove(item);
     }
 
-    public Items get_item(Items item_code) {
+    public Items getItem(Items item_code) {
         for (Items i : itemList)
             if (i == item_code)
                 return i;

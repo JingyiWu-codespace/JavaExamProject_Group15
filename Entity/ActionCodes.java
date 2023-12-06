@@ -1,4 +1,4 @@
-package WPO_final.Entity;
+package JavaExamProject_Group15.Entity;
 
 public enum ActionCodes {
     ACTION_INVENTORY_CHECK("inventory", "Check your inventory", new String[]{"inv", "bag"}),
@@ -7,25 +7,34 @@ public enum ActionCodes {
     ACTION_EXITS("exits", "Show possible rooms to go to", new String[]{"exit", "map"}),
     ACTION_INTERACT("interact", "Interact with an item", new String[]{"use", "grab", "take", "pick up", "open"});
 
-    private  ActionCodeInfo action_info;
-    private final String[] aliases;
+    private  ActionCodeInfo actionInfo;
 
     ActionCodes(String name, String description, String[] aliases) {
-        this.aliases = aliases;
-        this.action_info = new ActionCodeInfo(name, description, aliases);
+        this.actionInfo = new ActionCodeInfo(name, description, aliases);
     }
 
-    public boolean checkCommand(String input) {
-        for (String alias : aliases) {
-            if (alias.equalsIgnoreCase(input)) {
-                return true;
-            }
-        }
-        return false;
+    public ActionCodeInfo getActionInfo() {
+        return actionInfo;
     }
 
-    public ActionCodeInfo getAction_info() {
-        return action_info;
+    public String getDescription() {
+        return this.actionInfo.getDescription();
+    }
+
+    public String get_name() {
+        return this.actionInfo.getName();
+    }
+
+    public String get_description() {
+        return this.actionInfo.getDescription();
+    }
+
+    public Boolean check_command(String alias) {
+        return this.actionInfo.checkCommand(alias);
+    }
+
+    public String[] getCommandArray() {
+        return this.actionInfo.get_command_array();
     }
 
     private class ActionCodeInfo extends BaseEntity {
@@ -42,22 +51,6 @@ public enum ActionCodes {
         }
     }
     public String getName() {
-        return this.action_info.getName();
+        return this.actionInfo.getName();
     }
-
-    public String getDescription() {
-        return this.action_info.getDescription();
-    }
-    private ActionCodes parseActionCode(String action) {
-        for (ActionCodes code : ActionCodes.values()) {
-            System.out.println("Checking command: " + action + " against " + code.name());
-            if (code.checkCommand(action)) {
-                System.out.println("Matched: " + code.name());
-                return code;
-            }
-        }
-        System.out.println("No matching action code found.");
-        return null; // No action found
-    }
-
 }

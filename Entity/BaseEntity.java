@@ -1,4 +1,4 @@
-package WPO_final.Entity;
+package JavaExamProject_Group15.Entity;
 
 public abstract class BaseEntity {
     public final String name;
@@ -26,5 +26,9 @@ public abstract class BaseEntity {
         for (String a : this.aliases)
             if (a.equals(alias)) return true;
         return false;
+    }
+
+    public String[] get_command_array() {
+        return this.aliases;
     }
 }

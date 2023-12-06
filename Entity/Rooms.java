@@ -1,20 +1,19 @@
-package WPO_final.Entity;
+package JavaExamProject_Group15.Entity;
 
-import WPO_final.Inventory;
+import JavaExamProject_Group15.Inventory;
 
 public enum Rooms {
     ROOM_HALLWAY("hallway", "First floor, the elevators are here"),
-    ROOM_2nd_HALLWAY("2nd hallway", "Second floor, access to patient rooms"), // Assuming the elevator goes back to the first hallway
-    ROOM_402("402", "Room 402, where patient Alice is staying"), // Assuming you can go back to the second hallway
-    ROOM_LOBBY("lobby", "The main lobby of the hospital, bustling with activity");// Assuming the hallway leads from the lobby
+    ROOM_2nd_HALLWAY("2nd hallway", "Second floor, access to patient rooms"),
+    ROOM_402("402", "Room 402, where patient Alice is staying"),
+    ROOM_LOBBY("lobby", "The main lobby of the hospital, bustling with activity");
 
     private final Inventory inventory;
     private Rooms[] exits; // Adjacent rooms
     private RoomInfo roomInfo;
 
-
-
     // ************************************************************
+
     private final RoomInfo room_info;
 
     Rooms(String name, String description) {
@@ -24,7 +23,7 @@ public enum Rooms {
     public void setExits(Rooms... exits) {
         this.exits = exits;
     }
-    public Rooms[] get_exits() {
+    public Rooms[] getExits() {
         return exits;
     }
     static {
@@ -35,14 +34,12 @@ public enum Rooms {
     }
 
 
-    private class RoomInfo extends BaseEntity {
-        RoomInfo(String name, String description, String[] aliases) {
-            super(name, description, aliases);
-        }
+    public String getName() {
+        return this.room_info.getName();
     }
 
-    public String get_name() {
-        return this.room_info.getName();
+    public String[] get_command_array() {
+        return this.room_info.get_command_array();
     }
 
     public String get_description() {
@@ -51,5 +48,15 @@ public enum Rooms {
 
     public Boolean check_command(String alias) {
         return this.room_info.checkCommand(alias);
+    }
+
+    public Inventory getInventory() {
+        return this.inventory;
+    }
+
+    private class RoomInfo extends BaseEntity {
+        RoomInfo(String name, String description, String[] aliases) {
+            super(name, description, aliases);
+        }
     }
 }
