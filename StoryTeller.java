@@ -1,8 +1,8 @@
-package WPO_final;
+package JavaExamProject_Group15;
 
-import WPO_final.Entity.ActionCodes;
-import WPO_final.Entity.Items;
-import WPO_final.Entity.Rooms;
+import JavaExamProject_Group15.Entity.ActionCodes;
+import JavaExamProject_Group15.Entity.Items;
+import JavaExamProject_Group15.Entity.Rooms;
 
 public class StoryTeller {
     private final Player player;

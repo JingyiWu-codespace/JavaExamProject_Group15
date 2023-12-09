@@ -1,6 +1,6 @@
-package WPO_final.Entity;
-import WPO_final.Player;
-import WPO_final.Inventory;
+package JavaExamProject_Group15.Entity;
+import JavaExamProject_Group15.Player;
+import JavaExamProject_Group15.Inventory;
 
 public enum Items {
     ITEM_HALLWAY_DOOR("hallway door", "its a door, not much else to say", new String[]{}, false) {
@@ -20,10 +20,10 @@ public enum Items {
         public void interaction(ActionCodes action, Player player, Items other_item, Inventory other_inv) {
             System.out.println("turns out she was searching for her keys");
             if (other_item == Items.ITEM_402_KEYS) {
-                Items temp = player.getInventory().get_item(Items.ITEM_402_KEYS);
+                Items temp = player.getInventory().getItem(Items.ITEM_402_KEYS);
                 if (temp != null) {
                     System.out.println("she takes the keys and leaves");
-                    this.get_owning_inventory().destroy_item(this);
+                    this.getOwningInventory().destroy_item(this);
                 }
             } else
                 System.out.println("the nurse refuses to leave and is still searching the place and refuses to let you in");
@@ -49,43 +49,43 @@ public enum Items {
         }
     };
 
-    private Inventory owner_inv;
+    private Inventory ownerInv;
 
-    public Inventory get_owning_inventory() {
-        return owner_inv;
+    public Inventory getOwningInventory() {
+        return ownerInv;
     }
 
-    public abstract void interaction(ActionCodes action, Player player, Items other_item, Inventory other_inv);
+    public abstract void interaction(ActionCodes action, Player player, Items other_item, Inventory otherInv);
 
     // ************************************************************
-    private final BaseItem item_info;
+    private final BaseItem itemInfo;
 
     Items(String name, String description, String[] aliases, Boolean stationary) {
-        this.item_info = new BaseItem(name, description, aliases, stationary);
+        this.itemInfo = new BaseItem(name, description, aliases, stationary);
     }
 
-    public String get_name() {
-        return this.item_info.getName();
+    public String getName() {
+        return this.itemInfo.getName();
     }
 
-    public String get_description() {
-        return this.item_info.getDescription();
+    public String getDescription() {
+        return this.itemInfo.getDescription();
     }
 
-    public Boolean get_stationary() {
-        return this.item_info.get_stationary();
+    public Boolean getStationary() {
+        return this.itemInfo.getStationary();
     }
 
-    public void set_stationary(Boolean stationary) {
-        this.item_info.set_stationary(stationary);
+    public void setStationary(Boolean stationary) {
+        this.itemInfo.setStationary(stationary);
     }
 
-    public Boolean check_command(String alias) {
-        return this.item_info.checkCommand(alias);
+    public Boolean checkCommand(String alias) {
+        return this.itemInfo.checkCommand(alias);
     }
 
-    public String[] get_command_array() {
-        return this.item_info.get_command_array();
+    public String[] getCommandArray() {
+        return this.itemInfo.getCommandArray();
     }
 
     class BaseItem extends BaseEntity {
@@ -96,11 +96,11 @@ public enum Items {
             this.stationary = stationary;
         }
 
-        public Boolean get_stationary() {
+        public Boolean getStationary() {
             return stationary;
         }
 
-        public void set_stationary(Boolean stationary) {
+        public void setStationary(Boolean stationary) {
             this.stationary = stationary;
         }
     }

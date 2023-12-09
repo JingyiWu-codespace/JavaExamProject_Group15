@@ -1,6 +1,6 @@
-package WPO_final.Entity;
+package JavaExamProject_Group15.Entity;
 
-import WPO_final.Inventory;
+import JavaExamProject_Group15.Inventory;
 
 public enum Rooms {
     ROOM_HALLWAY("hallway", "First floor, the elevators are here"),
@@ -20,12 +20,15 @@ public enum Rooms {
         this.room_info = new RoomInfo(name, description, new String[]{});
         this.inventory = new Inventory(new Items[]{});
     }
+
     public void setExits(Rooms... exits) {
         this.exits = exits;
     }
-    public Rooms[] get_exits() {
+
+    public Rooms[] getExits() {
         return exits;
     }
+
     static {
         ROOM_HALLWAY.setExits(ROOM_2nd_HALLWAY);
         ROOM_2nd_HALLWAY.setExits(ROOM_HALLWAY, ROOM_402);
@@ -33,12 +36,12 @@ public enum Rooms {
         ROOM_LOBBY.setExits(ROOM_HALLWAY);
     }
 
-    public String get_name() {
+    public String getName() {
         return this.room_info.getName();
     }
 
     public String[] get_command_array() {
-        return this.room_info.get_command_array();
+        return this.room_info.getCommandArray();
     }
 
     public String get_description() {

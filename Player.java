@@ -1,12 +1,14 @@
-package WPO_final;
+package JavaExamProject_Group15;
 
-import WPO_final.Entity.Items;
-import WPO_final.Entity.Rooms;
+import JavaExamProject_Group15.Entity.Items;
+import JavaExamProject_Group15.Entity.Rooms;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Player class represents a player in the game.
+ * It maintains the current room and inventory of the player.
+ */
 public class Player {
+    public int time;
     private Rooms currentRoom;
     private final Inventory inventory;
     public Player() {

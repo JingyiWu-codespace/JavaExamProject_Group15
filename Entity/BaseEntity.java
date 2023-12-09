@@ -1,4 +1,4 @@
-package WPO_final.Entity;
+package JavaExamProject_Group15.Entity;
 
 public abstract class BaseEntity {
     public final String name;
@@ -28,7 +28,7 @@ public abstract class BaseEntity {
         return false;
     }
 
-    public String[] get_command_array() {
+    public String[] getCommandArray() {
         return this.aliases;
     }
 }
