@@ -4,103 +4,95 @@ import JavaExamProject_Group15.Entity.ActionCodes;
 import JavaExamProject_Group15.Entity.Items;
 import JavaExamProject_Group15.Entity.Rooms;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class UserParser {
-    private final Scanner scanner;
-    private final Map<String, Items> word_to_item;
-    private final Map<String, Rooms> word_to_room;
-    private final Map<String, ActionCodes> word_to_action;
+    private final Map<String, Items> itemWordMap;
+    private final Map<String, Rooms> roomWordMap;
+    private final Map<String, ActionCodes> actionWordMap;
+    private final Scanner scanner = new Scanner(System.in);
 
-    public UserParser() {
-        scanner = new Scanner(System.in);
-
-        // Initialize the maps
-        this.word_to_item = new HashMap<String, Items>();
-        for (Items item : Items.values())
-            for (String word : item.get_command_array())
-                if (!this.word_to_item.containsKey(word))
-                    this.word_to_item.put(word, item);
-                else System.out.println("Duplicate key: " + word);
-
-        this.word_to_room = new HashMap<String, Rooms>();
-        for (Rooms room : Rooms.values())
-            for (String word : room.get_command_array())
-                if (!this.word_to_room.containsKey(word))
-                    this.word_to_room.put(word, room);
-                else System.out.println("Duplicate key: " + word);
-
-        this.word_to_action = new HashMap<String, ActionCodes>();
-        for (ActionCodes action : ActionCodes.values())
-            for (String word : action.get_command_array())
-                if (!this.word_to_action.containsKey(word))
-                    this.word_to_action.put(word, action);
-                else System.out.println("Duplicate key: " + word);
-
-        // Check for duplicate keys
-        for (String key : this.word_to_action.keySet()) {
-            if (this.word_to_item.containsKey(key))
-                System.out.println("Duplicate key: " + key);
-            if (this.word_to_room.containsKey(key))
-                System.out.println("Duplicate key: " + key);
-        }
-        for (String key : this.word_to_item.keySet()) {
-            if (this.word_to_room.containsKey(key))
-                System.out.println("Duplicate key: " + key);
-        }
+    public ParsedData getUserInput() {
+        String input = this.scanner.nextLine();
+        List<String> wordlist = Arrays.asList(input.split(" "));
+        return parseUserString(wordlist);
     }
 
-    public ParsedData parseInput() {
-        System.out.print("> "); // Prompt the user
-        String inputLine = scanner.nextLine().toLowerCase();
-        String[] inputParts = inputLine.trim().split("\\s+"); // Split input by spaces
-        if (inputParts.length == 0) {
-            System.out.println("No input given. Please try again."); // Feedback to the user
+    public ParsedData parseUserString(List<String> wordlist) {
+        if (wordlist.size() != 2) {
+            System.out.println("Commands should consist of two words: an action and a target.");
             return null;
         }
 
-        ActionCodes actionCode = null;
-        Items objectCode = null;
-        Rooms roomCode = null;
-        Items otherObjectCode = null;
+        String verb = wordlist.get(0);
+        String noun = wordlist.get(1);
 
-        // Parse the input
-        for (String word : inputParts)
-            if (actionCode == null)
-                actionCode = this.word_to_action.get(word);
-            else if (objectCode == null)
-                objectCode = this.word_to_item.get(word);
-            else if (roomCode == null)
-                roomCode = this.word_to_room.get(word);
-            else if (otherObjectCode == null)
-                otherObjectCode = this.word_to_item.get(word);
+        ActionCodes action = this.actionWordMap.get(verb);
+        Items item = this.itemWordMap.get(noun);
+        Rooms room = this.roomWordMap.get(noun);
 
-        System.out.println("debug\n"+
-                "actionCode: " + actionCode.get_name()+"\n"+
-                "objectCode: " + objectCode.get_name()+"\n"+
-                "roomCode: " + roomCode.get_name()+"\n"+
-                "otherObjectCode: " + otherObjectCode.get_name()+"\n");
+        System.out.println("debug\n" +
+                "actionCode: " + action.getName() + "\n" +
+                "itemCode: " + item.getName() + "\n" +
+                "roomCode: " + room.getName() + "\n");
 
-        return new ParsedData(actionCode, objectCode, roomCode, otherObjectCode);
+        if (action != null && (item != null || room != null))
+            return new ParsedData(action,item,room);
+
+        if (action==null)
+            System.out.println("Unrecognized action: " + action);
+        if (item == null && room == null)
+            System.out.println("Unrecognized target: " + noun);
+        return null;
+
     }
 
     public static class ParsedData {
         public final ActionCodes actionCode;
-        public final Items objectCode;
+        public final Items itemCode;
         public final Rooms roomCode;
-        public final Items otherObjectCode;
 
-        public ParsedData(ActionCodes actionCode, Items objectCode, Rooms roomCode, Items otherObjectCode) {
+        public ParsedData(ActionCodes actionCode, Items itemCode, Rooms roomCode) {
             this.actionCode = actionCode;
-            this.objectCode = objectCode;
+            this.itemCode = itemCode;
             this.roomCode = roomCode;
-            this.otherObjectCode = otherObjectCode;
         }
+    }
+
+    public UserParser() {
+        // Initialize the maps   ******************************
+        this.itemWordMap = new HashMap<String, Items>();
+        for (Items item : Items.values())
+            for (String word : item.getCommandArray())
+                if (!this.itemWordMap.containsKey(word))
+                    this.itemWordMap.put(word, item);
+                else System.out.println("Duplicate key: " + word);
+
+        this.roomWordMap = new HashMap<String, Rooms>();
+        for (Rooms room : Rooms.values())
+            for (String word : room.getCommandArray())
+                if (!this.roomWordMap.containsKey(word))
+                    this.roomWordMap.put(word, room);
+                else System.out.println("Duplicate key: " + word);
+
+        this.actionWordMap = new HashMap<String, ActionCodes>();
+        for (ActionCodes action : ActionCodes.values())
+            for (String word : action.getCommandArray())
+                if (!this.actionWordMap.containsKey(word))
+                    this.actionWordMap.put(word, action);
+                else System.out.println("Duplicate key: " + word);
+        // Finished Initializing the maps   **********************
+
+        // Check for duplicate keys    *******************
+        for (String key : this.actionWordMap.keySet()) {
+            if (this.itemWordMap.containsKey(key))
+                System.out.println("Duplicate key: " + key);
+            if (this.roomWordMap.containsKey(key))
+                System.out.println("Duplicate key: " + key);
+        }
+        for (String key : this.itemWordMap.keySet())
+            if (this.roomWordMap.containsKey(key))
+                System.out.println("Duplicate key: " + key);
+        // Finished Check for duplicate keys    *************
     }
 }
