@@ -40,7 +40,7 @@ public enum Rooms {
         return this.room_info.getName();
     }
 
-    public String[] get_command_array() {
+    public String[] getCommandArray() {
         return this.room_info.getCommandArray();
     }
 

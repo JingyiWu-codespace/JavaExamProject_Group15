@@ -21,10 +21,6 @@ public enum ActionCodes {
         return this.actionInfo.getDescription();
     }
 
-    public String get_name() {
-        return this.actionInfo.getName();
-    }
-
     public String get_description() {
         return this.actionInfo.getDescription();
     }
