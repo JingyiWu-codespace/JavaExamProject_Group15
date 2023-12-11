@@ -7,6 +7,7 @@ import JavaExamProject_Group15.Entity.Rooms;
 public class StoryTeller {
     private final Player player = new Player();
     public int gameTimeout = 100;
+
     public boolean check_victory() {
         return false;
     }
