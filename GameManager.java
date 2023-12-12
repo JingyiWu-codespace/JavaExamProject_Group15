@@ -24,10 +24,16 @@ public class GameManager {
             }
 
             // get and run action
-            UserParser.ParsedData parsed_codes = userIo.getUserInput();
-            if (parsed_codes.itemCode == null)
+            UserParser.ParsedData parsed_codes=null;
+            while(parsed_codes==null)
+                parsed_codes = userIo.getUserInput();
+
+            if (parsed_codes.itemCode == null && parsed_codes.roomCode == null)
+                storyTeller.executeAction(parsed_codes.actionCode);
+            else if (parsed_codes.itemCode == null)
                 storyTeller.executeAction(parsed_codes.actionCode, parsed_codes.roomCode);
-            else storyTeller.executeAction(parsed_codes.actionCode, parsed_codes.itemCode);
+            else
+                storyTeller.executeAction(parsed_codes.actionCode, parsed_codes.itemCode);
         }
     }
 }

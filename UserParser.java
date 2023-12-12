@@ -13,33 +13,41 @@ public class UserParser {
     private final Scanner scanner = new Scanner(System.in);
 
     public ParsedData getUserInput() {
-        String input = this.scanner.nextLine();
-        List<String> wordlist = Arrays.asList(input.split(" "));
-        return parseUserString(wordlist);
+        while (true) {
+            System.out.print("\n\nEnter a command (verb entity): \n");
+            String input = this.scanner.nextLine();
+            List<String> wordlist = Arrays.asList(input.split(" "));
+            if (wordlist.size() > 2) {
+                System.out.println("Commands should consist of one or two words: an action and a target.\n");
+                continue;
+            }
+            if (wordlist.size() == 0) {
+                System.out.print("nothing was received\n");
+                continue;
+            }
+            return this.parseUserString(wordlist);
+        }
     }
 
     public ParsedData parseUserString(List<String> wordlist) {
-        if (wordlist.size() != 2) {
-            System.out.println("Commands should consist of two words: an action and a target.");
-            return null;
-        }
-
         String verb = wordlist.get(0);
-        String noun = wordlist.get(1);
+        String noun = null;
+        if(wordlist.size() == 2) noun = wordlist.get(1);
 
         Actions action = this.actionWordMap.get(verb);
         Items item = this.itemWordMap.get(noun);
         Rooms room = this.roomWordMap.get(noun);
 
-        System.out.println("debug\n" +
-                "actionCode: " + action.getName() + "\n" +
-                "itemCode: " + item.getName() + "\n" +
-                "roomCode: " + room.getName() + "\n");
+        System.out.println(
+             "debug > actionCode: " + (action != null ? action.getName() : "null") + "\n" +
+             "debug > itemCode: " +   (item != null ? item.getName() : "null") + "\n" +
+             "debug > roomCode: " +   (room != null ? room.getName() : "null") + "\n"
+        );
 
-        if (action != null && (item != null || room != null))
-            return new ParsedData(action,item,room);
+        if (action != null && ((item != null || room != null) || wordlist.size()==1))
+            return new ParsedData(action, item, room);
 
-        if (action==null)
+        if (action == null)
             System.out.println("Unrecognized action: " + action);
         if (item == null && room == null)
             System.out.println("Unrecognized target: " + noun);

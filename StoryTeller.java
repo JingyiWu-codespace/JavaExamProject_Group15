@@ -12,22 +12,7 @@ public class StoryTeller {
         return false;
     }
 
-    public void executeAction(Actions action_code, Rooms room_code) {
-        switch (action_code) {
-            // move to a different room
-            case ACTION_MOVE:
-                for (Rooms r : this.player.getCurrentRoom().getExits())
-                    if (r == room_code) {
-                        this.player.setCurrentRoom(r);
-                        System.out.println("You move to the " + r.getName());
-                        return;
-                    }
-                System.out.println("You can't go there");
-                break;
-        }
-    }
-
-    public void executeAction(Actions action_code, Items item_code) {
+    public void executeAction(Actions action_code) {
         switch (action_code) {
             // explain available actions
             case ACTION_HELP:
@@ -50,7 +35,26 @@ public class StoryTeller {
                 }
 
                 break;
+        }
+    }
 
+    public void executeAction(Actions action_code, Rooms room_code) {
+        switch (action_code) {
+            // move to a different room
+            case ACTION_MOVE:
+                for (Rooms r : this.player.getCurrentRoom().getExits())
+                    if (r == room_code) {
+                        this.player.setCurrentRoom(r);
+                        System.out.println("You move to the " + r.getName());
+                        return;
+                    }
+                System.out.println("You can't go there");
+                break;
+        }
+    }
+
+    public void executeAction(Actions action_code, Items item_code) {
+        switch (action_code) {
             case ACTION_EXITS:
                 System.out.println("You can try to DIRECTLY walk to these exits\n" +
                         "   some exits require interaction with entities:");
