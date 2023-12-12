@@ -40,6 +40,11 @@ public class StoryTeller {
 
     public void executeAction(Actions action_code, Rooms room_code) {
         switch (action_code) {
+            // print the room description
+            case ACTION_HELP:
+                System.out.println("the Room "+ room_code.getName() + "description is:");
+                System.out.println("    - " + room_code.getDescription());
+                break;
             // move to a different room
             case ACTION_MOVE:
                 for (Rooms r : this.player.getCurrentRoom().getExits())
@@ -55,6 +60,12 @@ public class StoryTeller {
 
     public void executeAction(Actions action_code, Items item_code) {
         switch (action_code) {
+            // print the room description
+            case ACTION_HELP:
+                System.out.println("the entity "+ item_code.getName() + "description is:");
+                System.out.println("    - " + item_code.getDescription());
+                break;
+
             case ACTION_EXITS:
                 System.out.println("You can try to DIRECTLY walk to these exits\n" +
                         "   some exits require interaction with entities:");
@@ -63,7 +74,6 @@ public class StoryTeller {
                     System.out.println("                   details: " + temp.getDescription());
                 }
                 break;
-
 
             case ACTION_INTERACT:
                 break;

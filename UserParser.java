@@ -38,14 +38,14 @@ public class UserParser {
         Items item = this.itemWordMap.get(noun);
         Rooms room = this.roomWordMap.get(noun);
 
-        System.out.println(
-             "debug > actionCode: " + (action != null ? action.getName() : "null") + "\n" +
-             "debug > itemCode: " +   (item != null ? item.getName() : "null") + "\n" +
-             "debug > roomCode: " +   (room != null ? room.getName() : "null") + "\n"
-        );
-
         if (action != null && ((item != null || room != null) || wordlist.size()==1))
             return new ParsedData(action, item, room);
+
+        System.out.println(
+              "debug > actionCode: " + (action != null ? action.getName() : "null") + "\n" +
+              "debug > itemCode: " +   (item != null ? item.getName()     : "null") + "\n" +
+              "debug > roomCode: " +   (room != null ? room.getName()     : "null") + "\n"
+        );
 
         if (action == null)
             System.out.println("Unrecognized action: " + action);
