@@ -11,7 +11,7 @@ public abstract class BaseEntityDataHolder {
 
         this.aliases = new String[aliases.length + 1];
         this.aliases[0] = name;
-        for (int i = 0; i < aliases.length; i++) this.aliases[i + 1] = aliases[i];
+        System.arraycopy(aliases, 0, this.aliases, 1, aliases.length);
     }
 
     public String getName() {
