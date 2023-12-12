@@ -23,7 +23,7 @@ public class Inventory {
         return false;
     }
 
-    public Boolean move_item(Items item, Inventory destination) {
+    public Boolean moveItem(Items item, Inventory destination) {
         if (item.getStationary()) {
             System.out.println("You can't move this item");
             return false;
@@ -37,7 +37,7 @@ public class Inventory {
         return true;
     }
 
-    public void destroy_item(Items item) {
+    public void destroyItem(Items item) {
         if (checkAvailable(item))
             this.itemList.remove(item);
     }
