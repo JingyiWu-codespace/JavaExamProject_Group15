@@ -2,7 +2,7 @@ package JavaExamProject_Group15.Entity;
 import JavaExamProject_Group15.Player;
 import JavaExamProject_Group15.Inventory;
 
-public enum Items {
+public enum Items implements BaseEntityInterface {
     ITEM_HALLWAY_DOOR("hallway door", "its a door, not much else to say", new String[]{}, false) {
         @Override
         public void interaction(ActionCodes action, Player player, Items other_item, Inventory other_inv) {
@@ -49,59 +49,24 @@ public enum Items {
         }
     };
 
-    private Inventory ownerInv;
-
-    public Inventory getOwningInventory() {
-        return ownerInv;
-    }
+    private Boolean stationary;
 
     public abstract void interaction(ActionCodes action, Player player, Items other_item, Inventory otherInv);
 
-    // ************************************************************
-    private final BaseItem itemInfo;
-
-    Items(String name, String description, String[] aliases, Boolean stationary) {
-        this.itemInfo = new BaseItem(name, description, aliases, stationary);
-    }
-
-    public String getName() {
-        return this.itemInfo.getName();
-    }
-
-    public String getDescription() {
-        return this.itemInfo.getDescription();
+    Inventory getOwningInventory() {
+        // todo: implement a way to check room and player inv
+        return null;
     }
 
     public Boolean getStationary() {
-        return this.itemInfo.getStationary();
+        return this.stationary;
     }
 
     public void setStationary(Boolean stationary) {
-        this.itemInfo.setStationary(stationary);
+        this.stationary=stationary;
     }
 
-    public Boolean checkCommand(String alias) {
-        return this.itemInfo.checkCommand(alias);
-    }
-
-    public String[] getCommandArray() {
-        return this.itemInfo.getCommandArray();
-    }
-
-    class BaseItem extends BaseEntity {
-        private Boolean stationary;
-
-        BaseItem(String name, String description, String[] aliases, Boolean stationary) {
-            super(name, description, aliases);
-            this.stationary = stationary;
-        }
-
-        public Boolean getStationary() {
-            return stationary;
-        }
-
-        public void setStationary(Boolean stationary) {
-            this.stationary = stationary;
-        }
+    Items(String name, String description, String[] aliases, Boolean stationary) {
+        this.setEntityData(name, description, aliases);
     }
 }

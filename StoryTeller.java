@@ -34,7 +34,7 @@ public class StoryTeller {
                 System.out.println("You can use the following commands:");
                 for (ActionCodes temp : ActionCodes.values()) {
                     System.out.println("    - " + temp.getName());
-                    System.out.println("                   details: " + temp.get_description());
+                    System.out.println("                   details: " + temp.getDescription());
                 }
 
                 System.out.println("The following items are in your bag:");
@@ -56,7 +56,7 @@ public class StoryTeller {
                         "   some exits require interaction with entities:");
                 for (Rooms temp : this.player.getCurrentRoom().getExits()) {
                     System.out.println("    - " + temp.getName());
-                    System.out.println("                   details: " + temp.get_description());
+                    System.out.println("                   details: " + temp.getDescription());
                 }
                 break;
 
