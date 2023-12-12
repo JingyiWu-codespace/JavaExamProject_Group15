@@ -1,6 +1,6 @@
 package JavaExamProject_Group15;
 
-import JavaExamProject_Group15.Entity.ActionCodes;
+import JavaExamProject_Group15.Entity.Actions;
 import JavaExamProject_Group15.Entity.Items;
 import JavaExamProject_Group15.Entity.Rooms;
 
@@ -9,7 +9,7 @@ import java.util.*;
 public class UserParser {
     private final Map<String, Items> itemWordMap;
     private final Map<String, Rooms> roomWordMap;
-    private final Map<String, ActionCodes> actionWordMap;
+    private final Map<String, Actions> actionWordMap;
     private final Scanner scanner = new Scanner(System.in);
 
     public ParsedData getUserInput() {
@@ -27,7 +27,7 @@ public class UserParser {
         String verb = wordlist.get(0);
         String noun = wordlist.get(1);
 
-        ActionCodes action = this.actionWordMap.get(verb);
+        Actions action = this.actionWordMap.get(verb);
         Items item = this.itemWordMap.get(noun);
         Rooms room = this.roomWordMap.get(noun);
 
@@ -48,11 +48,11 @@ public class UserParser {
     }
 
     public static class ParsedData {
-        public final ActionCodes actionCode;
+        public final Actions actionCode;
         public final Items itemCode;
         public final Rooms roomCode;
 
-        public ParsedData(ActionCodes actionCode, Items itemCode, Rooms roomCode) {
+        public ParsedData(Actions actionCode, Items itemCode, Rooms roomCode) {
             this.actionCode = actionCode;
             this.itemCode = itemCode;
             this.roomCode = roomCode;
@@ -75,8 +75,8 @@ public class UserParser {
                     this.roomWordMap.put(word, room);
                 else System.out.println("Duplicate key: " + word);
 
-        this.actionWordMap = new HashMap<String, ActionCodes>();
-        for (ActionCodes action : ActionCodes.values())
+        this.actionWordMap = new HashMap<String, Actions>();
+        for (Actions action : Actions.values())
             for (String word : action.getCommandArray())
                 if (!this.actionWordMap.containsKey(word))
                     this.actionWordMap.put(word, action);

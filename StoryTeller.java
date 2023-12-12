@@ -1,6 +1,6 @@
 package JavaExamProject_Group15;
 
-import JavaExamProject_Group15.Entity.ActionCodes;
+import JavaExamProject_Group15.Entity.Actions;
 import JavaExamProject_Group15.Entity.Items;
 import JavaExamProject_Group15.Entity.Rooms;
 
@@ -12,7 +12,7 @@ public class StoryTeller {
         return false;
     }
 
-    public void executeAction(ActionCodes action_code, Rooms room_code) {
+    public void executeAction(Actions action_code, Rooms room_code) {
         switch (action_code) {
             // move to a different room
             case ACTION_MOVE:
@@ -27,14 +27,14 @@ public class StoryTeller {
         }
     }
 
-    public void executeAction(ActionCodes action_code, Items item_code) {
+    public void executeAction(Actions action_code, Items item_code) {
         switch (action_code) {
             // explain available actions
             case ACTION_HELP:
                 System.out.println("You can use the following commands:");
-                for (ActionCodes temp : ActionCodes.values()) {
+                for (Actions temp : Actions.values()) {
                     System.out.println("    - " + temp.getName());
-                    System.out.println("                   details: " + temp.get_description());
+                    System.out.println("                   details: " + temp.getDescription());
                 }
 
                 System.out.println("The following items are in your bag:");
@@ -56,7 +56,7 @@ public class StoryTeller {
                         "   some exits require interaction with entities:");
                 for (Rooms temp : this.player.getCurrentRoom().getExits()) {
                     System.out.println("    - " + temp.getName());
-                    System.out.println("                   details: " + temp.get_description());
+                    System.out.println("                   details: " + temp.getDescription());
                 }
                 break;
 

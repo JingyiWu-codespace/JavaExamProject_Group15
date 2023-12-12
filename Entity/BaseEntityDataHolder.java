@@ -1,11 +1,11 @@
 package JavaExamProject_Group15.Entity;
 
-public abstract class BaseEntity {
+public abstract class BaseEntityDataHolder {
     public final String name;
     private final String description;
     private final String[] aliases;
 
-    BaseEntity(String name, String description, String[] aliases) {
+    BaseEntityDataHolder(String name, String description, String[] aliases) {
         this.name = name;
         this.description = description;
 
