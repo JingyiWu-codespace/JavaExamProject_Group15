@@ -13,23 +13,31 @@ public class Inventory {
         this.itemList = new ArrayList<>(Arrays.asList(item_list));
     }
 
-    public List<Items> getItemList() {
-        return itemList;
-    }
-
     public Boolean checkAvailable(Items item) {
         for (Items i : itemList)
             if (i == item) return true;
         return false;
     }
 
+    public List<Items> getItemList() {
+        return itemList;
+    }
+
+    public Items getItem(Items item_code) {
+        for (Items i : itemList)
+            if (i == item_code)
+                return i;
+        System.out.println("ERROR > item not found in inventory");
+        return null;
+    }
+
     public Boolean moveItem(Items item, Inventory destination) {
         if (item.getStationary()) {
-            System.out.println("You can't move this item");
+            System.out.println("ERROR > You can't move this item");
             return false;
         }
         if (!checkAvailable(item)) {
-            System.out.println("item is not in this inventory");
+            System.out.println("ERROR > item is not in this inventory");
             return false;
         }
         destination.itemList.add(item);
@@ -38,15 +46,11 @@ public class Inventory {
     }
 
     public void destroyItem(Items item) {
-        if (checkAvailable(item))
+        if (checkAvailable(item)) {
             this.itemList.remove(item);
-    }
-
-    public Items getItem(Items item_code) {
-        for (Items i : itemList)
-            if (i == item_code)
-                return i;
-        return null;
+            return;
+        }
+        System.out.println("ERROR > item not found in inventory");
     }
 }
 

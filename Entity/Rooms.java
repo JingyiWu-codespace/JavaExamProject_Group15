@@ -3,16 +3,11 @@ package JavaExamProject_Group15.Entity;
 import JavaExamProject_Group15.Inventory;
 
 public enum Rooms {
-    ROOM_HALLWAY("hallway", "First floor, the elevators are here", new String[]{}, new Items[]{}),
-    ROOM_2nd_HALLWAY("2nd hallway", "Second floor, access to patient rooms", new String[]{}, new Items[]{}),
-    ROOM_402("402", "Room 402, where patient Alice is staying", new String[]{}, new Items[]{}),
-    ROOM_LOBBY("lobby", "The main lobby of the hospital, bustling with activity", new String[]{}, new Items[]{});
+    ROOM_ER("Emergency Room", "the place where you don't wanna be in", new String[]{"emergency", "er"}, new Items[]{Items.ER_PATIENT, Items.ITEM_ER_STORAGE_KEY}),
+    ROOM_ER_STORAGE("ER Storage place", "the ER storage room", new String[]{"storage"}, new Items[]{Items.BANDAGE});
 
     static {
-        ROOM_HALLWAY.setExits(ROOM_2nd_HALLWAY);
-        ROOM_2nd_HALLWAY.setExits(ROOM_HALLWAY, ROOM_402);
-        ROOM_402.setExits(ROOM_2nd_HALLWAY);
-        ROOM_LOBBY.setExits(ROOM_HALLWAY);
+        ROOM_ER_STORAGE.setExits(ROOM_ER);
     }
 
     public void setExits(Rooms... exits) {
@@ -41,8 +36,8 @@ public enum Rooms {
         return this.entityData.checkCommand(alias);
     }
 
-    public String[] getCommandArray() {
-        return this.entityData.getCommandArray();
+    public String[] getAliases() {
+        return this.entityData.getAliases();
     }
 
     Rooms(String name, String description, String[] aliases, Items[] item_list) {

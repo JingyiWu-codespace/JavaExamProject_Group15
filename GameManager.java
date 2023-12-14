@@ -1,8 +1,11 @@
 package JavaExamProject_Group15;
 
+import JavaExamProject_Group15.Entity.Actions;
+
 import java.io.IOException;
 
 public class GameManager {
+
     public static void main(String[] args) throws IOException {
         final UserParser userIo = new UserParser();
         final StoryTeller storyTeller = new StoryTeller();
@@ -27,6 +30,9 @@ public class GameManager {
             UserParser.ParsedData parsed_codes=null;
             while(parsed_codes==null)
                 parsed_codes = userIo.getUserInput();
+
+            if (parsed_codes.actionCode == Actions.ACTION_QUIT)
+                break;
 
             if (parsed_codes.itemCode == null && parsed_codes.roomCode == null)
                 storyTeller.executeAction(parsed_codes.actionCode);

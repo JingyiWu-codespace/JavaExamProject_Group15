@@ -7,15 +7,16 @@ import JavaExamProject_Group15.Entity.Rooms;
  * Player class represents a player in the game.
  * It maintains the current room and inventory of the player.
  */
-public class Player {
+public enum Player {
+    player();
+    Player() {
+        // 默认玩家开始在 "lobby"
+        this.currentRoom = Rooms.ROOM_ER; //default start in Lobby
+        this.inventory = new Inventory(new Items[]{}); //default empty inventory
+    }
     public int time;
     private Rooms currentRoom;
     private final Inventory inventory;
-    public Player() {
-        // 默认玩家开始在 "lobby"
-        currentRoom = Rooms.ROOM_LOBBY; //default start in Lobby
-        inventory = new Inventory(new Items[]{}); //default empty inventory
-    }
 
     public Rooms getCurrentRoom(){
         return this.currentRoom;

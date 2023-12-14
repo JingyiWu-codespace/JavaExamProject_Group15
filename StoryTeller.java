@@ -5,36 +5,54 @@ import JavaExamProject_Group15.Entity.Items;
 import JavaExamProject_Group15.Entity.Rooms;
 
 public class StoryTeller {
-    private final Player player = new Player();
     public int gameTimeout = 100;
 
     public boolean check_victory() {
+        Inventory temp=Items.ER_PATIENT.getOwningInventory(Items.ER_PATIENT);
+        if (temp==null) {
+            System.out.println("You have successfully completed the tutorial, the rest is not implemented yet :)))");
+            return true;
+        }
         return false;
     }
 
     public void executeAction(Actions action_code) {
         switch (action_code) {
-            // explain available actions
             case ACTION_HELP:
                 System.out.println("You can use the following commands:");
                 for (Actions temp : Actions.values()) {
                     System.out.println("    - " + temp.getName());
+                    System.out.println("                   alias:");
+                    for (String alias : temp.getAliases())
+                        System.out.println("                       - " + alias);
                     System.out.println("                   details: " + temp.getDescription());
                 }
-
-                System.out.println("The following items are in your bag:");
-                for (Items temp : this.player.getInventory().getItemList()) {
-                    System.out.println("    - " + temp.getName());
-                    System.out.println("                   details: " + temp.getDescription());
-                }
-
-                System.out.println("Room includes the following things/people:");
-                for (Items temp : this.player.getCurrentRoom().getInventory().getItemList()) {
-                    System.out.println("    - " + temp.getName());
-                    System.out.println("                   details: " + temp.getDescription());
-                }
-
                 break;
+
+            case ACTION_INVENTORY_CHECK:
+                System.out.println("Items are in your bag:");
+                for (Items temp : Player.player.getInventory().getItemList()) {
+                    System.out.println("    - " + temp.getName());
+                    System.out.println("                   alias:");
+                    for (String alias : temp.getAliases())
+                        System.out.println("                       - " + alias);
+                    System.out.println("                   details: " + temp.getDescription());
+                }
+                break;
+
+            case ACTION_ROOM_CHECK:
+                System.out.println("You are in the " + Player.player.getCurrentRoom().getName());
+                System.out.println("\nThe following items are in this room:");
+                for (Items temp : Player.player.getCurrentRoom().getInventory().getItemList()) {
+                    System.out.println("    - " + temp.getName());
+                    System.out.println("                   alias:");
+                    for (String alias : temp.getAliases())
+                        System.out.println("                       - " + alias);
+                    System.out.println("                   details: " + temp.getDescription());
+                }
+                break;
+            default:
+                System.out.println("your command is parsed, but not implemented, please try again");
         }
     }
 
@@ -47,14 +65,16 @@ public class StoryTeller {
                 break;
             // move to a different room
             case ACTION_MOVE:
-                for (Rooms r : this.player.getCurrentRoom().getExits())
+                for (Rooms r : Player.player.getCurrentRoom().getExits())
                     if (r == room_code) {
-                        this.player.setCurrentRoom(r);
+                        Player.player.setCurrentRoom(r);
                         System.out.println("You move to the " + r.getName());
                         return;
                     }
                 System.out.println("You can't go there");
                 break;
+            default:
+                System.out.println("your command is parsed, but not implemented, please try again");
         }
     }
 
@@ -69,14 +89,17 @@ public class StoryTeller {
             case ACTION_EXITS:
                 System.out.println("You can try to DIRECTLY walk to these exits\n" +
                         "   some exits require interaction with entities:");
-                for (Rooms temp : this.player.getCurrentRoom().getExits()) {
+                for (Rooms temp : Player.player.getCurrentRoom().getExits()) {
                     System.out.println("    - " + temp.getName());
                     System.out.println("                   details: " + temp.getDescription());
                 }
                 break;
 
             case ACTION_INTERACT:
+                item_code.interaction();
                 break;
+            default:
+                System.out.println("your command is parsed, but not implemented, please try again");
         }
     }
 }

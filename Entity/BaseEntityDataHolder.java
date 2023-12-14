@@ -22,13 +22,13 @@ public abstract class BaseEntityDataHolder {
         return this.description;
     }
 
+    public String[] getAliases() {
+        return this.aliases;
+    }
+
     public Boolean checkCommand(String alias) {
         for (String a : this.aliases)
             if (a.equals(alias)) return true;
         return false;
-    }
-
-    public String[] getCommandArray() {
-        return this.aliases;
     }
 }
