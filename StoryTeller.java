@@ -12,11 +12,11 @@ public class StoryTeller {
     public boolean checkVictory() {
         return Items.BANDAGE.getOwningInventory(Items.BANDAGE) == null;
 
-//        return Items.MEDICINE.getOwningInventory(Items.MEDICINE) == null;
-//
-//        if (Rooms.ROOM_SURGERY.getInventory().itemList.contains(Items.ER_PATIENT3))
-//            return true;
-//        return false;
+        return Items.MEDICINE.getOwningInventory(Items.MEDICINE) == null;
+
+        if (Rooms.ROOM_SURGERY.getInventory().itemList.contains(Items.ER_PATIENT3))
+            return true;
+        return false;
     }
 
     public void executeAction(Actions action_code) {
