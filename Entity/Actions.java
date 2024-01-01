@@ -8,18 +8,15 @@ public enum Actions {
     ACTION_MOVE("move", "Move to a different room", new String[]{"go", "walk", "run", "sprint"}),
     ACTION_DISINFECT("disinfect","disinfect specific item",new String[]{"clear"}),
     ACTION_EXITS("exits", "Show possible rooms to go to", new String[]{"exit"}),
-    ACTION_INTERACT("interact", "Interact with an item", new String[]{"use", "grab", "take", "pickup", "open", "talk"}),
+    ACTION_INTERACT("interact", "Interact with an item", new String[]{"use", "get", "grab", "take", "pickup", "open", "talk"}),
     ACTION_LEAVE("leave","leave something in room",new String[]{"put"}),
     ACTIONS_MAP("maps","the layout of hospital",new String[]{"Map","MAP","map"}),
     ACTIONS_ELEVATOR("elevator","user elevator to specific floor",new String[]{"lift"}),
     ACTIONS_STAIR("stair","user stair to specific floor",new String[]{"steps"});
-
-
-
     ;
 
     // ************************************************************
-    private final Actions.ActionDataHolder entityData;
+    private final ActionDataHolder entityData;
 
     public String getName() {
         return this.entityData.getName();
