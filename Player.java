@@ -14,7 +14,7 @@ public enum Player {
         this.currentRoom = Rooms.ROOM_ER; //default start in Lobby
         this.inventory = new Inventory(new Items[]{}); //default empty inventory
     }
-    public int time;
+
     private Rooms currentRoom;
     private final Inventory inventory;
 

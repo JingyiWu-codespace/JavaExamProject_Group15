@@ -12,56 +12,57 @@ public class UserParser {
     private final Map<String, Actions> actionWordMap;
     private final Scanner scanner = new Scanner(System.in);
 
-    public ParsedData getUserInput() {
+    public ParsedDataHolder getUserInput() {
         while (true) {
-            System.out.print("\n\nEnter a command (verb entity): \n");
-            String input = this.scanner.nextLine();
-            // The ArrayList supports removing elements, so the iterator.remove() method will work as expected.
+            System.out.print("\n\nEnter a command (verb or verb + entity): \n");
+            String input = this.scanner.nextLine().toLowerCase();
             List<String> wordlist = new ArrayList<>(Arrays.asList(input.split(" ")));
-            if (wordlist.size() > 2) {
-                System.out.println("Commands should consist of one or two words: an action and a target.\n");
-                continue;
-            }
+
             if (wordlist.size() == 0) {
                 System.out.print("nothing was received\n");
                 continue;
             }
+
             return this.parseUserString(wordlist);
         }
     }
 
-    public ParsedData parseUserString(List<String> wordlist) {
+    public ParsedDataHolder parseUserString(List<String> wordlist) {
         Actions action = null;
         Items item = null;
         Rooms room = null;
 
-        Iterator<String> iterator = wordlist.iterator();
-        while (iterator.hasNext()) {
-            String word = iterator.next();
-            // Check if the word is an action, if not already found
-            if (action == null && this.actionWordMap.containsKey(word)) {
+        int start = 0;
+        int seq_end = wordlist.size();
+        List<String> reco_sequences = new ArrayList<String>();
+        while (start!=seq_end) {
+            String word = String.join(" ", wordlist.subList(start, seq_end));
+
+            if (action == null && this.actionWordMap.containsKey(word))
                 action = this.actionWordMap.get(word);
-                iterator.remove(); // Remove the word from the list after processing
-                continue; // Skip to the next word
+            else if (room == null && this.roomWordMap.containsKey(word))
+                room = this.roomWordMap.get(word);
+            else if (item == null && this.itemWordMap.containsKey(word))
+                item = this.itemWordMap.get(word);
+
+            else if (seq_end-1 == start){
+                seq_end = wordlist.size();
+                start++;
+                continue;
+            } else {
+                seq_end--;
+                continue;
             }
 
-            // Check if the word is an item or room, if action is found
-            if (action != null) {
-                if (item == null && this.itemWordMap.containsKey(word)) {
-                    item = this.itemWordMap.get(word);
-                    iterator.remove(); // Remove the word from the list after processing
-                    continue; // Skip to the next word
-                }
-                if (room == null && this.roomWordMap.containsKey(word)) {
-                    room = this.roomWordMap.get(word);
-                    iterator.remove(); // Remove the word from the list after processing
-                    continue; // Skip to the next word
-                }
-            }
+            reco_sequences.add(word);
+            start = seq_end;
+            seq_end = wordlist.size();
         }
 
-        if (action != null && (item != null || room != null || wordlist.isEmpty())){
-            return new ParsedData(action, item, room);}
+        if (action != null &&
+                (item != null || room != null
+                 || reco_sequences.get(0).equals(String.join(" ", wordlist))))
+            return new ParsedDataHolder(action, item, room);
 
         System.out.println(
                 "debug > actionCode: " + (action != null ? action.getName() : "null") + "\n" +
@@ -76,15 +77,14 @@ public class UserParser {
         if (room == null)
             System.out.println("Unrecognized target: " + room);
         return null;
-
     }
 
-    public static class ParsedData {
+    public static class ParsedDataHolder {
         public final Actions actionCode;
         public final Items itemCode;
         public final Rooms roomCode;
 
-        public ParsedData(Actions actionCode, Items itemCode, Rooms roomCode) {
+        public ParsedDataHolder(Actions actionCode, Items itemCode, Rooms roomCode) {
             this.actionCode = actionCode;
             this.itemCode = itemCode;
             this.roomCode = roomCode;
@@ -98,14 +98,14 @@ public class UserParser {
             for (String word : item.getAliases())
                 if (!this.itemWordMap.containsKey(word))
                     this.itemWordMap.put(word, item);
-                else System.out.println("Duplicate key: " + word);
+                else System.out.println("Duplicate item key: " + word);
 
         this.roomWordMap = new HashMap<String, Rooms>();
         for (Rooms room : Rooms.values())
             for (String word : room.getAliases())
                 if (!this.roomWordMap.containsKey(word))
                     this.roomWordMap.put(word, room);
-                else System.out.println("Duplicate key: " + word);
+                else System.out.println("Duplicate room key: " + word);
 
         this.actionWordMap = new HashMap<String, Actions>();
         for (Actions action : Actions.values())
@@ -118,13 +118,13 @@ public class UserParser {
         // Check for duplicate keys    *******************
         for (String key : this.actionWordMap.keySet()) {
             if (this.itemWordMap.containsKey(key))
-                System.out.println("Duplicate key: " + key);
+                System.out.println("Duplicate action key: " + key);
             if (this.roomWordMap.containsKey(key))
-                System.out.println("Duplicate key: " + key);
+                System.out.println("Duplicate action key: " + key);
         }
         for (String key : this.itemWordMap.keySet())
             if (this.roomWordMap.containsKey(key))
-                System.out.println("Duplicate key: " + key);
+                System.out.println("Duplicate item key: " + key);
         // Finished Check for duplicate keys    *************
     }
 }

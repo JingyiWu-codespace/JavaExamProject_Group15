@@ -4,16 +4,19 @@ import JavaExamProject_Group15.Entity.Actions;
 import JavaExamProject_Group15.Entity.Items;
 import JavaExamProject_Group15.Entity.Rooms;
 
+import static JavaExamProject_Group15.Player.player;
+
 public class StoryTeller {
     public int gameTimeout = 100;
 
-    public boolean check_victory() {
-        Inventory temp=Items.ER_PATIENT.getOwningInventory(Items.ER_PATIENT);
-        if (temp==null) {
-            System.out.println("You have successfully completed the tutorial, the rest is not implemented yet :)))");
-            return true;
-        }
-        return false;
+    public boolean checkVictory() {
+        return Items.BANDAGE.getOwningInventory(Items.BANDAGE) == null;
+
+//        return Items.MEDICINE.getOwningInventory(Items.MEDICINE) == null;
+//
+//        if (Rooms.ROOM_SURGERY.getInventory().itemList.contains(Items.ER_PATIENT3))
+//            return true;
+//        return false;
     }
 
     public void executeAction(Actions action_code) {
@@ -28,10 +31,13 @@ public class StoryTeller {
                     System.out.println("                   details: " + temp.getDescription());
                 }
                 break;
+            case ACTIONS_MAP:
+                printHospitalMap();
+                break;
 
             case ACTION_INVENTORY_CHECK:
                 System.out.println("Items are in your bag:");
-                for (Items temp : Player.player.getInventory().getItemList()) {
+                for (Items temp : player.getInventory().getItemList()) {
                     System.out.println("    - " + temp.getName());
                     System.out.println("                   alias:");
                     for (String alias : temp.getAliases())
@@ -41,9 +47,10 @@ public class StoryTeller {
                 break;
 
             case ACTION_ROOM_CHECK:
-                System.out.println("You are in the " + Player.player.getCurrentRoom().getName());
+                Rooms currentRoom = player.getCurrentRoom();
+                System.out.println("You are in the " + currentRoom.getName());
                 System.out.println("\nThe following items are in this room:");
-                for (Items temp : Player.player.getCurrentRoom().getInventory().getItemList()) {
+                for (Items temp : currentRoom.getInventory().getItemList()) {
                     System.out.println("    - " + temp.getName());
                     System.out.println("                   alias:");
                     for (String alias : temp.getAliases())
@@ -65,13 +72,15 @@ public class StoryTeller {
                 break;
             // move to a different room
             case ACTION_MOVE:
-                for (Rooms r : Player.player.getCurrentRoom().getExits())
+                for (Rooms r : player.getCurrentRoom().getExits())
                     if (r == room_code) {
-                        Player.player.setCurrentRoom(r);
-                        System.out.println("You move to the " + r.getName());
+                        player.setCurrentRoom(r);
+                        System.out.println("-> You move to the " + r.getName());
+                        System.out.println("-> " + r.getDescription());
+                        System.out.println("-> input 'room' to check items of " +r.getName());
                         return;
                     }
-                System.out.println("You can't go there");
+                System.out.println("You can't go there, maybe lack some important tools");
                 break;
             default:
                 System.out.println("your command is parsed, but not implemented, please try again");
@@ -89,17 +98,52 @@ public class StoryTeller {
             case ACTION_EXITS:
                 System.out.println("You can try to DIRECTLY walk to these exits\n" +
                         "   some exits require interaction with entities:");
-                for (Rooms temp : Player.player.getCurrentRoom().getExits()) {
+                for (Rooms temp : player.getCurrentRoom().getExits()) {
                     System.out.println("    - " + temp.getName());
                     System.out.println("                   details: " + temp.getDescription());
                 }
                 break;
+            case ACTION_DISINFECT:
+                try {
+                    for (int i = 3; i > 0; i--) {
+                        System.out.println("wait " + i + "m...");
+                        Thread.sleep(1000); // 1000 milliseconds = 1 second
+                    }
+                } catch (InterruptedException e) {
+                    System.out.println("Interrupted while waiting.");
+                }
+                item_code.setStationary(false);
+                System.out.println("finished disinfected, you can pickup");
+
 
             case ACTION_INTERACT:
                 item_code.interaction();
                 break;
+            case ACTION_LEAVE:
+                System.out.println("put down"+item_code+ "in"+player.getCurrentRoom());
+                player.getCurrentRoom().getInventory().itemList.add(item_code);
+                player.getInventory().itemList.remove(item_code);
+                break;
             default:
                 System.out.println("your command is parsed, but not implemented, please try again");
         }
+    }
+    public static void printHospitalMap() {
+        String[][] floors = {
+                {"Emergency Room Storage", "Emergency Room", "Reception Desk", "Pharmacy", "Laboratory"},
+                {"Radiology (X-ray)", "Ultrasonic Image", "ICU", "Surgery Room", "Patient Ward"},
+                {"Obstetrics", "Gynecology", "REHABILITATION", "ENT Medical Area", "Doctor Officer"}
+        };
+
+        // Print the floors in reverse to start from the top floor
+        for (int i = floors.length - 1; i >= 0; i--) {
+            System.out.println("Floor " + i  + ":");
+            for (String room : floors[i]) {
+                System.out.println(" - " + room);
+            }
+            System.out.println();
+        }
+
+        System.out.println("Elevator and Stairs connects all floors.");
     }
 }
