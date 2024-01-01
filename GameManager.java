@@ -9,12 +9,11 @@ import java.util.Scanner;
 
 import static JavaExamProject_Group15.Entity.Rooms.*;
 
-public class GameManagerTest1 {
+public class GameManager {
     public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         boolean continueGame = true;
         int currentPart = 1;
-
 
         while (continueGame) {
             UserParser userIo = new UserParser();
@@ -75,7 +74,7 @@ public class GameManagerTest1 {
         displayOpeningNarrative();
         boolean partCompleted = false;
         while (!partCompleted) {
-            UserParser.ParsedData parsed_codes = null;
+            UserParser.ParsedDataHolder parsed_codes = null;
             while (parsed_codes == null) {
                 parsed_codes = userIo.getUserInput();
             }
@@ -105,7 +104,7 @@ public class GameManagerTest1 {
         ROOM_RECEPTION_DESK.setExits(ROOM_ER, ROOM_PHARMACY, ROOM_OFFICE);
         boolean partCompleted = false;
         while (!partCompleted) {
-            UserParser.ParsedData parsed_codes = null;
+            UserParser.ParsedDataHolder parsed_codes = null;
             while (parsed_codes == null)
                 parsed_codes = userIo.getUserInput();
 
@@ -131,7 +130,7 @@ public class GameManagerTest1 {
         Part3Narrative();
 
         while (true) {
-            UserParser.ParsedData parsed_codes = null;
+            UserParser.ParsedDataHolder parsed_codes = null;
             while (parsed_codes == null)
                 parsed_codes = userIo.getUserInput();
 

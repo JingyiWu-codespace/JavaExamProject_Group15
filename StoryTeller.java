@@ -7,19 +7,16 @@ import JavaExamProject_Group15.Entity.Rooms;
 import static JavaExamProject_Group15.Player.player;
 
 public class StoryTeller {
+    public int gameTimeout = 100;
 
-    public boolean checkVictoryPart1() {
+    public boolean checkVictory() {
         return Items.BANDAGE.getOwningInventory(Items.BANDAGE) == null;
+
+//        return Items.MEDICINE.getOwningInventory(Items.MEDICINE) == null;
 //
-    }
-    public boolean checkVictoryPart2() {
-        return Items.MEDICINE.getOwningInventory(Items.MEDICINE) == null;
-    }
-    public boolean checkVictoryPart3() {
-        if (Rooms.ROOM_SURGERY.getInventory().itemList.contains(Items.ER_PATIENT3)){
-            return true;
-        }
-        return false;
+//        if (Rooms.ROOM_SURGERY.getInventory().itemList.contains(Items.ER_PATIENT3))
+//            return true;
+//        return false;
     }
 
     public void executeAction(Actions action_code) {
@@ -63,22 +60,6 @@ public class StoryTeller {
                 break;
             default:
                 System.out.println("your command is parsed, but not implemented, please try again");
-
-//                for (Items temp : player.getCurrentRoom().getInventory().getItemList()) {
-//                    System.out.println("    - " + temp.getName());
-//                    System.out.println("                   alias:");
-//                    for (String alias : temp.getAliases())
-//                        System.out.println("                       - " + alias);
-//                    System.out.println("                   details: " + temp.getDescription());
-//                }
-//                break;
-//            default:
-//                System.out.println("your command is parsed, but not implemented, please try again");
-        }
-    }
-    public static void reset(){
-        for (Rooms room : Rooms.values()) {
-            room.resetInventory();
         }
     }
 
@@ -165,5 +146,4 @@ public class StoryTeller {
 
         System.out.println("Elevator and Stairs connects all floors.");
     }
-
 }
