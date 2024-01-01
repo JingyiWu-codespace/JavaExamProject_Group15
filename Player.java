@@ -3,22 +3,20 @@ package JavaExamProject_Group15;
 import JavaExamProject_Group15.Entity.Items;
 import JavaExamProject_Group15.Entity.Rooms;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Player class represents a player in the game.
  * It maintains the current room and inventory of the player.
  */
-public class Player {
-    public int time;
+public enum Player {
+    player();
+    Player() {
+        // 默认玩家开始在 "lobby"
+        this.currentRoom = Rooms.ROOM_ER; //default start in Lobby
+        this.inventory = new Inventory(new Items[]{}); //default empty inventory
+    }
+
     private Rooms currentRoom;
     private final Inventory inventory;
-    public Player() {
-        // 默认玩家开始在 "lobby"
-        currentRoom = Rooms.ROOM_LOBBY; //default start in Lobby
-        inventory = new Inventory(new Items[]{}); //default empty inventory
-    }
 
     public Rooms getCurrentRoom(){
         return this.currentRoom;

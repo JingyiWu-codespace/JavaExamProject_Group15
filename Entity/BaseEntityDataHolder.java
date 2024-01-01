@@ -1,5 +1,7 @@
 package JavaExamProject_Group15.Entity;
 
+import java.util.Arrays;
+
 public abstract class BaseEntityDataHolder {
     public final String name;
     private final String description;
@@ -10,7 +12,8 @@ public abstract class BaseEntityDataHolder {
         this.description = description;
 
         this.aliases = new String[aliases.length + 1];
-        this.aliases[0] = name;
+        this.aliases[0] = name.toLowerCase();
+        aliases = Arrays.stream(aliases).map(String::toLowerCase).toArray(String[]::new);
         System.arraycopy(aliases, 0, this.aliases, 1, aliases.length);
     }
 
