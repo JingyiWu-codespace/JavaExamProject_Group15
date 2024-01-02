@@ -45,6 +45,12 @@ public class UserParser {
             else if (item == null && this.itemWordMap.containsKey(word))
                 item = this.itemWordMap.get(word);
 
+            //special help case
+            else if (action == Actions.ACTION_HELP && this.actionWordMap.containsKey(word)) {
+                Actions.ACTION_HELP.executeAction(this.actionWordMap.get(word));
+                return this.getUserInput();
+            }
+
             else if (seq_end-1 == start){
                 seq_end = wordlist.size();
                 start++;
