@@ -284,8 +284,9 @@ public enum Items {
 
         }
     }
-
     ;
+
+//    public boolean infected = false;
 
     public Boolean getStationary() {
         return this.entityData.getStationary();
@@ -296,7 +297,7 @@ public enum Items {
     }
 
     public void interaction() {
-        this.pickup();
+        System.out.println("Can't figure out any interaction");
     }
 
     public void pickup() {
@@ -304,42 +305,42 @@ public enum Items {
             System.out.println("You can't pick up this item directly, because its stationary");
             return;
         }
-        if (isInBag(this)) {
+        if (this.isInBag()) {
             System.out.println("You already have this item in your bag");
             return;
         }
-        if (!isInRoom(this)) {
+        if (!this.isInRoom()) {
             System.out.println("You can't pick up this item as its not in this room");
             return;
         }
 
         Inventory playerInv = Player.player.getInventory();
-        Inventory owningInv = getOwningInventory(this);
+        Inventory owningInv = this.getOwningInventory();
         owningInv.moveItem(this, playerInv);
         System.out.println("You picked up the item, " + this.getName());
     }
 
-    public Boolean checkAccessibility(Items item) {
-        return isInBag(item) || isInRoom(item);
+    public Boolean checkAccessibility() {
+        return this.isInBag() || this.isInRoom();
     }
 
-    public Boolean isInBag(Items item) {
+    public Boolean isInBag() {
         Inventory playerInv = Player.player.getInventory();
         for (Items i : playerInv.getItemList())
-            if (i == item) return true;
+            if (i == this) return true;
         return false;
     }
 
-    public Boolean isInRoom(Items item) {
+    public Boolean isInRoom() {
         Inventory currRoomInv = Player.player.getCurrentRoom().getInventory();
         for (Items i : currRoomInv.getItemList())
-            if (i == item) return true;
+            if (i == this) return true;
         return false;
     }
 
-    public Inventory getOwningInventory(Items item) {
-        if (isInBag(item)) return Player.player.getInventory();
-        if (isInRoom(item)) return Player.player.getCurrentRoom().getInventory();
+    public Inventory getOwningInventory() {
+        if (this.isInBag()) return Player.player.getInventory();
+        if (this.isInRoom()) return Player.player.getCurrentRoom().getInventory();
         for (Rooms r : Rooms.values())
             if (r.getInventory().checkAvailable(this))
                 return r.getInventory();
@@ -358,6 +359,8 @@ public enum Items {
     public String getDescription() {
         return this.entityData.getDescription();
     }
+
+    public void printInformation(){ this.entityData.printInformation(); }
 
     public Boolean checkCommand(String alias) {
         return this.entityData.checkCommand(alias);
