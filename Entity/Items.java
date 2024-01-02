@@ -13,7 +13,8 @@ public enum Items {
             System.out.println("you can now open the storage room and go there");
         }
     },
-    BANDAGE("bandage", "you need take this to the patient in the ER room", new String[]{}, false) {
+    BANDAGE("bandage", "you need take this to the patient in the ER room",
+            new String[]{}, false) {
         public void interaction(){
             this.pickup();
             System.out.println("you got the bandage now");
@@ -26,7 +27,8 @@ public enum Items {
             System.out.println("you got the register form now");
         }
     },
-    MEDICINE("medicine","patient need medicine, like antibiotic",new String[]{"drug"},false){
+    MEDICINE("medicine","patient need medicine, like antibiotic",
+            new String[]{"drug"},false){
         public void interaction(){
             this.pickup();
             System.out.println("you got the medicine now");
@@ -34,9 +36,10 @@ public enum Items {
 
         }
     },
-    BISTOURY("bistoury","surgery tools, need to be disinfect",new String[]{"knife"},true){
+    BISTOURY("bistoury","surgery tools, need to be disinfect",
+            new String[]{"knife"},true){
         public void interaction(){
-            if (checkAccessibility(Items.ER_PATIENT3)) {
+            if (ER_PATIENT3.checkAccessibility()) {
                 System.out.println("you should back the patient into icu");
                 return;
             }
@@ -46,9 +49,10 @@ public enum Items {
 
         }
     },
-    TEST_RESULT("test result","the result of patient blood analysis ",new String[]{"result","report","blood_test"},false){
+    TEST_RESULT("test result","the result of patient blood analysis ",
+            new String[]{"result","report","blood_test"},false){
         public void interaction() {
-            if (!checkAccessibility(Items.ER_PATIENT3)) {
+            if (!ER_PATIENT3.checkAccessibility()) {
                 System.out.println("you should take your patient do the test");
                 return;
             }
@@ -63,8 +67,8 @@ public enum Items {
             } catch (InterruptedException e) {
                 System.out.println("Interrupted while waiting.");
             }
-            Rooms.ROOM_LABORATORY.setExits(Rooms.ROOM_Ultrasonic);
-            Rooms.ROOM_LABORATORY.setExits(Rooms.ROOM_OFFICE);
+            Rooms.ROOM_LABORATORY.setExits();
+            Rooms.ROOM_LABORATORY.setExits();
             System.out.println("Finish !!" +
                     "\n The result need to be waited 10 minutes, you can continue next test  \n\n" );
             try {
@@ -82,15 +86,17 @@ public enum Items {
 
         }
     },
-    XRAY_IMAGE("X-ray image","X-ray images are extensively used in medical settings to visualize the internal structures of the human body. ",new String[]{"image"},false){
+    XRAY_IMAGE("X-ray image","X-ray images are extensively used in medical settings to visualize the internal structures of the human body. ",
+            new String[]{},false){
         public void interaction(){
             this.pickup();
             System.out.println("you got the X-ray image now");
         }
     },
-    ULTRA_REPORT("ultra report","This technique allows healthcare professionals to create real-time images of internal organs, tissues, and developing fetuses during pregnancy. ",new String[]{"ultra"},false){
+    ULTRA_REPORT("ultra report","This technique allows healthcare professionals to create real-time images of internal organs, tissues, and developing fetuses during pregnancy. ",
+        new String[]{},false){
         public void interaction() {
-            if (!checkAccessibility(Items.ER_PATIENT3)) {
+            if (!ER_PATIENT3.checkAccessibility()) {
                 System.out.println("you should take your patient do the test");
                 return;
             }
@@ -114,55 +120,64 @@ public enum Items {
                     "\n you should take the patient and results find doctor" );
         }
     },
-    CRADLE("cradle","Cradles are used for safely and comfortably holding infants or babies.",new String[]{},true){
+    CRADLE("cradle","Cradles are used for safely and comfortably holding infants or babies.",
+            new String[]{},true){
         public void interaction(){
             this.pickup();
             System.out.println("you got the cradle now");
         }
     },
-    INCUBATOR("incubator","Incubators provide a controlled environment for premature or ill newborns, helping to regulate temperature and humidity.",new String[]{},true){
+    INCUBATOR("incubator","Incubators provide a controlled environment for premature or ill newborns, helping to regulate temperature and humidity.",
+        new String[]{},true){
         public void interaction(){
             this.pickup();
             System.out.println("you got the incubator now");
         }
     },
-    WHEEL_CHAIR("wheelchair", "Wheelchairs are mobility devices used by individuals with limited or no ability to walk.",new String[]{},false){
+    WHEEL_CHAIR("wheelchair", "Wheelchairs are mobility devices used by individuals with limited or no ability to walk.",
+            new String[]{},false){
         public void interaction(){
             this.pickup();
             Rooms.ROOM_ER.setExits(Rooms.ROOM_RECEPTION_DESK);
             System.out.println("you got the wheelchair now");
         }
     },
-    EYE_CHART("eye chart", "Eye charts are used by eye care professionals to measure visual acuity and assess vision.",new String[]{},false),
-    COMPUTER("computer", "Computers are used in healthcare for various purposes, including patient record management and medical research.",new String[]{},false){
+    EYE_CHART("eye chart", "Eye charts are used by eye care professionals to measure visual acuity and assess vision.",
+            new String[]{},false),
+    COMPUTER("computer", "Computers are used in healthcare for various purposes, including patient record management and medical research.",
+        new String[]{},false){
         public void interaction(){
             this.pickup();
             System.out.println("you got the computer now");
         }
     },
-    PRESCRIPTION("prescription", " Used by healthcare professionals to document patient information and treatment plans.",new String[]{},false){
+    PRESCRIPTION("prescription", " Used by healthcare professionals to document patient information and treatment plans.",
+            new String[]{},false){
         public void interaction(){
             this.pickup();
             System.out.println("you got the prescription now");
         }
     },
     MASKS("mask","Provide protection when dealing with infectious patients or\n" +
-            "hazardous materials.",new String[]{},false){
+            "hazardous materials.",
+        new String[]{},false){
         public void interaction(){
             this.pickup();
             System.out.println("you got the mask now");
         }
     },
-    MEDICAL_GLOVES("medical gloves","Protect player from infections during patient treatment or surgery.",new String[]{},false){
+    MEDICAL_GLOVES("medical gloves","Protect player from infections during patient treatment or surgery.",
+            new String[]{},false){
         public void interaction(){
             this.pickup();
             System.out.println("you got the medical gloves now");
         }
     },
-    NURSE("nurse","The nurse is waiting for your medicine",new String[]{},false){
+    NURSE("nurse","The nurse is waiting for your medicine",
+            new String[]{},false){
         @Override
         public void interaction(){
-            if (!(checkAccessibility(Items.MEDICINE)&&Player.player.getCurrentRoom()==Rooms.ROOM_ER)) {
+            if (!(MEDICINE.checkAccessibility()&&Player.player.getCurrentRoom()==Rooms.ROOM_ER)) {
                 System.out.println("you are not in Emergency room or do not have medicine");
                 return;
             }
@@ -172,17 +187,18 @@ public enum Items {
             //new StoryTeller().check_victory();
 
             //Player.player.setRoundCounter(2);
-            this.getOwningInventory(REGISTER_FORM).moveItem(REGISTER_FORM,Rooms.ROOM_RECEPTION_DESK.getInventory());
+            REGISTER_FORM.getOwningInventory().moveItem(REGISTER_FORM, Rooms.ROOM_RECEPTION_DESK.getInventory());
 
         }
     },
 
 
 
-    ER_PATIENT("patient", "the patient needs bandage", new String[]{}, true) {
+    ER_PATIENT("patient", "the patient needs bandage",
+            new String[]{}, true) {
         @Override
         public void interaction() {
-            if (!checkAccessibility(Items.BANDAGE)) {
+            if (!BANDAGE.checkAccessibility()) {
                 System.out.println("you don't have the bandage");
                 return;
             }
@@ -191,14 +207,15 @@ public enum Items {
             System.out.println("you give the bandage to the patient\n" +
                     "the patient's wound has been controlled. \n\n" );
             //new StoryTeller().check_victory();
-            this.getOwningInventory(Items.ER_PATIENT).destroyItem(Items.ER_PATIENT);
-            this.getOwningInventory(ITEM_ER_STORAGE_KEY).moveItem(ITEM_ER_STORAGE_KEY,Rooms.ROOM_ER.getInventory());
+            ER_PATIENT.getOwningInventory().destroyItem(Items.ER_PATIENT);
+            ITEM_ER_STORAGE_KEY.getOwningInventory().moveItem(ITEM_ER_STORAGE_KEY, Rooms.ROOM_ER.getInventory());
         }
     },
-    DOCTOR("doctor", "the doctor give correct prescription for patient's register from", new String[]{"dr","Dr","DR"}, false) {
+    DOCTOR("doctor", "the doctor give correct prescription for patient's register from",
+            new String[]{"dr"}, false) {
         @Override
         public void interaction() {
-            if (!(checkAccessibility(Items.REGISTER_FORM)||checkAccessibility(Items.TEST_RESULT)||checkAccessibility(Items.ULTRA_REPORT))) {
+            if (!(REGISTER_FORM.checkAccessibility()||TEST_RESULT.checkAccessibility()||ULTRA_REPORT.checkAccessibility())) {
                 System.out.println("you don't have the specific documents, like register form, test report...");
                 return;
             }
@@ -228,10 +245,11 @@ public enum Items {
         }
     },
 
-    ER_PATIENT2("patient2", "the patient infomation need to be filled into register form", new String[]{}, true) {
+    ER_PATIENT2("patient2", "the patient infomation need to be filled into register form",
+            new String[]{}, true) {
         @Override
         public void interaction() {
-            if (!checkAccessibility(Items.REGISTER_FORM)) {
+            if (!REGISTER_FORM.checkAccessibility()) {
                 System.out.println("you don't have the register form ");
                 return;
             }
@@ -251,15 +269,16 @@ public enum Items {
             System.out.println("Filled form then find the doctor.");
             Rooms.ROOM_ER.setExits(Rooms.ROOM_OFFICE);
             //this.getOwningInventory(REGISTER_FORM).moveItem(REGISTER_FORM,Rooms.ROOM_RECEPTION_DESK.getInventory());
-            this.getOwningInventory(Items.ER_PATIENT2).destroyItem(Items.ER_PATIENT2);
+            ER_PATIENT2.getOwningInventory().destroyItem(Items.ER_PATIENT2);
 
 
         }
     },
-    ER_PATIENT3("patient3", "A pregnant woman with congenital heart disease and twins", new String[]{"patient3","mother-to-be"}, false) {
+    ER_PATIENT3("patient3", "A pregnant woman with congenital heart disease and twins",
+            new String[]{"mother-to-be"}, false) {
         @Override
         public void interaction() {
-            if (!(checkAccessibility(Items.REGISTER_FORM)&&checkAccessibility(Items.WHEEL_CHAIR))) {
+            if (!(Items.REGISTER_FORM.checkAccessibility()&&Items.WHEEL_CHAIR.checkAccessibility())) {
                 System.out.println("you don't have the register form OR wheel chair");
                 return;
             }

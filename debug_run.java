@@ -34,12 +34,7 @@ public class debug_run {
             if (parsed_codes.actionCode == Actions.ACTION_QUIT)
                 break;
 
-            if (parsed_codes.itemCode == null && parsed_codes.roomCode == null)
-                storyTeller.executeAction(parsed_codes.actionCode);
-            else if (parsed_codes.itemCode == null)
-                storyTeller.executeAction(parsed_codes.actionCode, parsed_codes.roomCode);
-            else
-                storyTeller.executeAction(parsed_codes.actionCode, parsed_codes.itemCode);
+            parsed_codes.actionCode.executeAction(parsed_codes.itemCode, parsed_codes.roomCode);
         }
     }
 }

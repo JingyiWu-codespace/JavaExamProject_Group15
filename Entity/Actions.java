@@ -79,7 +79,7 @@ public enum Actions {
         }
     },
     ACTION_ROOM_CHECK("room", "Check the current room and items in it",
-            new String[]{"where", "location", "room check", "look around"}) {
+            new String[]{"where am I", "location", "room check", "look around"}) {
         @Override
         public void executeAction() {
             Rooms currentRoom = player.getCurrentRoom();
@@ -104,7 +104,7 @@ public enum Actions {
             System.out.println("You can't go there, either some important item is missing or its simply not accessible from here");
         }
     },
-    ACTION_EXITS("exits", "Show possible rooms to go to", new String[]{"exit list", "where", "where"}) {
+    ACTION_EXITS("exits", "Show possible rooms to go to", new String[]{"exit list", "exit", "where to go"}) {
         @Override
         public void executeAction() {
             System.out.println("You can try to DIRECTLY walk to these exits\n" +
@@ -130,7 +130,7 @@ public enum Actions {
             item.interaction();
         }
     },
-    ACTION_GRAB("grab", "Interact with an item", new String[]{"get", "grab", "take", "pickup"}) {
+    ACTION_GRAB("grab", "Interact with an item", new String[]{"get", "take", "pickup"}) {
         @Override
         public void executeAction(Items item) {
             item.pickup();
@@ -163,6 +163,7 @@ public enum Actions {
             for (Items item : player.getInventory().getItemList())
                 System.out.println("    - " + item.getName());
         }
+        @Override
         public void executeAction(Actions action) {
             action.printInformation();
             System.out.println("       aliases:");
@@ -171,7 +172,7 @@ public enum Actions {
         }
     },
     // ************************* SPECIAL COMMANDS ***********************************
-    ACTION_QUIT("quit", "quits the game, who would have thought", new String[]{"Q","q"})
+    ACTION_QUIT("quit", "quits the game, who would have thought", new String[]{})
     ;
 
     public void executeAction(Items item, Rooms room){
@@ -193,6 +194,7 @@ public enum Actions {
     public void executeAction(){
         System.out.println("this action in isolation is not possible");
     }
+    public void executeAction(Actions action) {}
 
     // ************************************************************
     private final ActionDataHolder entityData;

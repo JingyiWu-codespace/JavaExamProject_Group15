@@ -118,7 +118,7 @@ public class UserParser {
             for (String word : action.getAliases())
                 if (!this.actionWordMap.containsKey(word))
                     this.actionWordMap.put(word, action);
-                else System.out.println("Duplicate key: " + word);
+                else System.out.println("Duplicate action key: " + word);
         // Finished Initializing the maps   **********************
 
         // Check for duplicate keys    *******************
