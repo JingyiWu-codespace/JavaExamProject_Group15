@@ -51,6 +51,9 @@ public enum Rooms {
         return this.entityData.getDescription();
     }
 
+
+    public void printInformation(){ this.entityData.printInformation(); }
+
     public Boolean checkCommand(String alias) {
         return this.entityData.checkCommand(alias);
     }
