@@ -25,6 +25,10 @@ public abstract class BaseEntityDataHolder {
         return this.description;
     }
 
+    public void printInformation(){
+        System.out.println("  - '" + this.getName()+"'");
+        System.out.println("        details: " + this.getDescription());
+    }
     public String[] getAliases() {
         return this.aliases;
     }
