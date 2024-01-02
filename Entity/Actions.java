@@ -182,7 +182,8 @@ public enum Actions {
             executeAction(room);
         else if (room==null)
             executeAction(item);
-        System.out.println("ERROR: BOTH ROOM AND ITEM ARE OBJECTS");
+        else
+            System.out.println("ERROR: BOTH ROOM AND ITEM ARE OBJECTS");
     }
 
     public void executeAction(Items item){
