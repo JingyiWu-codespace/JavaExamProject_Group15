@@ -31,18 +31,13 @@ public class Inventory {
         return null;
     }
 
-    public Boolean moveItem(Items item, Inventory destination) {
-        if (item.getStationary()) {
+    public void moveItem(Items item, Inventory destination) {
+        if (item.getStationary())
             System.out.println("ERROR > You can't move this item");
-            return false;
-        }
-        if (!checkAvailable(item)) {
+        if (!checkAvailable(item))
             System.out.println("ERROR > item is not in this inventory");
-            return false;
-        }
         destination.itemList.add(item);
         this.itemList.remove(item);
-        return true;
     }
 
     public void destroyItem(Items item) {
