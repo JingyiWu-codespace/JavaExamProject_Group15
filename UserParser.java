@@ -65,9 +65,9 @@ public class UserParser {
             seq_end = wordlist.size();
         }
 
-        if (action != null &&
-                (item != null || room != null
-                 || reco_sequences.get(0).equals(String.join(" ", wordlist))))
+        if (action != null
+             && (item != null || room != null
+             || reco_sequences.get(0).equals(String.join(" ", wordlist))))
             return new ParsedDataHolder(action, item, room);
 
         System.out.println(
@@ -83,6 +83,32 @@ public class UserParser {
         if (room == null)
             System.out.println("Unrecognized target: " + room);
         return null;
+    }
+
+    public boolean askToContinue() {
+        System.out.println("Would you like to continue? (y/n)");
+        String input = this.scanner.nextLine().toLowerCase();
+        if (!input.equals("y") && !input.equals("n") && !input.equals("yes") && !input.equals("no")) {
+            System.out.println("Please enter yes or no (y/n)");
+            return this.askToContinue();
+        }
+        return input.equals("y") || input.equals("yes");
+    }
+
+    public int askWhatChapter() {
+        // prompt user for chapter
+        System.out.println("What chapter would you like to start at?");
+        System.out.println("  0. tutorial\n  1. Chapter 1\n  2. Chapter 2");
+
+        // get user input
+        int chapter = -1;
+        while (chapter < 0 || chapter > 2)
+            try {
+                chapter = Integer.parseInt(this.scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter an integer between 0 and 2");
+            }
+        return chapter;
     }
 
     public static class ParsedDataHolder {

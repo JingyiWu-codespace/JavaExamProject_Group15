@@ -136,7 +136,8 @@ public enum Actions {
             item.pickup();
         }
     },
-    ACTION_HELP("help", "Show available actions and their descriptions", new String[]{"h", "commands"}){
+    ACTION_HELP("help", "Show available actions and their descriptions",
+            new String[]{"h", "commands", "look around", "what can I do"}){
         @Override
         public void executeAction(Rooms room) {
             room.printInformation();
@@ -174,7 +175,7 @@ public enum Actions {
         }
     },
     // ************************* SPECIAL COMMANDS ***********************************
-    ACTION_QUIT("quit", "quits the game, who would have thought", new String[]{})
+    ACTION_QUIT("quit the game", "quits the game, who would have thought", new String[]{"quit"})
     ;
 
     public void executeAction(Items item, Rooms room){

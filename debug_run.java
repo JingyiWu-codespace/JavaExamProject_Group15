@@ -8,7 +8,7 @@ public class debug_run {
 
     public static void main(String[] args) throws IOException {
         final UserParser userIo = new UserParser();
-        final StoryTeller storyTeller = new StoryTeller();
+        final StoryTeller storyTeller = new StoryTeller(0);
         int timeCounter = -1;
 
         while (true) {
@@ -21,10 +21,10 @@ public class debug_run {
             }
 
             // check timeout
-            if (timeCounter > storyTeller.gameTimeout) {
-                System.out.println("You are late and people died. You failed.");
-                break;
-            }
+//            if (timeCounter > storyTeller.gameTimeout) {
+//                System.out.println("You are late and people died. You failed.");
+//                break;
+//            }
 
             // get and run action
             UserParser.ParsedDataHolder parsed_codes=null;
