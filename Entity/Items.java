@@ -306,17 +306,14 @@ public enum Items {
             Rooms.ROOM_ELEVATOR.isolate();
             switch (floor){
                 case 0:
-                    Player.player.setCurrentRoom(Rooms.ROOM_RECEPTION_DESK);
                     Rooms.ROOM_ELEVATOR.addExit(Rooms.ROOM_RECEPTION_DESK);
                     Rooms.ROOM_RECEPTION_DESK.addExit(Rooms.ROOM_ELEVATOR);
                     break;
                 case 1:
-                    Player.player.setCurrentRoom(Rooms.ROOM_HALLWAY);
                     Rooms.ROOM_ELEVATOR.addExit(Rooms.ROOM_HALLWAY);
                     Rooms.ROOM_HALLWAY.addExit(Rooms.ROOM_ELEVATOR);
                     break;
                 case 2:
-                    Player.player.setCurrentRoom(Rooms.ROOM_SURGERY);
                     Rooms.ROOM_ELEVATOR.addExit(Rooms.ROOM_SURGERY);
                     Rooms.ROOM_SURGERY.addExit(Rooms.ROOM_ELEVATOR);
                     break;
