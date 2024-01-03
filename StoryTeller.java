@@ -25,13 +25,13 @@ public class StoryTeller {
     public boolean chapterComplete() {
         switch (this.currentChapter) {
             case 0:
-                return Items.BANDAGE.getOwningInventory() == null;
+                return Items.ITEM_BANDAGE.getOwningInventory() == null;
 
             case 1:
-                return Items.MEDICINE.getOwningInventory() == null;
+                return Items.ITEM_MEDICINE.getOwningInventory() == null;
 
             case 2:
-                return Rooms.ROOM_SURGERY.getInventory().itemList.contains(Items.ER_PATIENT3);
+                return Rooms.ROOM_SURGERY.getInventory().itemList.contains(Items.ITEM_ER_PATIENT3);
         }
         System.out.println("Error: chapterComplete() called with invalid chapter number");
         return false;
