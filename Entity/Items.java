@@ -4,11 +4,14 @@ import JavaExamProject_Group15.Player;
 import JavaExamProject_Group15.Inventory;
 
 public enum Items {
+    // **************** part one ****************
     ITEM_ER_STORAGE_KEY("ER storage room key", "use it to open the storage room where the bandage is in",
-            new String[]{"er storage key"}, false) {
+            new String[]{"er storage key", "storage key"}, false) {
         @Override
-        public void interaction() {
-            this.pickup();
+        public void pickup() {
+            super.pickup();
+            if (!this.isInBag()) return;
+
             Rooms.ROOM_ER.setExits(Rooms.ROOM_ER_STORAGE);
             System.out.println("you can now open the storage room and go there");
         }
@@ -20,6 +23,26 @@ public enum Items {
             System.out.println("you got the bandage now");
         }
     },
+    ER_PATIENT("ER patient", "the patient is bleeding. give him the bandage, he'll do the rest.",
+            new String[]{}, true) {
+        @Override
+        public void interaction() {
+            if (!BANDAGE.checkAccessibility()) {
+                System.out.println("you don't have the bandage");
+                return;
+            }
+
+            Player.player.getInventory().destroyItem(Items.BANDAGE);
+            System.out.println("you give the bandage to the patient\n" +
+                    "the patient's wound has been controlled and they start to express a passionate love for you.\n" +
+                    "before you get to hear a cry for you love, they are taken away \n\n" );
+
+            ER_PATIENT.getOwningInventory().destroyItem(ER_PATIENT);
+            ITEM_ER_STORAGE_KEY.getOwningInventory().moveItem(ITEM_ER_STORAGE_KEY, Rooms.ROOM_ER.getInventory());
+        }
+    },
+
+    // **************** part two ****************
     REGISTER_FORM("register form","you need this to register from to ckeck patient informatin",
             new String[]{"form"}, false){
         public void interaction(){
@@ -189,26 +212,6 @@ public enum Items {
             //Player.player.setRoundCounter(2);
             REGISTER_FORM.getOwningInventory().moveItem(REGISTER_FORM, Rooms.ROOM_RECEPTION_DESK.getInventory());
 
-        }
-    },
-
-
-
-    ER_PATIENT("patient", "the patient needs bandage",
-            new String[]{}, true) {
-        @Override
-        public void interaction() {
-            if (!BANDAGE.checkAccessibility()) {
-                System.out.println("you don't have the bandage");
-                return;
-            }
-
-            Player.player.getInventory().destroyItem(Items.BANDAGE);
-            System.out.println("you give the bandage to the patient\n" +
-                    "the patient's wound has been controlled. \n\n" );
-            //new StoryTeller().check_victory();
-            ER_PATIENT.getOwningInventory().destroyItem(Items.ER_PATIENT);
-            ITEM_ER_STORAGE_KEY.getOwningInventory().moveItem(ITEM_ER_STORAGE_KEY, Rooms.ROOM_ER.getInventory());
         }
     },
     DOCTOR("doctor", "the doctor give correct prescription for patient's register from",

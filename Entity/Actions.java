@@ -98,7 +98,7 @@ public enum Actions {
                 if (r == room) {
                     player.setCurrentRoom(r);
                     System.out.println("-> You move to the " + r.getName());
-                    System.out.println("-> " + r.getDescription());
+                    System.out.println("   description:  " + r.getDescription());
                     return;
                 }
             System.out.println("You can't go there, either some important item is missing or its simply not accessible from here");
@@ -156,8 +156,10 @@ public enum Actions {
         public void executeAction() {
             System.out.println("type help followed by the thing you want to know more about");
             System.out.println("this entities are available here:");
+            System.out.println(" - accessible rooms");
             for (Rooms room : player.getCurrentRoom().getExits())
                 System.out.println("    - " + room.getName());
+            System.out.println(" - accessible entities");
             for (Items item : player.getCurrentRoom().getInventory().getItemList())
                 System.out.println("    - " + item.getName());
             for (Items item : player.getInventory().getItemList())
@@ -187,13 +189,13 @@ public enum Actions {
     }
 
     public void executeAction(Items item){
-        System.out.println("I cant figure anything to do with this action and item");
+        System.out.println("doing "+this.getName() + ": I cant figure anything to do with " + item.getName());
     }
     public void executeAction(Rooms room){
-        System.out.println("this action with this combination of room is not possible");
+        System.out.println("doing "+this.getName() + ": what am I suppose to do to " + room.getName());
     }
     public void executeAction(){
-        System.out.println("this action in isolation is not possible");
+        System.out.println("doing "+this.getName() + ":this action in isolation is not possible");
     }
     public void executeAction(Actions action) {}
 

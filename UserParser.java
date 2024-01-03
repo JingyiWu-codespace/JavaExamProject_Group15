@@ -35,7 +35,7 @@ public class UserParser {
         int start = 0;
         int seq_end = wordlist.size();
         List<String> reco_sequences = new ArrayList<String>();
-        while (start!=seq_end) {
+        while (start!=seq_end && reco_sequences.size()!=2) {
             String word = String.join(" ", wordlist.subList(start, seq_end));
 
             if (action == null && this.actionWordMap.containsKey(word))

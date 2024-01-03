@@ -6,8 +6,8 @@ public enum Rooms {
     // Floor 0
     ROOM_ER("Emergency Room", "the place where you don't wanna be in",
         new String[]{"emergency", "er"}, new Items[]{Items.ER_PATIENT, Items.ITEM_ER_STORAGE_KEY,Items.ER_PATIENT2,Items.ER_PATIENT3}),
-    ROOM_ER_STORAGE("ER Storage place", "the ER storage room",
-        new String[]{"storage"}, new Items[]{Items.BANDAGE,Items.WHEEL_CHAIR}),
+    ROOM_ER_STORAGE("ER Storage room", "the ER storage room",
+        new String[]{"storage room"}, new Items[]{Items.BANDAGE,Items.WHEEL_CHAIR}),
     ROOM_RECEPTION_DESK("ReceptionDesk"," serving as the first point of contact for patients, visitors, and anyone entering the hospital.",
         new String[]{"info","rd"},new Items[]{Items.REGISTER_FORM}),
     ROOM_PHARMACY("Pharmacy","dispensing prescribed medications to patients.",
