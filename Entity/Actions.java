@@ -59,23 +59,27 @@ public enum Actions {
     ACTIONS_MAP("maps","the layout of hospital",new String[]{"map"}) {
         @Override
         public void executeAction() {
-            // todo fix this
-            String[][] floors = {
-                    {"Emergency Room Storage", "Emergency Room", "Reception Desk", "Pharmacy", "Laboratory"},
-                    {"Radiology (X-ray)", "Ultrasonic Image", "ICU", "Surgery Room", "Patient Ward"},
-                    {"Obstetrics", "Gynecology", "REHABILITATION", "ENT Medical Area", "Doctor Officer"}
-            };
-
-            // Print the floors in reverse to start from the top floor
-            for (int i = floors.length - 1; i >= 0; i--) {
-                System.out.println("Floor " + i + ":");
-                for (String room : floors[i]) {
-                    System.out.println(" - " + room);
-                }
-                System.out.println();
-            }
-
-            System.out.println("Elevator and Stairs connects all floors.");
+            System.out.println(
+                " --- floor 1 --- " +
+                "\n  - 'reception desk -> leads to'"+
+                "\n          - 'elevator'"+
+                "\n          - 'doctor's office'"+
+                "\n          - 'pharmacy'"+
+                "\n          - 'emergency room -> leads to'"+
+                "\n                  - 'ER storage room'"
+            );
+            System.out.println(
+                "\n --- floor 2 --- " +
+                "\n  - 'hallway -> leads to'"+
+                "\n          - 'elevator'"+
+                "\n          - 'ward'"+
+                "\n          - 'ultrasound'"+
+                "\n          - 'lab'"
+            );
+            System.out.println(
+                "\n --- floor 3 --- " +
+                "\n  - 'surgery room'"
+            );
         }
     },
     ACTION_ROOM_CHECK("room", "Check the current room and items in it",
