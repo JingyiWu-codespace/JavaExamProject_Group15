@@ -39,7 +39,7 @@ public class StoryTeller {
 
     public void beginChapter() {
         this.narrativePrint();
-        Player.player.getInventory().resetInventory();
+//        Player.player.getInventory().resetInventory();
         ROOM_ER.getInventory().forceRemove(Items.ITEM_ER_PATIENT, Items.ITEM_PATIENT_MEDICINE, Items.ITEM_MOTHER_PATIENT, Items.ITEM_NURSE);
         ROOM_ER.addExit(ROOM_RECEPTION_DESK);
         switch (this.currentChapter) {
