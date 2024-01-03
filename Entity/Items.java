@@ -3,6 +3,8 @@ package JavaExamProject_Group15.Entity;
 import JavaExamProject_Group15.Player;
 import JavaExamProject_Group15.Inventory;
 
+import java.util.Scanner;
+
 public enum Items {
     // **************** part one ****************
     ITEM_ER_STORAGE_KEY("ER storage room key", "use it to open the storage room where the bandage is in",
@@ -150,7 +152,7 @@ public enum Items {
     },
 
     // **************** part three ****************
-    ITEM_BLOODY_BISTOURY("bloody bistoury","surgery tools, need to be disinfect",
+    ITEM_BLOODY_BISTOURY("bloody bistoury","surgery tools, need to be disinfect with the alcohol in the ward",
             new String[]{"bloody knife"},false){
         public void interaction(){
             if(!ITEM_ALCOHOL.checkAccessibility()){
@@ -283,7 +285,44 @@ public enum Items {
     ITEM_ALCOHOL("disinfecting alcohol","Disinfectors are used to sterilize medical equipment and supplies.",
             new String[]{"alcohol", "disinfector"},false),
     ITEM_BISTOURY("bistoury","surgery tools, clean and ready to use",
-            new String[]{"knife"},false);
+            new String[]{"knife"},false),
+    ITEM_BUTTONBAR("elevator buttons","you can use it to choose the floor you want to go",
+            new String[]{"buttons", "button", "keypad"},true){
+        public void interaction(){
+            System.out.println("you can choose the floor you want to go");
+            System.out.println("0. Ground floor (Reception)");
+            System.out.println("1. floor 1 (Hallway)");
+            System.out.println("2. floor 2 (Surgery)");
+            System.out.println("Please enter the number of the floor you want to go");
+
+            int floor = -1;
+            while (floor < 0 || floor > 2)
+                try {
+                    floor = Integer.parseInt(new Scanner(System.in).nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Please enter a number between 0 and 2");
+                }
+
+            Rooms.ROOM_ELEVATOR.isolate();
+            switch (floor){
+                case 0:
+                    Player.player.setCurrentRoom(Rooms.ROOM_RECEPTION_DESK);
+                    Rooms.ROOM_ELEVATOR.addExit(Rooms.ROOM_RECEPTION_DESK);
+                    Rooms.ROOM_RECEPTION_DESK.addExit(Rooms.ROOM_ELEVATOR);
+                    break;
+                case 1:
+                    Player.player.setCurrentRoom(Rooms.ROOM_HALLWAY);
+                    Rooms.ROOM_ELEVATOR.addExit(Rooms.ROOM_HALLWAY);
+                    Rooms.ROOM_HALLWAY.addExit(Rooms.ROOM_ELEVATOR);
+                    break;
+                case 2:
+                    Player.player.setCurrentRoom(Rooms.ROOM_SURGERY);
+                    Rooms.ROOM_ELEVATOR.addExit(Rooms.ROOM_SURGERY);
+                    Rooms.ROOM_SURGERY.addExit(Rooms.ROOM_ELEVATOR);
+                    break;
+            }
+        }
+    },
 //    ITEM_XRAY_IMAGE("X-ray image","X-ray images are extensively used in medical settings to visualize the internal structures of the human body. ",
 //            new String[]{},false){
 //        public void interaction(){
