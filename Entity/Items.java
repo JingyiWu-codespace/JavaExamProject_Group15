@@ -185,10 +185,9 @@ public enum Items {
             } catch (InterruptedException e) {
                 System.out.println("Interrupted while waiting.");
             }
-            Rooms.ROOM_LABORATORY.isolate();
-            Rooms.ROOM_LABORATORY.isolate();
+
             System.out.println("Finish !!" +
-                    "\n The result need to be waited 10 minutes, you can continue next test  \n\n" );
+                    "\n The result need to be wait for a few minutes. \n\n" );
             try {
                 for (int i = 10; i > 0; i--) {
                     System.out.println("wait " + i + "m...");
@@ -197,11 +196,9 @@ public enum Items {
             } catch (InterruptedException e) {
                 System.out.println("Interrupted while waiting.");
             }
-            System.out.println("The Blood test report is out, please take it");
-            this.pickup();
-            Rooms.ROOM_LABORATORY.addExit(Rooms.ROOM_Ultrasonic);
-            Rooms.ROOM_LABORATORY.addExit(Rooms.ROOM_OFFICE);
+            System.out.println("The Blood test report is out");
 
+            this.pickup();
         }
     },
     ITEM_XRAY_IMAGE("X-ray image","X-ray images are extensively used in medical settings to visualize the internal structures of the human body. ",
@@ -229,10 +226,6 @@ public enum Items {
             } catch (InterruptedException e) {
                 System.out.println("Interrupted while waiting.");
             }
-            Rooms.ROOM_Ultrasonic.addExit(Rooms.ROOM_OFFICE);
-            Rooms.ROOM_Ultrasonic.addExit(Rooms.ROOM_LABORATORY);
-
-
             this.pickup();
             System.out.println("Finish !! You got it, now doctor need to read the result" +
                     "\n you should take the patient and results find doctor" );
