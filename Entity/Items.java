@@ -227,8 +227,7 @@ public enum Items {
                 System.out.println("Interrupted while waiting.");
             }
             this.pickup();
-            System.out.println("Finish !! You got it, now doctor need to read the result" +
-                    "\n you should take the patient and results find doctor" );
+            System.out.println("Finish !!");
         }
     },
     ITEM_CRADLE("cradle","Cradles are used for safely and comfortably holding infants or babies.",
@@ -269,6 +268,24 @@ public enum Items {
         public void interaction(){
             this.pickup();
             System.out.println("you got the medical gloves now");
+        }
+    },
+    ITEM_SURGEON("surgeon","The surgeon is waiting for you to prepare for surgery",
+            new String[]{},true){
+        @Override
+        public void interaction() {
+            if (!(ITEM_TEST_RESULT.checkAccessibility()
+                    && ITEM_ULTRA_REPORT.checkAccessibility()
+                    && ITEM_PRESCRIPTION.checkAccessibility())) {
+                System.out.println("the surgeon tells you to get 3 documents first, test result, ultra report and prescription");
+                return;
+            }
+            System.out.println("You give the documents to the surgeon\n The surgeon takes the patient. \n\n" );
+
+            ITEM_MOTHER_PATIENT.getOwningInventory().moveItem(ITEM_MOTHER_PATIENT, Rooms.ROOM_SURGERY.getInventory());
+            ITEM_TEST_RESULT.removeFromWorld();
+            ITEM_ULTRA_REPORT.removeFromWorld();
+            ITEM_PRESCRIPTION.removeFromWorld();
         }
     },
     ITEM_MOTHER_PATIENT("to-be-mother patient", "A pregnant woman with congenital heart disease and twins",

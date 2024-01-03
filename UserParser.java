@@ -97,7 +97,7 @@ public class UserParser {
     public int askWhatChapter() {
         // prompt user for chapter
         System.out.println("What chapter would you like to start at?");
-        System.out.println("  0. tutorial\n  1. Chapter 1\n  2. Chapter 2");
+        System.out.println("  0. tutorial: I hate my job\n  1. Chapter 1: getting some drugs\n  2. Chapter 2: Baby time");
 
         // get user input
         int chapter = -1;
