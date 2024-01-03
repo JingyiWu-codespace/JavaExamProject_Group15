@@ -19,18 +19,18 @@ public enum Rooms {
 //        new String[]{"xray"},new Items[]{Items.ITEM_XRAY_IMAGE}),
     ROOM_Ultrasonic("Ultrasonic","ultrasound procedures include abdominal ultrasounds, echocardiograms, and obstetric ultrasounds.",
         new String[]{"Ultra"},new Items[]{Items.ITEM_ULTRA_REPORT}),
-    ROOM_ICU("ICU", "An intensive care unit (ICU) room is equipped with advanced monitoring and life support equipment for critically ill patients.",
-        new String[]{}, new Items[]{}),
+//    ROOM_ICU("ICU", "An intensive care unit (ICU) room is equipped with advanced monitoring and life support equipment for critically ill patients.",
+//        new String[]{}, new Items[]{}),
     ROOM_SURGERY("Surgery Room", "sterile environment where surgical procedures are performed by medical professionals.",
         new String[]{"surgery"}, new Items[]{Items.ITEM_BLOODY_BISTOURY, Items.ITEM_SURGEON}),
     ROOM_WARD
             ("Patient Ward", "Ward rooms provide comfortable accommodations for patients during their hospital stay.",
-        new String[]{"ward"}, new Items[]{Items.ITEM_ER_PATIENT, Items.ITEM_ALCOHOL}),
+        new String[]{"ward"}, new Items[]{Items.ITEM_ALCOHOL}),
     // Floor 2
 //    ROOM_OBSTETRICS("Obstetrics Medicial Area", "designed for childbirth and maternity care, ensuring a safe and comfortable environment for expectant mothers.",
 //        new String[]{"baby room", "enfant"}, new Items[]{Items.ITEM_CRADLE, Items.ITEM_INCUBATOR}),
-    ROOM_GYNECOLOGY("Gynecology Medicial Area", "dedicated to women's health and provide services related to gynecological examinations and treatments.",
-        new String[]{}, new Items[]{}),
+//    ROOM_GYNECOLOGY("Gynecology Medicial Area", "dedicated to women's health and provide services related to gynecological examinations and treatments.",
+//        new String[]{}, new Items[]{}),
     ROOM_REHABILITATION("Rehabilitation Room", "are equipped for physical and occupational therapy to aid patients in their recovery and mobility.",
         new String[]{}, new Items[]{Items.ITEM_WHEEL_CHAIR}),
 //    ROOM_ENT("ENT Medical Area", "are specialized for examinations and treatments related to ear, nose, and throat conditions.",
@@ -43,10 +43,9 @@ public enum Rooms {
     static {
         ROOM_ER_STORAGE.addExit(ROOM_ER);
         ROOM_RECEPTION_DESK.addExits(ROOM_ER, ROOM_PHARMACY, ROOM_OFFICE, ROOM_HALLWAY);
-        ROOM_HALLWAY.addExits(ROOM_ICU, ROOM_SURGERY, ROOM_RECEPTION_DESK);
+        ROOM_HALLWAY.addExits(ROOM_SURGERY, ROOM_RECEPTION_DESK);
         ROOM_PHARMACY.addExits(ROOM_RECEPTION_DESK);
         ROOM_OFFICE.addExits(ROOM_RECEPTION_DESK);
-        ROOM_ICU.addExits(ROOM_HALLWAY);
         ROOM_SURGERY.addExits(ROOM_HALLWAY);
     }
 
