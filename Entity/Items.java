@@ -276,8 +276,8 @@ public enum Items {
         public void interaction() {
             if (!(ITEM_TEST_RESULT.checkAccessibility()
                     && ITEM_ULTRA_REPORT.checkAccessibility()
-                    && ITEM_PRESCRIPTION.checkAccessibility())) {
-                System.out.println("the surgeon tells you to get 3 documents first, test result, ultra report and prescription");
+                    && ITEM_MEDICINE.checkAccessibility())) {
+                System.out.println("the surgeon tells you to get 3 documents first, test result, ultra report and drugs");
                 return;
             }
             System.out.println("You give the documents to the surgeon\n The surgeon takes the patient. \n\n" );
@@ -285,7 +285,7 @@ public enum Items {
             ITEM_MOTHER_PATIENT.getOwningInventory().moveItem(ITEM_MOTHER_PATIENT, Rooms.ROOM_SURGERY.getInventory());
             ITEM_TEST_RESULT.removeFromWorld();
             ITEM_ULTRA_REPORT.removeFromWorld();
-            ITEM_PRESCRIPTION.removeFromWorld();
+            ITEM_MEDICINE.removeFromWorld();
         }
     },
     ITEM_MOTHER_PATIENT("to-be-mother patient", "A pregnant woman with congenital heart disease and twins",
