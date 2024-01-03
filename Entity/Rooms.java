@@ -38,9 +38,7 @@ public enum Rooms {
     ROOM_OFFICE("Doctor's Office", "You should communicate with doctor then get prescription instead of take the prescription directly .",
         new String[]{"doctor office","office"}, new Items[]{Items.ITEM_DOCTOR,Items.ITEM_COMPUTER, Items.ITEM_PRESCRIPTION}),
     ROOM_HALLWAY("Hallway", "its a hallway.",
-        new String[]{"corridor"}, new Items[]{}),
-    ROOM_ALIEN_WORLD("the place inbetween", "why are you seeing this.",
-        new String[]{"aliens"}, new Items[]{Items.ITEM_FILLED_REGISTER_FORM, Items.ITEM_PRESCRIPTION});
+        new String[]{"corridor"}, new Items[]{Items.ITEM_SURGEON});
 
     static {
         ROOM_ER_STORAGE.addExit(ROOM_ER);
