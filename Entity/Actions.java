@@ -90,15 +90,15 @@ public enum Actions {
                 temp.printInformation();
         }
     },
-    ACTION_MOVE("move", "Move to a different room",
-            new String[]{"go", "walk", "run", "sprint", "enter"}) {
+    ACTION_GO("go", "Move to a different room",
+            new String[]{"move", "walk", "run", "sprint", "enter"}) {
         @Override
         public void executeAction(Rooms room) {
             for (Rooms r : player.getCurrentRoom().getExits())
                 if (r == room) {
                     player.setCurrentRoom(r);
                     System.out.println("-> You move to the " + r.getName());
-                    System.out.println("   description:  " + r.getDescription());
+                    System.out.println("        description:  " + r.getDescription());
                     return;
                 }
             System.out.println("You can't go there, either some important item is missing or its simply not accessible from here");
@@ -127,7 +127,10 @@ public enum Actions {
     ACTION_INTERACT("interact", "Interact with an item", new String[]{"use", "open", "talk"}) {
         @Override
         public void executeAction(Items item) {
-            item.interaction();
+            if (item.isInBag() || item.isInRoom())
+                item.interaction();
+            else
+                System.out.println("the entity is not accessible");
         }
     },
     ACTION_GRAB("grab", "Interact with an item", new String[]{"get", "take", "pickup"}) {
@@ -137,7 +140,7 @@ public enum Actions {
         }
     },
     ACTION_HELP("help", "Show available actions and their descriptions",
-            new String[]{"h", "commands", "look around", "what can I do"}){
+            new String[]{"h", "commands", "what can I do", "look"}){
         @Override
         public void executeAction(Rooms room) {
             room.printInformation();
@@ -157,14 +160,21 @@ public enum Actions {
         public void executeAction() {
             System.out.println("type help followed by the thing you want to know more about");
             System.out.println("this entities are available here:");
-            System.out.println(" - accessible rooms");
+
+            if(player.getCurrentRoom().getExits().length>0)
+                System.out.println(" - accessible rooms");
             for (Rooms room : player.getCurrentRoom().getExits())
-                System.out.println("    - " + room.getName());
-            System.out.println(" - accessible entities");
+                System.out.println("     - " + room.getName());
+
+            if(!player.getCurrentRoom().getInventory().getItemList().isEmpty())
+                System.out.println(" - accessible entities in this room");
             for (Items item : player.getCurrentRoom().getInventory().getItemList())
-                System.out.println("    - " + item.getName());
+                System.out.println("     - " + item.getName());
+
+            if(!player.getInventory().getItemList().isEmpty())
+                System.out.println(" - Inventory");
             for (Items item : player.getInventory().getItemList())
-                System.out.println("    - " + item.getName());
+                System.out.println("     - " + item.getName());
         }
         @Override
         public void executeAction(Actions action) {

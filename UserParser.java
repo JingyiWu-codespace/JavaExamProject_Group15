@@ -11,7 +11,6 @@ public class UserParser {
     private final Map<String, Rooms> roomWordMap;
     private final Map<String, Actions> actionWordMap;
     private final Scanner scanner = new Scanner(System.in);
-
     public ParsedDataHolder getUserInput() {
         ParsedDataHolder parsedContent = null;
         while (parsedContent == null) {
@@ -71,11 +70,12 @@ public class UserParser {
              || reco_sequences.get(0).equals(String.join(" ", wordlist))))
             return new ParsedDataHolder(action, item, room);
 
-//        System.out.println(
-//                "debug > actionCode: " + (action != null ? action.getName() : "null") + "\n" +
-//                "debug > itemCode: " +   (item != null ? item.getName()     : "null") + "\n" +
-//                "debug > roomCode: " +   (room != null ? room.getName()     : "null") + "\n"
-//        );
+        if (Player.player.debug_flag)
+            System.out.println(
+                    "debug > actionCode: " + (action != null ? action.getName() : "null") + "\n" +
+                    "debug > itemCode: " +   (item != null ? item.getName()     : "null") + "\n" +
+                    "debug > roomCode: " +   (room != null ? room.getName()     : "null") + "\n"
+            );
 
         if (action == null)
             System.out.println("Unrecognized action");
@@ -129,32 +129,35 @@ public class UserParser {
             for (String word : item.getAliases())
                 if (!this.itemWordMap.containsKey(word))
                     this.itemWordMap.put(word, item);
-                else System.out.println("Duplicate item key: " + word);
+                else if (Player.player.debug_flag)
+                    System.out.println("Duplicate item key: " + word);
 
         this.roomWordMap = new HashMap<String, Rooms>();
         for (Rooms room : Rooms.values())
             for (String word : room.getAliases())
                 if (!this.roomWordMap.containsKey(word))
                     this.roomWordMap.put(word, room);
-                else System.out.println("Duplicate room key: " + word);
+                else if (Player.player.debug_flag)
+                    System.out.println("Duplicate room key: " + word);
 
         this.actionWordMap = new HashMap<String, Actions>();
         for (Actions action : Actions.values())
             for (String word : action.getAliases())
                 if (!this.actionWordMap.containsKey(word))
                     this.actionWordMap.put(word, action);
-                else System.out.println("Duplicate action key: " + word);
+                else if (Player.player.debug_flag)
+                    System.out.println("Duplicate action key: " + word);
         // Finished Initializing the maps   **********************
 
         // Check for duplicate keys    *******************
         for (String key : this.actionWordMap.keySet()) {
-            if (this.itemWordMap.containsKey(key))
+            if (this.itemWordMap.containsKey(key) && Player.player.debug_flag)
                 System.out.println("Duplicate action key: " + key);
-            if (this.roomWordMap.containsKey(key))
+            if (this.roomWordMap.containsKey(key) && Player.player.debug_flag)
                 System.out.println("Duplicate action key: " + key);
         }
         for (String key : this.itemWordMap.keySet())
-            if (this.roomWordMap.containsKey(key))
+            if (this.roomWordMap.containsKey(key) && Player.player.debug_flag)
                 System.out.println("Duplicate item key: " + key);
         // Finished Check for duplicate keys    *************
     }

@@ -5,13 +5,13 @@ import JavaExamProject_Group15.Inventory;
 public enum Rooms {
     // Floor 0
     ROOM_ER("Emergency Room", "the place where you don't wanna be in",
-        new String[]{"emergency", "er"}, new Items[]{Items.ITEM_ER_PATIENT, Items.ITEM_ER_STORAGE_KEY,Items.ITEM_ER_PATIENT2,Items.ITEM_ER_PATIENT3}),
+        new String[]{"emergency", "er"}, new Items[]{Items.ITEM_ER_STORAGE_KEY}),
     ROOM_ER_STORAGE("ER Storage room", "the ER storage room",
-        new String[]{"storage room"}, new Items[]{Items.ITEM_BANDAGE,Items.ITEM_WHEEL_CHAIR}),
-    ROOM_RECEPTION_DESK("ReceptionDesk"," serving as the first point of contact for patients, visitors, and anyone entering the hospital.",
-        new String[]{"info","rd"},new Items[]{Items.ITEM_REGISTER_FORM}),
+        new String[]{"storage room"}, new Items[]{Items.ITEM_BANDAGE}),
+    ROOM_RECEPTION_DESK("Reception Desk"," serving as the first point of contact for patients, visitors, and anyone entering the hospital.",
+        new String[]{"info desk", "reception"},new Items[]{Items.ITEM_REGISTER_FORM}),
     ROOM_PHARMACY("Pharmacy","dispensing prescribed medications to patients.",
-        new String[]{"medicine room", "drug store"},new Items[]{Items.ITEM_MEDICINE}),
+        new String[]{"medicine room", "drug store"},new Items[]{Items.ITEM_PHARMACY_CLERK}),
     ROOM_LABORATORY("laboratory","Perform tests like blood analysis to obtain vital health information about patients.",
         new String[]{"lab","test room"},new Items[]{Items.ITEM_TEST_RESULT}),
     // Floor 1
@@ -35,14 +35,21 @@ public enum Rooms {
         new String[]{}, new Items[]{Items.ITEM_WHEEL_CHAIR}),
     ROOM_ENT("ENT Medical Area", "are specialized for examinations and treatments related to ear, nose, and throat conditions.",
         new String[]{"ent", "eye","nose","throat"}, new Items[]{Items.ITEM_EYE_CHART}),
-    ROOM_OFFICE("Doctor Office", "You should communicate with doctor then get prescription instead of take the prescription directly .",
-        new String[]{"office","doctionoffice","df"}, new Items[]{Items.ITEM_DOCTOR,Items.ITEM_COMPUTER, Items.ITEM_PRESCRIPTION});
+    ROOM_OFFICE("Doctor's Office", "You should communicate with doctor then get prescription instead of take the prescription directly .",
+        new String[]{"doctor office","office"}, new Items[]{Items.ITEM_DOCTOR,Items.ITEM_COMPUTER, Items.ITEM_PRESCRIPTION}),
+    ROOM_HALLWAY("Hallway", "its a hallway.",
+        new String[]{"corridor"}, new Items[]{}),
+    ROOM_ALIEN_WORLD("the place inbetween", "why are you seeing this.",
+        new String[]{"aliens"}, new Items[]{Items.ITEM_FILLED_REGISTER_FORM, Items.ITEM_PRESCRIPTION});
 
     static {
         ROOM_ER_STORAGE.addExit(ROOM_ER);
-        ROOM_ER.addExit(ROOM_RECEPTION_DESK);
-        ROOM_RECEPTION_DESK.addExit(ROOM_ER);
-        ROOM_RECEPTION_DESK.addExit(ROOM_PHARMACY);
+        ROOM_RECEPTION_DESK.addExits(ROOM_ER, ROOM_PHARMACY, ROOM_OFFICE, ROOM_HALLWAY);
+        ROOM_HALLWAY.addExits(ROOM_ICU, ROOM_SURGERY, ROOM_RECEPTION_DESK);
+        ROOM_PHARMACY.addExits(ROOM_RECEPTION_DESK);
+        ROOM_OFFICE.addExits(ROOM_RECEPTION_DESK);
+        ROOM_ICU.addExits(ROOM_HALLWAY);
+        ROOM_SURGERY.addExits(ROOM_HALLWAY);
     }
 
     public void addExit(Rooms exit) {
@@ -58,6 +65,7 @@ public enum Rooms {
     }
 
     public void removeExit(Rooms exit) {
+        if (this.entityData.exits.length == 0) return;
         Rooms[] newExits = new Rooms[this.entityData.exits.length - 1];
         int i = 0;
         for (Rooms room : this.entityData.exits) {
@@ -128,7 +136,25 @@ public enum Rooms {
         }
 
         public void setExits(Rooms... exits) {
-            this.exits = exits;
+            // remove duplicates
+            Rooms[] newExits = new Rooms[exits.length];
+            int i = 0;
+            for (Rooms exit : exits) {
+                boolean duplicate = false;
+                for (Rooms room : newExits)
+                    if (room == exit) {
+                        duplicate = true;
+                        break;
+                    }
+                if (duplicate) continue;
+
+                newExits[i] = exit;
+                i++;
+            }
+
+            Rooms[] temp = new Rooms[i];
+            System.arraycopy(newExits, 0, temp, 0, i);
+            this.exits = temp;
         }
     }
 }

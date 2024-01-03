@@ -4,8 +4,6 @@ import JavaExamProject_Group15.Entity.Actions;
 
 import java.io.IOException;
 
-import static JavaExamProject_Group15.Entity.Rooms.*;
-
 public class GameManager {
     public static void main(String[] args) throws IOException {
         final UserParser userIo = new UserParser();
@@ -46,3 +44,5 @@ public class GameManager {
         }
     }
 }
+
+

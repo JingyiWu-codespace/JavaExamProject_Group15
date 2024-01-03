@@ -1,6 +1,7 @@
 package JavaExamProject_Group15;
 
 import JavaExamProject_Group15.Entity.Items;
+import JavaExamProject_Group15.Entity.Rooms;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,12 +41,25 @@ public class Inventory {
         this.itemList.remove(item);
     }
 
+    public void forcePlaceItem(Items item) {
+        this.itemList.add(item);
+    }
+
     public void destroyItem(Items item) {
         if (checkAvailable(item)) {
             this.itemList.remove(item);
             return;
         }
         System.out.println("ERROR > item not found in inventory");
+    }
+
+    public void resetInventory() {
+        this.itemList.clear();
+    }
+
+    public void forceRemove(Items... items) {
+        for (Items it : items)
+            it.removeFromWorld();
     }
 }
 

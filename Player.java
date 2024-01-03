@@ -15,6 +15,8 @@ public enum Player {
         this.inventory = new Inventory(new Items[]{}); //default empty inventory
     }
 
+    public final boolean debug_flag = true;
+
     private Rooms currentRoom;
     private final Inventory inventory;
 
