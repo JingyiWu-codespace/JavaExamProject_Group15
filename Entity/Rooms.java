@@ -15,8 +15,8 @@ public enum Rooms {
     ROOM_LABORATORY("laboratory","Perform tests like blood analysis to obtain vital health information about patients.",
         new String[]{"lab","test room"},new Items[]{Items.ITEM_TEST_RESULT}),
     // Floor 1
-    ROOM_RADIOLOGY("x-ray","Conduct imaging tests, acquire diagnostic information, for example X-ray analysis.",
-        new String[]{"xray"},new Items[]{Items.ITEM_XRAY_IMAGE}),
+//    ROOM_RADIOLOGY("x-ray","Conduct imaging tests, acquire diagnostic information, for example X-ray analysis.",
+//        new String[]{"xray"},new Items[]{Items.ITEM_XRAY_IMAGE}),
     ROOM_Ultrasonic("Ultrasonic","ultrasound procedures include abdominal ultrasounds, echocardiograms, and obstetric ultrasounds.",
         new String[]{"Ultra"},new Items[]{Items.ITEM_ULTRA_REPORT}),
     ROOM_ICU("ICU", "An intensive care unit (ICU) room is equipped with advanced monitoring and life support equipment for critically ill patients.",
@@ -27,16 +27,16 @@ public enum Rooms {
             ("Patient Ward", "Ward rooms provide comfortable accommodations for patients during their hospital stay.",
         new String[]{"ward"}, new Items[]{Items.ITEM_ER_PATIENT, Items.ITEM_ALCOHOL}),
     // Floor 2
-    ROOM_OBSTETRICS("Obstetrics Medicial Area", "designed for childbirth and maternity care, ensuring a safe and comfortable environment for expectant mothers.",
-        new String[]{"baby room", "enfant"}, new Items[]{Items.ITEM_CRADLE, Items.ITEM_INCUBATOR}),
+//    ROOM_OBSTETRICS("Obstetrics Medicial Area", "designed for childbirth and maternity care, ensuring a safe and comfortable environment for expectant mothers.",
+//        new String[]{"baby room", "enfant"}, new Items[]{Items.ITEM_CRADLE, Items.ITEM_INCUBATOR}),
     ROOM_GYNECOLOGY("Gynecology Medicial Area", "dedicated to women's health and provide services related to gynecological examinations and treatments.",
         new String[]{}, new Items[]{}),
     ROOM_REHABILITATION("Rehabilitation Room", "are equipped for physical and occupational therapy to aid patients in their recovery and mobility.",
         new String[]{}, new Items[]{Items.ITEM_WHEEL_CHAIR}),
-    ROOM_ENT("ENT Medical Area", "are specialized for examinations and treatments related to ear, nose, and throat conditions.",
-        new String[]{"ent", "eye","nose","throat"}, new Items[]{Items.ITEM_EYE_CHART}),
+//    ROOM_ENT("ENT Medical Area", "are specialized for examinations and treatments related to ear, nose, and throat conditions.",
+//        new String[]{"ent", "eye","nose","throat"}, new Items[]{Items.ITEM_EYE_CHART}),
     ROOM_OFFICE("Doctor's Office", "You should communicate with doctor then get prescription instead of take the prescription directly .",
-        new String[]{"doctor office","office"}, new Items[]{Items.ITEM_DOCTOR,Items.ITEM_COMPUTER, Items.ITEM_PRESCRIPTION}),
+        new String[]{"doctor office","office"}, new Items[]{Items.ITEM_DOCTOR, Items.ITEM_PRESCRIPTION}),
     ROOM_HALLWAY("Hallway", "its a hallway.",
         new String[]{"corridor"}, new Items[]{});
 
