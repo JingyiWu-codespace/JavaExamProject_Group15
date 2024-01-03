@@ -122,14 +122,10 @@ public enum Items {
             new String[]{"dr", "doc"}, true) {
         @Override
         public void interaction() {
-            if (!(ITEM_FILLED_REGISTER_FORM.checkAccessibility()|| ITEM_TEST_RESULT.checkAccessibility()|| ITEM_ULTRA_REPORT.checkAccessibility())) {
+            if (!ITEM_FILLED_REGISTER_FORM.checkAccessibility()) {
                 System.out.println("the doctor is busy, he looks at you with a frown and says: \n" +
                         "I can't help you if you don't have the right documents, stop wasting time");
                 System.out.println("you don't have the specific documents, like FILLED register form, test report...");
-                return;
-            }
-            if(!ITEM_BISTOURY.getStationary()){
-                System.out.println("Surgery prepare very well !!, you should accompany patient to surgery room");
                 return;
             }
 
@@ -154,17 +150,17 @@ public enum Items {
     },
 
     // **************** part three ****************
-    ITEM_BISTOURY("bistoury","surgery tools, need to be disinfect",
-            new String[]{"knife"},true){
+    ITEM_BLOODY_BISTOURY("bloody bistoury","surgery tools, need to be disinfect",
+            new String[]{"bloody knife"},false){
         public void interaction(){
-            if (ITEM_MOTHER_PATIENT.checkAccessibility()) {
-                System.out.println("you should back the patient into icu");
+            if(!ITEM_ALCOHOL.checkAccessibility()){
+                System.out.println("you should take the patient to the surgeon");
                 return;
             }
-            this.pickup();
-
-            Rooms.ROOM_SURGERY.addExits(Rooms.ROOM_ER,Rooms.ROOM_ICU);
-
+            System.out.println("you got the bistoury now");
+            this.removeFromWorld();
+            ITEM_ALCOHOL.removeFromWorld();
+            Player.player.getInventory().forcePlaceItem(ITEM_BISTOURY);
         }
     },
     ITEM_TEST_RESULT("test result","the result of patient blood analysis ",
@@ -201,15 +197,8 @@ public enum Items {
             this.pickup();
         }
     },
-    ITEM_XRAY_IMAGE("X-ray image","X-ray images are extensively used in medical settings to visualize the internal structures of the human body. ",
-            new String[]{},false){
-        public void interaction(){
-            this.pickup();
-            System.out.println("you got the X-ray image now");
-        }
-    },
     ITEM_ULTRA_REPORT("ultra report","This technique allows healthcare professionals to create real-time images of internal organs, tissues, and developing fetuses during pregnancy. ",
-        new String[]{},false){
+            new String[]{},false){
         public void interaction() {
             if (!ITEM_MOTHER_PATIENT.checkAccessibility()) {
                 System.out.println("you should take your patient do the test");
@@ -230,53 +219,17 @@ public enum Items {
             System.out.println("Finish !!");
         }
     },
-    ITEM_CRADLE("cradle","Cradles are used for safely and comfortably holding infants or babies.",
-            new String[]{},true){
-        public void interaction(){
-            this.pickup();
-            System.out.println("you got the cradle now");
-        }
-    },
-    ITEM_INCUBATOR("incubator","Incubators provide a controlled environment for premature or ill newborns, helping to regulate temperature and humidity.",
-        new String[]{},true){
-        public void interaction(){
-            this.pickup();
-            System.out.println("you got the incubator now");
-        }
-    },
     ITEM_WHEEL_CHAIR("wheelchair", "Wheelchairs are mobility devices used by individuals with limited or no ability to walk.",
             new String[]{},false),
-    ITEM_EYE_CHART("eye chart", "Eye charts are used by eye care professionals to measure visual acuity and assess vision.",
-            new String[]{},false),
-    ITEM_COMPUTER("computer", "Computers are used in healthcare for various purposes, including patient record management and medical research.",
-        new String[]{},false){
-        public void interaction(){
-            this.pickup();
-            System.out.println("you got the computer now");
-        }
-    },
-    ITEM_MASKS("mask","Provide protection when dealing with infectious patients or\n" +
-            "hazardous materials.",
-        new String[]{},false){
-        public void interaction(){
-            this.pickup();
-            System.out.println("you got the mask now");
-        }
-    },
-    ITEM_MEDICAL_GLOVES("medical gloves","Protect player from infections during patient treatment or surgery.",
-            new String[]{},false){
-        public void interaction(){
-            this.pickup();
-            System.out.println("you got the medical gloves now");
-        }
-    },
     ITEM_SURGEON("surgeon","The surgeon is waiting for you to prepare for surgery",
             new String[]{},true){
         @Override
         public void interaction() {
             if (!(ITEM_TEST_RESULT.checkAccessibility()
                     && ITEM_ULTRA_REPORT.checkAccessibility()
-                    && ITEM_MEDICINE.checkAccessibility())) {
+                    && ITEM_MEDICINE.checkAccessibility()
+                    && ITEM_BISTOURY.checkAccessibility())
+            ) {
                 System.out.println("the surgeon tells you to get 3 documents first, test result, ultra report and drugs");
                 return;
             }
@@ -326,7 +279,56 @@ public enum Items {
             ITEM_WHEEL_CHAIR.removeFromWorld();
             Player.player.getInventory().forcePlaceItem(ITEM_FILLED_REGISTER_FORM);
         }
-    }
+    },
+    ITEM_ALCOHOL("disinfecting alcohol","Disinfectors are used to sterilize medical equipment and supplies.",
+            new String[]{"alcohol", "disinfector"},false),
+    ITEM_BISTOURY("bistoury","surgery tools, clean and ready to use",
+            new String[]{"knife"},false);
+//    ITEM_XRAY_IMAGE("X-ray image","X-ray images are extensively used in medical settings to visualize the internal structures of the human body. ",
+//            new String[]{},false){
+//        public void interaction(){
+//            this.pickup();
+//            System.out.println("you got the X-ray image now");
+//        }
+//    },
+//    ITEM_CRADLE("cradle","Cradles are used for safely and comfortably holding infants or babies.",
+//            new String[]{},true){
+//        public void interaction(){
+//            this.pickup();
+//            System.out.println("you got the cradle now");
+//        }
+//    },
+//    ITEM_INCUBATOR("incubator","Incubators provide a controlled environment for premature or ill newborns, helping to regulate temperature and humidity.",
+//        new String[]{},true){
+//        public void interaction(){
+//            this.pickup();
+//            System.out.println("you got the incubator now");
+//        }
+//    },
+//    ITEM_EYE_CHART("eye chart", "Eye charts are used by eye care professionals to measure visual acuity and assess vision.",
+//            new String[]{},false),
+//    ITEM_COMPUTER("computer", "Computers are used in healthcare for various purposes, including patient record management and medical research.",
+//        new String[]{},false){
+//        public void interaction(){
+//            this.pickup();
+//            System.out.println("you got the computer now");
+//        }
+//    },
+//    ITEM_MASKS("mask","Provide protection when dealing with infectious patients or\n" +
+//            "hazardous materials.",
+//        new String[]{},false){
+//        public void interaction(){
+//            this.pickup();
+//            System.out.println("you got the mask now");
+//        }
+//    },
+//    ITEM_MEDICAL_GLOVES("medical gloves","Protect player from infections during patient treatment or surgery.",
+//            new String[]{},false){
+//        public void interaction(){
+//            this.pickup();
+//            System.out.println("you got the medical gloves now");
+//        }
+//    }
     ;
     // ************************************************************
 

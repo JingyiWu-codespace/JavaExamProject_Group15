@@ -22,10 +22,10 @@ public enum Rooms {
     ROOM_ICU("ICU", "An intensive care unit (ICU) room is equipped with advanced monitoring and life support equipment for critically ill patients.",
         new String[]{}, new Items[]{}),
     ROOM_SURGERY("Surgery Room", "sterile environment where surgical procedures are performed by medical professionals.",
-        new String[]{"surgery"}, new Items[]{Items.ITEM_BISTOURY}),
+        new String[]{"surgery"}, new Items[]{Items.ITEM_BLOODY_BISTOURY, Items.ITEM_SURGEON}),
     ROOM_WARD
             ("Patient Ward", "Ward rooms provide comfortable accommodations for patients during their hospital stay.",
-        new String[]{"ward"}, new Items[]{Items.ITEM_ER_PATIENT}),
+        new String[]{"ward"}, new Items[]{Items.ITEM_ER_PATIENT, Items.ITEM_ALCOHOL}),
     // Floor 2
     ROOM_OBSTETRICS("Obstetrics Medicial Area", "designed for childbirth and maternity care, ensuring a safe and comfortable environment for expectant mothers.",
         new String[]{"baby room", "enfant"}, new Items[]{Items.ITEM_CRADLE, Items.ITEM_INCUBATOR}),
@@ -38,7 +38,7 @@ public enum Rooms {
     ROOM_OFFICE("Doctor's Office", "You should communicate with doctor then get prescription instead of take the prescription directly .",
         new String[]{"doctor office","office"}, new Items[]{Items.ITEM_DOCTOR,Items.ITEM_COMPUTER, Items.ITEM_PRESCRIPTION}),
     ROOM_HALLWAY("Hallway", "its a hallway.",
-        new String[]{"corridor"}, new Items[]{Items.ITEM_SURGEON});
+        new String[]{"corridor"}, new Items[]{});
 
     static {
         ROOM_ER_STORAGE.addExit(ROOM_ER);

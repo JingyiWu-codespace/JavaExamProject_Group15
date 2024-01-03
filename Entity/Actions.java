@@ -113,17 +113,17 @@ public enum Actions {
                 room.printInformation();
         }
     },
-    ACTION_DROP("drop","leave something in room",new String[]{"put", "leave away"}) {
-        @Override
-        public void executeAction(Items item) {
-            Rooms currentRoom = player.getCurrentRoom();
-            Inventory roomInventory = currentRoom.getInventory();
-
-            player.getInventory().moveItem(item, roomInventory);
-
-            System.out.println("the item" + item + "has been placed in" + currentRoom.getName());
-        }
-    },
+//    ACTION_DROP("drop","leave something in room",new String[]{"put", "leave away"}) {
+//        @Override
+//        public void executeAction(Items item) {
+//            Rooms currentRoom = player.getCurrentRoom();
+//            Inventory roomInventory = currentRoom.getInventory();
+//
+//            player.getInventory().moveItem(item, roomInventory);
+//
+//            System.out.println("the item" + item + "has been placed in" + currentRoom.getName());
+//        }
+//    },
     ACTION_INTERACT("interact", "Interact with an item", new String[]{"use", "open", "talk"}) {
         @Override
         public void executeAction(Items item) {
