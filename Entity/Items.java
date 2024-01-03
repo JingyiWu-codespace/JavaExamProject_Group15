@@ -320,7 +320,8 @@ public enum Items {
 
             System.out.println("Then you need accompany the patient to do blood tests and ultrasound tests.");
 
-            this.getOwningInventory().moveItem(this, Player.player.getInventory());
+            this.removeFromWorld();
+            Player.player.getInventory().forcePlaceItem(this);
             ITEM_REGISTER_FORM.removeFromWorld();
             ITEM_WHEEL_CHAIR.removeFromWorld();
             Player.player.getInventory().forcePlaceItem(ITEM_FILLED_REGISTER_FORM);
