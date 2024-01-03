@@ -13,7 +13,8 @@ public class UserParser {
     private final Scanner scanner = new Scanner(System.in);
 
     public ParsedDataHolder getUserInput() {
-        while (true) {
+        ParsedDataHolder parsedContent = null;
+        while (parsedContent == null) {
             System.out.print("\n\nEnter a command (verb or verb + entity): \n");
             String input = this.scanner.nextLine().toLowerCase();
             List<String> wordlist = new ArrayList<>(Arrays.asList(input.split(" ")));
@@ -22,9 +23,9 @@ public class UserParser {
                 System.out.print("nothing was received\n");
                 continue;
             }
-
-            return this.parseUserString(wordlist);
+            parsedContent = this.parseUserString(wordlist);
         }
+        return parsedContent;
     }
 
     public ParsedDataHolder parseUserString(List<String> wordlist) {
@@ -70,18 +71,16 @@ public class UserParser {
              || reco_sequences.get(0).equals(String.join(" ", wordlist))))
             return new ParsedDataHolder(action, item, room);
 
-        System.out.println(
-                "debug > actionCode: " + (action != null ? action.getName() : "null") + "\n" +
-                "debug > itemCode: " +   (item != null ? item.getName()     : "null") + "\n" +
-                "debug > roomCode: " +   (room != null ? room.getName()     : "null") + "\n"
-        );
+//        System.out.println(
+//                "debug > actionCode: " + (action != null ? action.getName() : "null") + "\n" +
+//                "debug > itemCode: " +   (item != null ? item.getName()     : "null") + "\n" +
+//                "debug > roomCode: " +   (room != null ? room.getName()     : "null") + "\n"
+//        );
 
         if (action == null)
-            System.out.println("Unrecognized action: " + action);
-        if (item == null)
-            System.out.println("Unrecognized target: " + item);
-        if (room == null)
-            System.out.println("Unrecognized target: " + room);
+            System.out.println("Unrecognized action");
+        if (item == null || room == null)
+            System.out.println("Unrecognized entity or room");
         return null;
     }
 
