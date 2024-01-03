@@ -116,8 +116,8 @@ public class StoryTeller {
                     "\n " +
                     "\n As the surgery approaches, the twins are soon to be born, adding urgency to an already delicate situation. " +
                     "\n Your task is to ensure the smooth progression of the surgery, including the crucial preparatory stages. " +
-                    "\n The nurse excects you to figure out the steps on your own, and only tells you an overview of the process. " +
-                    "\n managing medication, collect register form, conducting blood tests and lab work,"+
+                    "\n The nurse excepts you to figure out the steps on your own, and only tells you an overview of the process. " +
+                    "\n managing medication, conducting blood tests and lab work,"+
                     "\n interpreting ultrasound results and preparing for the surgical procedure itself.");
                 break;
             default:

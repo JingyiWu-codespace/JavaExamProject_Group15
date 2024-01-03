@@ -253,13 +253,7 @@ public enum Items {
         }
     },
     ITEM_WHEEL_CHAIR("wheelchair", "Wheelchairs are mobility devices used by individuals with limited or no ability to walk.",
-            new String[]{},false){
-        public void interaction(){
-            this.pickup();
-            Rooms.ROOM_ER.addExit(Rooms.ROOM_RECEPTION_DESK);
-            System.out.println("you got the wheelchair now");
-        }
-    },
+            new String[]{},false),
     ITEM_EYE_CHART("eye chart", "Eye charts are used by eye care professionals to measure visual acuity and assess vision.",
             new String[]{},false),
     ITEM_COMPUTER("computer", "Computers are used in healthcare for various purposes, including patient record management and medical research.",
@@ -285,7 +279,7 @@ public enum Items {
         }
     },
     ITEM_MOTHER_PATIENT("to-be-mother patient", "A pregnant woman with congenital heart disease and twins",
-            new String[]{"to-be-mother", "patient"}, false) {
+            new String[]{"to-be-mother", "patient"}, true) {
         @Override
         public void interaction() {
             if (!Items.ITEM_REGISTER_FORM.checkAccessibility()&&!Items.ITEM_WHEEL_CHAIR.checkAccessibility()) {
