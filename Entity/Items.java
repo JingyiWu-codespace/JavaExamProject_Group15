@@ -12,7 +12,7 @@ public enum Items {
             super.pickup();
             if (!this.isInBag()) return;
 
-            Rooms.ROOM_ER.setExits(Rooms.ROOM_ER_STORAGE);
+            Rooms.ROOM_ER.addExit(Rooms.ROOM_ER_STORAGE);
             System.out.println("you can now open the storage room and go there");
         }
     },
@@ -55,7 +55,7 @@ public enum Items {
         public void interaction(){
             this.pickup();
             System.out.println("you got the medicine now");
-            Rooms.ROOM_PHARMACY.setExits(Rooms.ROOM_ER,Rooms.ROOM_ICU);
+            Rooms.ROOM_PHARMACY.addExits(Rooms.ROOM_ER,Rooms.ROOM_ICU);
 
         }
     },
@@ -68,7 +68,7 @@ public enum Items {
             }
             this.pickup();
 
-            Rooms.ROOM_SURGERY.setExits(Rooms.ROOM_ER,Rooms.ROOM_ICU);
+            Rooms.ROOM_SURGERY.addExits(Rooms.ROOM_ER,Rooms.ROOM_ICU);
 
         }
     },
@@ -90,8 +90,8 @@ public enum Items {
             } catch (InterruptedException e) {
                 System.out.println("Interrupted while waiting.");
             }
-            Rooms.ROOM_LABORATORY.setExits();
-            Rooms.ROOM_LABORATORY.setExits();
+            Rooms.ROOM_LABORATORY.isolate();
+            Rooms.ROOM_LABORATORY.isolate();
             System.out.println("Finish !!" +
                     "\n The result need to be waited 10 minutes, you can continue next test  \n\n" );
             try {
@@ -104,8 +104,8 @@ public enum Items {
             }
             System.out.println("The Blood test report is out, please take it");
             this.pickup();
-            Rooms.ROOM_LABORATORY.setExits(Rooms.ROOM_Ultrasonic);
-            Rooms.ROOM_LABORATORY.setExits(Rooms.ROOM_OFFICE);
+            Rooms.ROOM_LABORATORY.addExit(Rooms.ROOM_Ultrasonic);
+            Rooms.ROOM_LABORATORY.addExit(Rooms.ROOM_OFFICE);
 
         }
     },
@@ -134,8 +134,8 @@ public enum Items {
             } catch (InterruptedException e) {
                 System.out.println("Interrupted while waiting.");
             }
-            Rooms.ROOM_Ultrasonic.setExits(Rooms.ROOM_OFFICE);
-            Rooms.ROOM_Ultrasonic.setExits(Rooms.ROOM_LABORATORY);
+            Rooms.ROOM_Ultrasonic.addExit(Rooms.ROOM_OFFICE);
+            Rooms.ROOM_Ultrasonic.addExit(Rooms.ROOM_LABORATORY);
 
 
             this.pickup();
@@ -161,7 +161,7 @@ public enum Items {
             new String[]{},false){
         public void interaction(){
             this.pickup();
-            Rooms.ROOM_ER.setExits(Rooms.ROOM_RECEPTION_DESK);
+            Rooms.ROOM_ER.addExit(Rooms.ROOM_RECEPTION_DESK);
             System.out.println("you got the wheelchair now");
         }
     },
@@ -242,8 +242,8 @@ public enum Items {
             //this.getOwningInventory(Items.DOCTOR).destroyItem(Items.DOCTOR);
             System.out.println("Doctor gave the prescription/plan form doctor, you can takeaway");
             //Player.player.getInventory().destroyItem(Items.REGISTER_FORM);
-            Rooms.ROOM_OFFICE.setExits(Rooms.ROOM_PHARMACY,Rooms.ROOM_ICU,Rooms.ROOM_SURGERY);
-            Rooms.ROOM_ICU.setExits(Rooms.ROOM_SURGERY,Rooms.ROOM_OFFICE,Rooms.ROOM_ER);
+            Rooms.ROOM_OFFICE.addExits(Rooms.ROOM_PHARMACY,Rooms.ROOM_ICU,Rooms.ROOM_SURGERY);
+            Rooms.ROOM_ICU.addExits(Rooms.ROOM_SURGERY,Rooms.ROOM_OFFICE,Rooms.ROOM_ER);
 
         }
     },
@@ -270,7 +270,7 @@ public enum Items {
                 System.out.println("Interrupted while waiting.");
             }
             System.out.println("Filled form then find the doctor.");
-            Rooms.ROOM_ER.setExits(Rooms.ROOM_OFFICE);
+            Rooms.ROOM_ER.addExit(Rooms.ROOM_OFFICE);
             //this.getOwningInventory(REGISTER_FORM).moveItem(REGISTER_FORM,Rooms.ROOM_RECEPTION_DESK.getInventory());
             ITEM_ER_PATIENT2.getOwningInventory().destroyItem(Items.ITEM_ER_PATIENT2);
 
@@ -300,7 +300,7 @@ public enum Items {
             }
             //this.getOwningInventory(Items.ER_PATIENT3).destroyItem(Items.ER_PATIENT3);
             System.out.println("Filled form.");
-            Rooms.ROOM_ER.setExits(Rooms.ROOM_Ultrasonic,Rooms.ROOM_LABORATORY);
+            Rooms.ROOM_ER.addExits(Rooms.ROOM_Ultrasonic,Rooms.ROOM_LABORATORY);
             System.out.println("Then you need accompany with patient to do blood tests and ultrasound tests.");
         }
     }

@@ -44,8 +44,8 @@ public class StoryTeller {
             case 0:
                 break;
             case 1:
-                ROOM_ER.setExits(ROOM_RECEPTION_DESK);
-                ROOM_RECEPTION_DESK.setExits(ROOM_ER, ROOM_PHARMACY, ROOM_OFFICE);
+                ROOM_ER.addExit(ROOM_RECEPTION_DESK);
+                ROOM_RECEPTION_DESK.addExits(ROOM_ER, ROOM_PHARMACY, ROOM_OFFICE);
                 break;
             case 2:
                 break;

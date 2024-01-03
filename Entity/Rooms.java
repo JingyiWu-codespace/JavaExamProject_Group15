@@ -39,14 +39,46 @@ public enum Rooms {
         new String[]{"office","doctionoffice","df"}, new Items[]{Items.ITEM_DOCTOR,Items.ITEM_COMPUTER, Items.ITEM_PRESCRIPTION});
 
     static {
-        ROOM_ER_STORAGE.setExits(ROOM_ER);
-        ROOM_ER.setExits(ROOM_RECEPTION_DESK);
-        ROOM_RECEPTION_DESK.setExits(ROOM_ER, ROOM_PHARMACY);
+        ROOM_ER_STORAGE.addExit(ROOM_ER);
+        ROOM_ER.addExit(ROOM_RECEPTION_DESK);
+        ROOM_RECEPTION_DESK.addExit(ROOM_ER);
+        ROOM_RECEPTION_DESK.addExit(ROOM_PHARMACY);
     }
 
-    public void setExits(Rooms... exits) {
-        this.entityData.exits = exits;
+    public void addExit(Rooms exit) {
+        Rooms[] newExits = new Rooms[this.entityData.exits.length + 1];
+        System.arraycopy(this.entityData.exits, 0, newExits, 0, this.entityData.exits.length);
+        newExits[this.entityData.exits.length] = exit;
+        this.entityData.setExits(newExits);
     }
+
+    public void addExits(Rooms... exits) {
+        for (Rooms ex : exits)
+            this.addExit(ex);
+    }
+
+    public void removeExit(Rooms exit) {
+        Rooms[] newExits = new Rooms[this.entityData.exits.length - 1];
+        int i = 0;
+        for (Rooms room : this.entityData.exits) {
+            if (room == exit) continue;
+            newExits[i] = room;
+            i++;
+        }
+        this.entityData.setExits(newExits);
+    }
+
+    public void removeExits(Rooms... exits) {
+        for (Rooms ex : exits)
+            this.removeExit(ex);
+    }
+
+    public void isolate() {
+        for (Rooms exit : this.entityData.exits)
+            exit.removeExit(this);
+        this.entityData.setExits(new Rooms[]{});
+    }
+
     public Rooms[] getExits() {
         return this.entityData.exits;
     }
