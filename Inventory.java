@@ -86,7 +86,9 @@ public class Inventory {
         }
         System.out.println("ERROR > item not found in inventory");
     }
-
+    /*
+    rest the itemlist
+     */
     public void resetInventory() {
         this.itemList.clear();
     }

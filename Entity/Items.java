@@ -25,6 +25,10 @@ public enum Items {
             System.out.println("you also unlocked the storage room door and can go there");
         }
     },
+    /**
+     * Item bandage representing bandage.Can be picked
+     * It can be used to cure bleeding patient
+     */
     ITEM_BANDAGE("bandage", "you need take this to the patient in the ER room",
             new String[]{}, false) {
         public void interaction(){
@@ -32,6 +36,11 @@ public enum Items {
             System.out.println("you got the bandage now");
         }
     },
+    /**
+     * patient in part 1, need bandage
+     * you only get bandage then interact/talk the patient
+     * also means part 1 game finished, reset player inventory and room items
+     */
     ITEM_ER_PATIENT("Bleeding Patient", "the patient is bleeding. give him the bandage, he'll do the rest.",
             new String[]{}, true) {
         @Override
@@ -52,14 +61,37 @@ public enum Items {
     },
 
     // **************** part two ****************
+    /**
+     * Represents a registration form in the game.
+     * This form is essential for checking patient information,
+     * a key step in advancing through part two of the game.
+     */
     ITEM_REGISTER_FORM("registration form","you need this to registration form to check patients information",
             new String[]{"register form", "form"}, false),
+    /**
+     * Represents a filled-out registration form.
+     * This completed form signifies the player's progress in gathering necessary information
+     * about patients and is crucial for moving forward in the game.
+     */
     ITEM_FILLED_REGISTER_FORM("filled registration form","completed registration form",
             new String[]{"filled register form", "filled form"}, false),
+    /**
+     * Prescription item in the game.
+     * Used by healthcare professionals to document patient information and treatment plans.
+     * Necessary for obtaining medicine from the pharmacy. only get it from doctor
+     */
     ITEM_PRESCRIPTION("prescription", " Used by healthcare professionals to document patient information and treatment plans.",
             new String[]{},false),
+    /**
+     * Represents medicine in the game.
+     * This item is needed for treating patients and is a crucial part of the healthcare simulation.
+     */
     ITEM_MEDICINE("medicine","patient need medicine, like antibiotic",
             new String[]{"drug"},false),
+    /**
+     * Represents a pharmacy clerk in the game.
+     * Interaction with this character is necessary for obtaining medicine after presenting a prescription.
+     */
     ITEM_PHARMACY_CLERK("pharmacy clerk","The pharmacy clerk is waiting for your prescription",
             new String[]{"clerk"},true){
         @Override
@@ -76,7 +108,11 @@ public enum Items {
             ITEM_PRESCRIPTION.removeFromWorld();
         }
     },
+
     /**
+     * Represents a nurse character in the game.
+     * The nurse is a key figure in part two, waiting for medicine to treat a patient.
+     * Interaction with this character marks the completion of a significant phase in the game.
      * Nurse indicated part 2 end, so reset this item
      */
     ITEM_NURSE("nurse","The nurse is waiting for your medicine",
@@ -130,6 +166,11 @@ public enum Items {
     },
 
     // **************** mix ****************
+    /**
+     * Represents the doctor character in the game.
+     * The doctor is essential for providing prescriptions based on completed patient registration forms,
+     * advancing the narrative in part two of the game.
+     */
     ITEM_DOCTOR("Doctor", "the doctor (hopefully) gives the correct prescription for patients",
             new String[]{"dr", "doc"}, true) {
         @Override
@@ -162,6 +203,10 @@ public enum Items {
     },
 
     // **************** part three ****************
+    /**
+     * Represents a bloody bistoury, a surgical tool in the game.
+     * This item needs to be disinfected before use, symbolizing realistic hospital procedures.
+     */
     ITEM_BLOODY_BISTOURY("bloody bistoury","surgery tools, need to be disinfect with the alcohol in the ward",
             new String[]{"bloody knife"},false){
         @Override
@@ -180,6 +225,11 @@ public enum Items {
             this.interaction();
         }
     },
+    /**
+     * Represents a blood test result in the game.
+     * This item is essential for analyzing a patient's condition,
+     * contributing to the diagnosis and treatment process in part three.
+     */
     ITEM_TEST_RESULT("blood test","the result of patient blood analysis ",
             new String[]{"result","report","blood_test"},false){
         public void interaction() {
@@ -214,6 +264,11 @@ public enum Items {
             this.pickup();
         }
     },
+    /**
+     * Represents an ultrasound report in the game.
+     * This item is used for creating real-time images of internal organs,
+     * vital for diagnosing conditions in pregnant patients.
+     */
     ITEM_ULTRA_REPORT("ultra test","This technique allows healthcare professionals to create real-time images of internal organs, tissues, and developing fetuses during pregnancy. ",
             new String[]{},false){
         public void interaction() {
@@ -236,8 +291,18 @@ public enum Items {
             System.out.println("Finish !!");
         }
     },
+    /**
+     * Represents a wheelchair in the game.
+     * Wheelchairs are crucial mobility aids for patients who are unable to walk,
+     * underlining the game's attention to realistic hospital scenarios.
+     */
     ITEM_WHEEL_CHAIR("wheelchair", "Wheelchairs are mobility devices used by individuals with limited or no ability to walk.",
             new String[]{},false),
+    /**
+     * Represents a surgeon character in the game.
+     * The surgeon is a key figure in part three, awaiting the preparation of surgery
+     * and necessary documents for proceeding.
+     */
     ITEM_SURGEON("surgeon","The surgeon is waiting for you to prepare for surgery",
             new String[]{},true){
         @Override
@@ -261,6 +326,11 @@ public enum Items {
             ITEM_MEDICINE.removeFromWorld();
         }
     },
+    /**
+     * Represents a to-be-mother patient in the game.
+     * This character is a pregnant woman with a complex medical background,
+     * introducing unique challenges in the game's narrative.
+     */
     ITEM_MOTHER_PATIENT("to-be-mother patient", "A pregnant woman with congenital heart disease and twins",
             new String[]{"to-be-mother", "patient"}, true) {
         @Override
@@ -300,10 +370,24 @@ public enum Items {
             Player.player.getInventory().forcePlaceItem(ITEM_FILLED_REGISTER_FORM);
         }
     },
+    /**
+     * Represents disinfecting alcohol in the game.
+     * This item is used for sterilizing medical equipment and supplies,
+     * emphasizing the importance of hygiene and safety in medical settings.
+     */
     ITEM_ALCOHOL("disinfecting alcohol","Disinfectors are used to sterilize medical equipment and supplies.",
             new String[]{"alcohol", "disinfector"},false),
+    /**
+     * Represents a clean bistoury, a ready-to-use surgical tool in the game.
+     * This item is vital for surgical procedures, reflecting the game's medical theme.
+     */
     ITEM_BISTOURY("bistoury","surgery tools, clean and ready to use",
             new String[]{"knife"},false),
+    /**
+     * Represents elevator buttons in the game.
+     * This item allows players to choose different floors within the game setting,
+     * symbolizing the mobility and accessibility in a hospital environment.
+     */
     ITEM_BUTTONBAR("elevator buttons","you can use it to choose the floor you want to go",
             new String[]{"buttons", "button", "keypad"},true){
         public void interaction(){

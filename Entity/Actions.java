@@ -121,7 +121,7 @@ public enum Actions {
     /**
      * interact with item, not pickup and take,use blood test, ultra test
      */
-    ACTION_INTERACT("interact", "Interact with an item", new String[]{"use", "open", "talk"}) {
+    ACTION_INTERACT("interact", "Interact with an item", new String[]{"use", "open", "talk","do"}) {
         @Override
         public void executeAction(Items item) {
             if (item.isInBag() || item.isInRoom())
@@ -185,6 +185,11 @@ public enum Actions {
             for (Items item : player.getInventory().getItemList())
                 System.out.println("     - " + item.getName());
         }
+        /**
+         * print action's aliases
+         *
+         * @param action
+         */
         @Override
         public void executeAction(Actions action) {
             action.printInformation();
@@ -200,6 +205,15 @@ public enum Actions {
     ACTION_QUIT("quit the game", "quits the game, who would have thought", new String[]{"quit"})
     ;
 
+    /**
+     * Executes an action based on the provided item and room.
+     * If both item and room are null, executes the action without any context.
+     * If only one is provided, executes the action in context of the item or room.
+     *
+     * @param item The item involved in the action, if applicable.
+     * @param room The room involved in the action, if applicable.
+     */
+
     public void executeAction(Items item, Rooms room){
         if (item==null && room==null)
             executeAction();
@@ -211,12 +225,27 @@ public enum Actions {
             System.out.println("ERROR: BOTH ROOM AND ITEM ARE OBJECTS");
     }
 
+    /**
+     * Executes an action in the context of a specific item.
+     *
+     * @param item The item involved in the action.
+     */
+
     public void executeAction(Items item){
         System.out.println("doing "+this.getName() + ": I cant figure anything to do with " + item.getName());
     }
+
+    /**
+     * Executes an action in the context of a specific room.
+     *
+     * @param room The room involved in the action.
+     */
     public void executeAction(Rooms room){
         System.out.println("doing "+this.getName() + ": what am I suppose to do to " + room.getName());
     }
+    /**
+     * Executes an action that does not require a specific item or room context.
+     */
     public void executeAction(){
         System.out.println("doing "+this.getName() + ":this action in isolation is not possible");
     }
@@ -247,8 +276,18 @@ public enum Actions {
     Actions(String name, String description, String[] aliases) {
         this.entityData = new ActionDataHolder(name, description, aliases);
     }
-
+    /**
+     * ActionDataHolder class used to hold data related to actions.
+     * This class manages the name, description, and aliases of an action.
+     */
     static class ActionDataHolder extends BaseEntityDataHolder {
+        /**
+         * Constructs an ActionDataHolder with the specified name, description, and aliases.
+         *
+         * @param name The name of the action.
+         * @param description A brief description of the action.
+         * @param aliases Alternative names or shortcuts for the action.
+         */
         ActionDataHolder(String name, String description, String[] aliases) {
             super(name, description, aliases);
         }
