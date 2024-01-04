@@ -26,26 +26,26 @@ public enum Actions {
 //            System.out.println("finished disinfected, you can pickup");
 //        }
 //    },
-    ACTIONS_ELEVATOR("elevator","user elevator to specific floor",new String[]{"lift"}) {
-        @Override
-        public void executeAction() {
-            System.out.println("Items are in your bag:");
-            for (Items temp : player.getInventory().getItemList()) {
-                System.out.println("  - '" + temp.getName()+"'");
-                System.out.println("       details: " + temp.getDescription());
-            }
-        }
-    },
-    ACTIONS_STAIR("stair","user stair to specific floor",new String[]{"steps"}) {
-        @Override
-        public void executeAction() {
-            System.out.println("Items are in your bag:");
-            for (Items temp : player.getInventory().getItemList()) {
-                System.out.println("  - '" + temp.getName()+"'");
-                System.out.println("       details: " + temp.getDescription());
-            }
-        }
-    },
+//    ACTIONS_ELEVATOR("elevator","user elevator to specific floor",new String[]{"lift"}) {
+//        @Override
+//        public void executeAction() {
+//            System.out.println("Items are in your bag:");
+//            for (Items temp : player.getInventory().getItemList()) {
+//                System.out.println("  - '" + temp.getName()+"'");
+//                System.out.println("       details: " + temp.getDescription());
+//            }
+//        }
+//    },
+//    ACTIONS_STAIR("stair","user stair to specific floor",new String[]{"steps"}) {
+//        @Override
+//        public void executeAction() {
+//            System.out.println("Items are in your bag:");
+//            for (Items temp : player.getInventory().getItemList()) {
+//                System.out.println("  - '" + temp.getName()+"'");
+//                System.out.println("       details: " + temp.getDescription());
+//            }
+//        }
+//    },
     // ************************* GENERIC COMMANDS ***********************************
     ACTION_INVENTORY_CHECK("inventory", "Check your bag",
             new String[]{"inv", "bag", "backpack"}) {
@@ -164,6 +164,12 @@ public enum Actions {
         public void executeAction() {
             System.out.println("type help followed by the thing you want to know more about");
             System.out.println("this entities are available here:");
+
+            System.out.println(" - following commands are available:");
+            System.out.print("  ");
+            for (Actions action : Actions.values())
+                System.out.print(" " + action.getName()+",");
+            System.out.println("\n");
 
             if(player.getCurrentRoom().getExits().length>0)
                 System.out.println(" - accessible rooms");
