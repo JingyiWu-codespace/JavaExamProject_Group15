@@ -13,7 +13,7 @@ public enum Rooms {
     ROOM_ER("Emergency Room", "the place where you don't wanna be in",
         new String[]{"emergency", "er"}, new Items[]{Items.ITEM_ER_STORAGE_KEY}),
     ROOM_ER_STORAGE("ER Storage room", "the ER storage room",
-        new String[]{"storage room"}, new Items[]{Items.ITEM_BANDAGE, Items.ITEM_WHEEL_CHAIR}),
+        new String[]{"storage room"}, new Items[]{Items.ITEM_BANDAGE}),
 
     // Floor 1
     ROOM_LABORATORY("laboratory","Perform tests like blood analysis to obtain vital health information about patients.",
