@@ -154,15 +154,20 @@ public enum Items {
     // **************** part three ****************
     ITEM_BLOODY_BISTOURY("bloody bistoury","surgery tools, need to be disinfect with the alcohol in the ward",
             new String[]{"bloody knife"},false){
+        @Override
         public void interaction(){
             if(!ITEM_ALCOHOL.checkAccessibility()){
-                System.out.println("you should take the patient to the surgeon");
+                System.out.println("this knifes are bloody, better not touch them without disinfecting them with alcohol first");
                 return;
             }
-            System.out.println("you got the bistoury now");
+            System.out.println("you got the clean bistoury now");
             this.removeFromWorld();
             ITEM_ALCOHOL.removeFromWorld();
             Player.player.getInventory().forcePlaceItem(ITEM_BISTOURY);
+        }
+        @Override
+        public void pickup(){
+            this.interaction();
         }
     },
     ITEM_TEST_RESULT("blood test","the result of patient blood analysis ",
@@ -224,19 +229,23 @@ public enum Items {
     ITEM_WHEEL_CHAIR("wheelchair", "Wheelchairs are mobility devices used by individuals with limited or no ability to walk.",
             new String[]{},false),
     ITEM_SURGEON("surgeon","The surgeon is waiting for you to prepare for surgery",
-            new String[]{},false){
+            new String[]{},true){
         @Override
         public void interaction() {
             if (!(ITEM_TEST_RESULT.checkAccessibility()
                     && ITEM_ULTRA_REPORT.checkAccessibility()
-                    && ITEM_MEDICINE.checkAccessibility()&&ITEM_ALCOHOL.checkAccessibility())
+                    && ITEM_MEDICINE.checkAccessibility()
+                    && ITEM_BISTOURY.checkAccessibility())
             ) {
                 System.out.println("the surgeon tells you to get 3 documents first, test result, ultra report and drugs,you need disinfect the bistory");
                 return;
             }
             System.out.println("You give the documents to the surgeon\n The surgeon takes the patient. \n\n" );
 
-            ITEM_MOTHER_PATIENT.getOwningInventory().moveItem(ITEM_MOTHER_PATIENT, Rooms.ROOM_SURGERY.getInventory());
+//            ITEM_MOTHER_PATIENT.getOwningInventory().moveItem(ITEM_MOTHER_PATIENT, Rooms.ROOM_SURGERY.getInventory());
+            ITEM_MOTHER_PATIENT.removeFromWorld();
+            Rooms.ROOM_SURGERY.getInventory().forcePlaceItem(ITEM_MOTHER_PATIENT);
+
             ITEM_TEST_RESULT.removeFromWorld();
             ITEM_ULTRA_REPORT.removeFromWorld();
             ITEM_MEDICINE.removeFromWorld();

@@ -18,6 +18,10 @@ public enum Actions {
     ACTION_DROP("drop", "leave something in room", new String[]{"put", "leave away"}) {
         @Override
         public void executeAction(Items item) {
+            if (item == Items.ITEM_MOTHER_PATIENT){
+                System.out.println("you can't do that. the poor woman asks you why you leaving her, she is in pain and is scared");
+                return;
+            }
             Rooms currentRoom = player.getCurrentRoom();
             Inventory roomInventory = currentRoom.getInventory();
 

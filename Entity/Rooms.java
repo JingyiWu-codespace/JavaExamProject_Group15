@@ -7,7 +7,7 @@ public enum Rooms {
     ROOM_RECEPTION_DESK("Reception Desk"," serving as the first point of contact for patients, visitors, and anyone entering the hospital.",
             new String[]{"info desk", "reception"},new Items[]{Items.ITEM_REGISTER_FORM}),
     ROOM_OFFICE("Doctor's Office", "You should communicate with doctor then get prescription instead of take the prescription directly .",
-            new String[]{"doctor office","office"}, new Items[]{Items.ITEM_DOCTOR, Items.ITEM_PRESCRIPTION}),
+            new String[]{"doctor office","office"}, new Items[]{Items.ITEM_DOCTOR}),
     ROOM_PHARMACY("Pharmacy","dispensing prescribed medications to patients.",
             new String[]{"medicine room", "drug store"},new Items[]{Items.ITEM_PHARMACY_CLERK}),
     ROOM_ER("Emergency Room", "the place where you don't wanna be in",
