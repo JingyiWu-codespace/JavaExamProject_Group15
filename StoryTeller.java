@@ -46,6 +46,7 @@ public class StoryTeller {
             case 0:
                 ROOM_ER.removeExit(ROOM_RECEPTION_DESK);
                 ROOM_ER.getInventory().forcePlaceItem(Items.ITEM_ER_PATIENT);
+                ROOM_ER_STORAGE.getInventory().forcePlaceItem(Items.ITEM_BANDAGE);
                 break;
             case 1:
                 ROOM_ER.getInventory().forcePlaceItem(Items.ITEM_PATIENT_MEDICINE);

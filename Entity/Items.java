@@ -318,6 +318,7 @@ public enum Items {
                     Rooms.ROOM_SURGERY.addExit(Rooms.ROOM_ELEVATOR);
                     break;
             }
+            System.out.println("you are now in floor " + floor);
         }
     },
 //    ITEM_XRAY_IMAGE("X-ray image","X-ray images are extensively used in medical settings to visualize the internal structures of the human body. ",
