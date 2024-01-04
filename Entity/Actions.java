@@ -15,11 +15,22 @@ public enum Actions {
                 temp.printInformation();
         }
     },
+    ACTION_DROP("drop", "leave something in room", new String[]{"put", "leave away"}) {
+        @Override
+        public void executeAction(Items item) {
+            Rooms currentRoom = player.getCurrentRoom();
+            Inventory roomInventory = currentRoom.getInventory();
+
+            player.getInventory().moveItem(item, roomInventory);
+
+            System.out.println(item + "has been placed in" + " " + currentRoom.getName());
+        }
+    },
     ACTIONS_MAP("maps","the layout of hospital",new String[]{"map"}) {
         @Override
         public void executeAction() {
             System.out.println(
-                " --- floor 1 --- " +
+                " --- floor 0 --- " +
                 "\n  - 'reception desk -> leads to'"+
                 "\n          - 'elevator'"+
                 "\n          - 'doctor's office'"+
@@ -28,7 +39,7 @@ public enum Actions {
                 "\n                  - 'ER storage room'"
             );
             System.out.println(
-                "\n --- floor 2 --- " +
+                "\n --- floor 1 --- " +
                 "\n  - 'hallway -> leads to'"+
                 "\n          - 'elevator'"+
                 "\n          - 'ward'"+
@@ -36,7 +47,7 @@ public enum Actions {
                 "\n          - 'lab'"
             );
             System.out.println(
-                "\n --- floor 3 --- " +
+                "\n --- floor 2 --- " +
                 "\n  - 'surgery room'"
             );
         }

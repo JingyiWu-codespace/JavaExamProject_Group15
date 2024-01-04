@@ -165,7 +165,7 @@ public enum Items {
             Player.player.getInventory().forcePlaceItem(ITEM_BISTOURY);
         }
     },
-    ITEM_TEST_RESULT("test result","the result of patient blood analysis ",
+    ITEM_TEST_RESULT("blood test","the result of patient blood analysis ",
             new String[]{"result","report","blood_test"},false){
         public void interaction() {
             if (!ITEM_MOTHER_PATIENT.checkAccessibility()) {
@@ -199,7 +199,7 @@ public enum Items {
             this.pickup();
         }
     },
-    ITEM_ULTRA_REPORT("ultra report","This technique allows healthcare professionals to create real-time images of internal organs, tissues, and developing fetuses during pregnancy. ",
+    ITEM_ULTRA_REPORT("ultra test","This technique allows healthcare professionals to create real-time images of internal organs, tissues, and developing fetuses during pregnancy. ",
             new String[]{},false){
         public void interaction() {
             if (!ITEM_MOTHER_PATIENT.checkAccessibility()) {
@@ -224,15 +224,14 @@ public enum Items {
     ITEM_WHEEL_CHAIR("wheelchair", "Wheelchairs are mobility devices used by individuals with limited or no ability to walk.",
             new String[]{},false),
     ITEM_SURGEON("surgeon","The surgeon is waiting for you to prepare for surgery",
-            new String[]{},true){
+            new String[]{},false){
         @Override
         public void interaction() {
             if (!(ITEM_TEST_RESULT.checkAccessibility()
                     && ITEM_ULTRA_REPORT.checkAccessibility()
-                    && ITEM_MEDICINE.checkAccessibility()
-                    && ITEM_BISTOURY.checkAccessibility())
+                    && ITEM_MEDICINE.checkAccessibility()&&ITEM_ALCOHOL.checkAccessibility())
             ) {
-                System.out.println("the surgeon tells you to get 3 documents first, test result, ultra report and drugs");
+                System.out.println("the surgeon tells you to get 3 documents first, test result, ultra report and drugs,you need disinfect the bistory");
                 return;
             }
             System.out.println("You give the documents to the surgeon\n The surgeon takes the patient. \n\n" );
