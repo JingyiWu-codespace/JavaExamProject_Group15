@@ -1,7 +1,11 @@
 package JavaExamProject_Group15.Entity;
 
 import JavaExamProject_Group15.Inventory;
-
+/**
+ * Enum representing various Rooms in the game.
+ * Each Room have specific items and can be interacted with
+ * in different ways depending on the game's context.
+ */
 public enum Rooms {
     // Floor 0
     ROOM_RECEPTION_DESK("Reception Desk"," serving as the first point of contact for patients, visitors, and anyone entering the hospital.",
@@ -30,18 +34,6 @@ public enum Rooms {
     // Floor 2
     ROOM_SURGERY("Surgery Room", "sterile environment where surgical procedures are performed by medical professionals.",
                          new String[]{"surgery"}, new Items[]{Items.ITEM_BLOODY_BISTOURY, Items.ITEM_SURGEON})
-//    ROOM_REHABILITATION("Rehabilitation Room", "are equipped for physical and occupational therapy to aid patients in their recovery and mobility.",
-//        new String[]{}, new Items[]{}),
-//    ROOM_ENT("ENT Medical Area", "are specialized for examinations and treatments related to ear, nose, and throat conditions.",
-//        new String[]{"ent", "eye","nose","throat"}, new Items[]{Items.ITEM_EYE_CHART}),
-//    ROOM_OBSTETRICS("Obstetrics Medicial Area", "designed for childbirth and maternity care, ensuring a safe and comfortable environment for expectant mothers.",
-//        new String[]{"baby room", "enfant"}, new Items[]{Items.ITEM_CRADLE, Items.ITEM_INCUBATOR}),
-//    ROOM_GYNECOLOGY("Gynecology Medicial Area", "dedicated to women's health and provide services related to gynecological examinations and treatments.",
-//        new String[]{}, new Items[]{}),
-//    ROOM_RADIOLOGY("x-ray","Conduct imaging tests, acquire diagnostic information, for example X-ray analysis.",
-//        new String[]{"xray"},new Items[]{Items.ITEM_XRAY_IMAGE}),
-//    ROOM_ICU("ICU", "An intensive care unit (ICU) room is equipped with advanced monitoring and life support equipment for critically ill patients.",
-//        new String[]{}, new Items[]{}),
         ;
 
     static {

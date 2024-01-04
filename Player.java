@@ -4,13 +4,17 @@ import JavaExamProject_Group15.Entity.Items;
 import JavaExamProject_Group15.Entity.Rooms;
 
 /**
- * Player class represents a player in the game.
- * It maintains the current room and inventory of the player.
+ * The Player enum represents the player in the game. It maintains the state of the player,
+ * including their current location (room) and their inventory of items.
+ * This enum is designed as a singleton to ensure only one instance of the player exists in the game.
  */
 public enum Player {
     player();
+    /**
+     *  constructor for Player. Initializes the player's starting room and inventory.
+     */
     Player() {
-        // 默认玩家开始在 "lobby"
+        // The player starts in the ER room by default.
         this.currentRoom = Rooms.ROOM_ER; //default start in Lobby
         this.inventory = new Inventory(new Items[]{}); //default empty inventory
     }

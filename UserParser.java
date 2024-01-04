@@ -5,12 +5,20 @@ import JavaExamProject_Group15.Entity.Items;
 import JavaExamProject_Group15.Entity.Rooms;
 
 import java.util.*;
-
+/**
+ * The UserParser class is responsible for interpreting user input during the game.
+ * It converts user input strings into game actions, items, and rooms, facilitating
+ */
 public class UserParser {
     private final Map<String, Items> itemWordMap;
     private final Map<String, Rooms> roomWordMap;
     private final Map<String, Actions> actionWordMap;
     private final Scanner scanner = new Scanner(System.in);
+    /**
+     * Waits for and processes user input, converting it into actionable game data.
+     *
+     * @return A ParsedDataHolder object containing the parsed action, item, and room data.
+     */
     public ParsedDataHolder getUserInput() {
         ParsedDataHolder parsedContent = null;
         while (parsedContent == null) {
@@ -26,7 +34,12 @@ public class UserParser {
         }
         return parsedContent;
     }
-
+    /**
+     * Parses a list of words from user input to identify game actions, items, and rooms.
+     *
+     * @param wordlist The list of words to parse.
+     * @return A ParsedDataHolder object if parsing is successful, null otherwise.
+     */
     public ParsedDataHolder parseUserString(List<String> wordlist) {
         Actions action = null;
         Items item = null;
@@ -83,7 +96,11 @@ public class UserParser {
             System.out.println("Unrecognized entity or room");
         return null;
     }
-
+    /**
+     * Prompts the user to decide whether to continue the game.
+     *
+     * @return true if the user wants to continue, false otherwise.
+     */
     public boolean askToContinue() {
         System.out.println("Would you like to continue? (y/n)");
         String input = this.scanner.nextLine().toLowerCase();
@@ -93,7 +110,11 @@ public class UserParser {
         }
         return input.equals("y") || input.equals("yes");
     }
-
+    /**
+     * Asks the user which chapter they would like to start from.
+     *
+     * @return An integer representing the chosen starting chapter.
+     */
     public int askWhatChapter() {
         // prompt user for chapter
         System.out.println("What chapter would you like to start at?");
@@ -121,7 +142,12 @@ public class UserParser {
             this.roomCode = roomCode;
         }
     }
-
+    /**
+     * Constructs a UserParser and initializes maps to associate string representations
+     * with game entities like actions, items, and rooms. It populates these maps using
+     * the aliases provided in the enums. The constructor also checks for duplicate keys
+     * across these maps and reports them if the debug flag is set in the Player class.
+     */
     public UserParser() {
         // Initialize the maps   ******************************
         this.itemWordMap = new HashMap<String, Items>();

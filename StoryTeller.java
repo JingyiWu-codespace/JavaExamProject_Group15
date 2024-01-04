@@ -4,10 +4,18 @@ import JavaExamProject_Group15.Entity.Items;
 import JavaExamProject_Group15.Entity.Rooms;
 
 import static JavaExamProject_Group15.Entity.Rooms.*;
-
+/**
+ * The StoryTeller class manages the narrative and progression of the game's chapters.
+ * It controls the flow of the story, checks for chapter completion, and sets up the environment
+ * and tasks for each chapter.
+ */
 public class StoryTeller {
     private int currentChapter;
-
+    /**
+     * Constructs a StoryTeller with a specified starting chapter.
+     *
+     * @param startingChapter The chapter number where the story begins.
+     */
     public StoryTeller(int startingChapter) {
         this.currentChapter = startingChapter;
     }
@@ -16,11 +24,19 @@ public class StoryTeller {
         System.out.println("You have completed chapter " + this.currentChapter + "!");
         currentChapter++;
     }
-
+    /**
+     * Checks if the player has reached the victory condition, typically by completing all chapters.
+     *
+     * @return true if the victory condition is met, otherwise false.
+     */
     public boolean checkVictory() {
         return this.currentChapter == 3;
     }
-
+    /**
+     * Determines if the current chapter is complete based on game-specific conditions.
+     *
+     * @return true if the current chapter is complete, otherwise false.
+     */
     public boolean chapterComplete() {
         switch (this.currentChapter) {
             case 0:
@@ -36,7 +52,10 @@ public class StoryTeller {
         return false;
     }
 
-
+    /**
+     * Begins the current chapter by setting up the environment and narrating the story.
+     * This method prepares the game state for each chapter and prints the narrative introduction.
+     */
     public void beginChapter() {
         this.narrativePrint();
 //        Player.player.getInventory().resetInventory();
@@ -60,7 +79,10 @@ public class StoryTeller {
                 System.out.println("Error: beginChapter() called with invalid chapter number");
         }
     }
-
+    /**
+     * Prints the narrative for the current chapter.
+     * This method provides story context for the player.
+     */
     private void narrativePrint() {
         switch (this.currentChapter) {
             case 0:

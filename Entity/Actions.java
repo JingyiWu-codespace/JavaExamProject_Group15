@@ -4,8 +4,18 @@ import JavaExamProject_Group15.Inventory;
 
 import static JavaExamProject_Group15.Player.player;
 
+/**
+ * Represents the various actions that can be performed in the game.
+ * Each action is associated with a command name, description, and aliases.
+ * Actions define different behaviors depending on the context, such as
+ * checking inventory, dropping items, or moving between rooms.
+ */
 public enum Actions {
     // ************************* GENERIC COMMANDS ***********************************
+    /**
+     * Action to check the player's inventory.
+     * It lists all items in the player's bag.
+     */
     ACTION_INVENTORY_CHECK("inventory", "Check your bag",
             new String[]{"inv", "bag", "backpack"}) {
         @Override
@@ -15,6 +25,11 @@ public enum Actions {
                 temp.printInformation();
         }
     },
+    /**
+     * Action to drop an item from the inventory into the current room.
+     *
+     * @param item The item to be dropped.
+     */
     ACTION_DROP("drop", "leave something in room", new String[]{"put", "leave away"}) {
         @Override
         public void executeAction(Items item) {
@@ -30,6 +45,9 @@ public enum Actions {
             System.out.println(item + "has been placed in" + " " + currentRoom.getName());
         }
     },
+    /**
+     * Action to check layout of hospital
+     */
     ACTIONS_MAP("maps","the layout of hospital",new String[]{"map"}) {
         @Override
         public void executeAction() {
@@ -56,6 +74,9 @@ public enum Actions {
             );
         }
     },
+    /**
+     * Check the current room and items in it
+     */
     ACTION_ROOM_CHECK("room", "Check the current room and items in it",
             new String[]{"where am I", "location", "room check", "look around"}) {
         @Override
@@ -68,6 +89,9 @@ public enum Actions {
                 temp.printInformation();
         }
     },
+    /**
+     * Move action
+     */
     ACTION_GO("go", "Move to a different room",
             new String[]{"move", "walk", "run", "sprint", "enter"}) {
         @Override
@@ -82,6 +106,9 @@ public enum Actions {
             System.out.println("You can't go there, either some important item is missing or its simply not accessible from here");
         }
     },
+    /**
+     * Show possible rooms to go to
+     */
     ACTION_EXITS("exits", "Show possible rooms to go to", new String[]{"exit list", "exit", "where to go"}) {
         @Override
         public void executeAction() {
@@ -91,6 +118,9 @@ public enum Actions {
                 room.printInformation();
         }
     },
+    /**
+     * interact with item, not pickup and take,use blood test, ultra test
+     */
     ACTION_INTERACT("interact", "Interact with an item", new String[]{"use", "open", "talk"}) {
         @Override
         public void executeAction(Items item) {
@@ -100,12 +130,18 @@ public enum Actions {
                 System.out.println("the entity is not accessible");
         }
     },
+    /**
+     * pickup item, then put into player inventory
+     */
     ACTION_GRAB("grab", "Interact with an item", new String[]{"get", "take", "pickup"}) {
         @Override
         public void executeAction(Items item) {
             item.pickup();
         }
     },
+    /**
+     * Show available actions and their descriptions
+     */
     ACTION_HELP("help", "Show available actions and their descriptions",
             new String[]{"h", "commands", "what can I do", "look"}){
         @Override
@@ -157,18 +193,10 @@ public enum Actions {
                 System.out.println("            - " + alias);
         }
     },
-    //    ACTION_DROP("drop","leave something in room",new String[]{"put", "leave away"}) {
-//        @Override
-//        public void executeAction(Items item) {
-//            Rooms currentRoom = player.getCurrentRoom();
-//            Inventory roomInventory = currentRoom.getInventory();
-//
-//            player.getInventory().moveItem(item, roomInventory);
-//
-//            System.out.println("the item" + item + "has been placed in" + currentRoom.getName());
-//        }
-//    },
     // ************************* SPECIAL COMMANDS ***********************************
+    /**
+     * stop game directly
+     */
     ACTION_QUIT("quit the game", "quits the game, who would have thought", new String[]{"quit"})
     ;
 

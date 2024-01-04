@@ -4,9 +4,16 @@ import JavaExamProject_Group15.Player;
 import JavaExamProject_Group15.Inventory;
 
 import java.util.Scanner;
-
+/**
+ * Enum representing various items in the game. Each item has specific behaviors and can be interacted with
+ * in different ways depending on the game's context.
+ */
 public enum Items {
     // **************** part one ****************
+    /**
+     * Item representing a key to the ER storage room.
+     * It can be used to unlock the storage room where the bandage is located.
+     */
     ITEM_ER_STORAGE_KEY("ER storage room key", "use it to open the storage room where the bandage is in",
             new String[]{"er storage key", "storage key", "storage keys", "storage room keys", "storage room key"}, false) {
         @Override
@@ -69,6 +76,9 @@ public enum Items {
             ITEM_PRESCRIPTION.removeFromWorld();
         }
     },
+    /**
+     * Nurse indicated part 2 end, so reset this item
+     */
     ITEM_NURSE("nurse","The nurse is waiting for your medicine",
             new String[]{},true){
         @Override
@@ -329,51 +339,6 @@ public enum Items {
             System.out.println("you are now in floor " + floor);
         }
     },
-//    ITEM_XRAY_IMAGE("X-ray image","X-ray images are extensively used in medical settings to visualize the internal structures of the human body. ",
-//            new String[]{},false){
-//        public void interaction(){
-//            this.pickup();
-//            System.out.println("you got the X-ray image now");
-//        }
-//    },
-//    ITEM_CRADLE("cradle","Cradles are used for safely and comfortably holding infants or babies.",
-//            new String[]{},true){
-//        public void interaction(){
-//            this.pickup();
-//            System.out.println("you got the cradle now");
-//        }
-//    },
-//    ITEM_INCUBATOR("incubator","Incubators provide a controlled environment for premature or ill newborns, helping to regulate temperature and humidity.",
-//        new String[]{},true){
-//        public void interaction(){
-//            this.pickup();
-//            System.out.println("you got the incubator now");
-//        }
-//    },
-//    ITEM_EYE_CHART("eye chart", "Eye charts are used by eye care professionals to measure visual acuity and assess vision.",
-//            new String[]{},false),
-//    ITEM_COMPUTER("computer", "Computers are used in healthcare for various purposes, including patient record management and medical research.",
-//        new String[]{},false){
-//        public void interaction(){
-//            this.pickup();
-//            System.out.println("you got the computer now");
-//        }
-//    },
-//    ITEM_MASKS("mask","Provide protection when dealing with infectious patients or\n" +
-//            "hazardous materials.",
-//        new String[]{},false){
-//        public void interaction(){
-//            this.pickup();
-//            System.out.println("you got the mask now");
-//        }
-//    },
-//    ITEM_MEDICAL_GLOVES("medical gloves","Protect player from infections during patient treatment or surgery.",
-//            new String[]{},false){
-//        public void interaction(){
-//            this.pickup();
-//            System.out.println("you got the medical gloves now");
-//        }
-//    }
     ;
     // ************************************************************
 
