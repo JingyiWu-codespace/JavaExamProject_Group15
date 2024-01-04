@@ -253,7 +253,7 @@ public enum Items {
             }
             if (!Items.ITEM_REGISTER_FORM.checkAccessibility()) {
                 System.out.println("the register form is not enough, you should take the patient to the doctor");
-                System.out.println("there is one in the storage room");
+                System.out.println("one was just brought to the storage room");
                 return;
             }
 
