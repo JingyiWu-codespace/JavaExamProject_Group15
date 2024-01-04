@@ -5,47 +5,6 @@ import JavaExamProject_Group15.Inventory;
 import static JavaExamProject_Group15.Player.player;
 
 public enum Actions {
-    // ************************************************************
-//    ACTION_DISINFECT("disinfect","disinfect specific item",new String[]{"clear"}) {
-//        @Override
-//        public void executeAction(Items item) {
-//            if (!item.infected) {
-//                System.out.println("this entity doesn't need disinfecting");
-//                return;
-//            }
-//
-//            try {
-//                for (int i = 3; i > 0; i--) {
-//                    System.out.println("wait " + i + "m...");
-//                    Thread.sleep(1000); // 1000 milliseconds = 1 second
-//                }
-//            } catch (InterruptedException e) {
-//                System.out.println("Interrupted while waiting.");
-//            }
-//            item.setStationary(false);
-//            System.out.println("finished disinfected, you can pickup");
-//        }
-//    },
-//    ACTIONS_ELEVATOR("elevator","user elevator to specific floor",new String[]{"lift"}) {
-//        @Override
-//        public void executeAction() {
-//            System.out.println("Items are in your bag:");
-//            for (Items temp : player.getInventory().getItemList()) {
-//                System.out.println("  - '" + temp.getName()+"'");
-//                System.out.println("       details: " + temp.getDescription());
-//            }
-//        }
-//    },
-//    ACTIONS_STAIR("stair","user stair to specific floor",new String[]{"steps"}) {
-//        @Override
-//        public void executeAction() {
-//            System.out.println("Items are in your bag:");
-//            for (Items temp : player.getInventory().getItemList()) {
-//                System.out.println("  - '" + temp.getName()+"'");
-//                System.out.println("       details: " + temp.getDescription());
-//            }
-//        }
-//    },
     // ************************* GENERIC COMMANDS ***********************************
     ACTION_INVENTORY_CHECK("inventory", "Check your bag",
             new String[]{"inv", "bag", "backpack"}) {
@@ -117,17 +76,6 @@ public enum Actions {
                 room.printInformation();
         }
     },
-//    ACTION_DROP("drop","leave something in room",new String[]{"put", "leave away"}) {
-//        @Override
-//        public void executeAction(Items item) {
-//            Rooms currentRoom = player.getCurrentRoom();
-//            Inventory roomInventory = currentRoom.getInventory();
-//
-//            player.getInventory().moveItem(item, roomInventory);
-//
-//            System.out.println("the item" + item + "has been placed in" + currentRoom.getName());
-//        }
-//    },
     ACTION_INTERACT("interact", "Interact with an item", new String[]{"use", "open", "talk"}) {
         @Override
         public void executeAction(Items item) {
@@ -194,6 +142,17 @@ public enum Actions {
                 System.out.println("            - " + alias);
         }
     },
+    //    ACTION_DROP("drop","leave something in room",new String[]{"put", "leave away"}) {
+//        @Override
+//        public void executeAction(Items item) {
+//            Rooms currentRoom = player.getCurrentRoom();
+//            Inventory roomInventory = currentRoom.getInventory();
+//
+//            player.getInventory().moveItem(item, roomInventory);
+//
+//            System.out.println("the item" + item + "has been placed in" + currentRoom.getName());
+//        }
+//    },
     // ************************* SPECIAL COMMANDS ***********************************
     ACTION_QUIT("quit the game", "quits the game, who would have thought", new String[]{"quit"})
     ;
