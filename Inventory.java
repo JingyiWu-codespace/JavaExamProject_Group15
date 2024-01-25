@@ -1,105 +1,128 @@
 package JavaExamProject_Group15;
 
-import JavaExamProject_Group15.Entity.Items;
+import JavaExamProject_Group15.Entity.Items.ItemBase;
 import JavaExamProject_Group15.Entity.Rooms;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static JavaExamProject_Group15.Player.currPlayer;
+
 /**
  * The Inventory class represents a collection of items in the game.
  * It provides methods to manage items such as adding, moving, or removing them.
  */
 public class Inventory {
-    protected List<Items> itemList;
+    protected List<ItemBase> itemList;
+
     /**
      * Constructs an Inventory with an initial set of items.
      *
      * @param item_list An array of Items to be initially added to the inventory.
      */
-    public Inventory(Items[] item_list) {
+    public Inventory(ItemBase[] item_list) {
         this.itemList = new ArrayList<>(Arrays.asList(item_list));
     }
+
+    // *****************************************************
     /**
      * Checks if a specific item is available in the inventory.
      *
      * @param item The item to check for availability.
      * @return True if the item is found in the inventory, false otherwise.
      */
-    public Boolean checkAvailable(Items item) {
-        for (Items i : itemList)
+    private Boolean checkForItem(ItemBase item) {
+        for (ItemBase i : itemList)
             if (i == item) return true;
         return false;
     }
-    /**
-     * Retrieves the list of items currently in the inventory.
-     *
-     * @return The list of items in the inventory.
-     */
-    public List<Items> getItemList() {
-        return itemList;
-    }
-    /**
-     * Retrieves a specific item from the inventory.
-     *
-     * @param item_code The code of the item to be retrieved.
-     * @return The item if found, or null if the item is not in the inventory.
-     */
-    public Items getItem(Items item_code) {
-        for (Items i : itemList)
-            if (i == item_code)
-                return i;
-        System.out.println("ERROR > item not found in inventory");
-        return null;
-    }
-    /**
-     * Moves an item from this inventory to another specified inventory.
-     *
-     * @param item        The item to be moved.
-     * @param destination The inventory to which the item should be moved.
-     */
-    public void moveItem(Items item, Inventory destination) {
-        if (item.getStationary())
-            System.out.println("ERROR > You can't move this item");
-        if (!checkAvailable(item))
-            System.out.println("ERROR > item is not in this inventory");
-        destination.itemList.add(item);
-        this.itemList.remove(item);
-    }
-    /**
-     * Forces an item to be added to the inventory, regardless of its current location.
-     *
-     * @param item The item to be added to the inventory.
-     */
-    public void forcePlaceItem(Items item) {
-        this.itemList.add(item);
-    }
-    /**
-     * Removes an item from the inventory.
-     *
-     * @param item The item to be removed.
-     */
-    public void destroyItem(Items item) {
-        if (checkAvailable(item)) {
+
+    private void removeItem(ItemBase item) {
+        if (this.checkForItem(item)) {
             this.itemList.remove(item);
             return;
         }
-        System.out.println("ERROR > item not found in inventory");
+        this.itemList.remove(item);
     }
-    /*
-    rest the itemlist
-     */
-    public void resetInventory() {
-        this.itemList.clear();
+
+    public List<ItemBase> getItemList() {
+        return itemList;
     }
-    /**
-     * Removes multiple specified items from the inventory.
-     *
-     * @param items The items to be removed.
-     */
-    public void forceRemove(Items... items) {
-        for (Items it : items)
-            it.removeFromWorld();
+
+    // *****************************************************
+    private static List<Inventory> getOwningInvs(ItemBase item) {
+        List<Inventory> allInvs = new ArrayList<>();
+        if (inBag(item))
+            allInvs.add(currPlayer.getInventory());
+        for (Rooms r : Rooms.values())
+            if (r.getRoomInv().checkForItem(item))
+                allInvs.add(r.getRoomInv());
+        return allInvs;
     }
+
+    public static void removeFromAllInvs(ItemBase item) {
+        List<Inventory> ownInv = getOwningInvs(item);
+        if (ownInv.isEmpty()) return;
+        ownInv.forEach(inv -> inv.removeItem(item));
+    }
+
+    // *****************************************************
+    // Movement related functions
+    private static void moveItemTo(ItemBase item, Inventory targetInv) {
+        removeFromAllInvs(item);
+        targetInv.itemList.add(item);
+    }
+
+    public static void moveThisToRoom(ItemBase item, Rooms room) {
+        moveItemTo(item, room.getRoomInv());
+    }
+
+    public static void moveThisToBag(ItemBase item) {
+        moveItemTo(item, currPlayer.getInventory());
+    }
+
+    // *****************************************************
+    // check for accessibility
+    private static <T extends ItemBase> Boolean isInInv(Class<T> clazz, Inventory inv) {
+        for (ItemBase i : inv.itemList)
+            if (i.getClass() == clazz) return true;
+        return false;
+    }
+
+    private static <T extends ItemBase> Boolean inRoom(Class<T> clazz, Rooms room) {
+        return isInInv(clazz, room.getRoomInv());
+    }
+
+    public static <T extends ItemBase> Boolean inBag(Class<T> clazz) {
+        return isInInv(clazz, currPlayer.getInventory());
+    }
+
+    public static Boolean inBag(ItemBase item) {
+        return inBag(item.getClass());
+    }
+
+    public static Boolean inRoom(ItemBase item, Rooms room) {
+        return inRoom(item.getClass(), room);
+    }
+
+    // *****************************************************
+    public static <T extends ItemBase> T getFromRoom(Class<T> clazz, Rooms room) {
+        return Inventory.findObjectFromInv(clazz, room.getRoomInv());
+    }
+
+    public static <T extends ItemBase> T getFromBag(Class<T> clazz) {
+        return Inventory.findObjectFromInv(clazz, currPlayer.getInventory());
+    }
+
+    // getting object
+    private static <T extends ItemBase> T findObjectFromInv(Class<T> clazz, Inventory inv) {
+        for (ItemBase i : inv.itemList)
+            if (i.getClass() == clazz)
+                return (T) i;
+        System.out.println("ERROR: Can't find the object");
+        return null;
+    }
+
 }
 

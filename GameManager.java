@@ -1,15 +1,16 @@
 package JavaExamProject_Group15;
 
-import JavaExamProject_Group15.Entity.Actions;
+import JavaExamProject_Group15.Entity.ActionBase;
 
 import java.io.IOException;
+
 /**
  * The GameManager class is the main class for running the game.
  * It initializes the game environment, handles the game loop, processes user input,
  * and manages the progression of the game chapters and story.
  */
 public class GameManager {
-    public static void main(String[] args) throws IOException {
+    private static void main(String[] args) throws IOException {
         /*
         active userIO
          */
@@ -47,7 +48,7 @@ public class GameManager {
             //recognize player input
             UserParser.ParsedDataHolder parsed_codes = userIo.getUserInput();
             // Check for quit action
-            if (parsed_codes.actionCode == Actions.ACTION_QUIT) break;
+            if (parsed_codes.actionCode == ActionBase.ACTION_QUIT) break;
             // Execute action based on parsed input
             parsed_codes.actionCode.executeAction(parsed_codes.itemCode, parsed_codes.roomCode);
 
