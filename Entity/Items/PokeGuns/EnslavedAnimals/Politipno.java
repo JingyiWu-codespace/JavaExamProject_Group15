@@ -8,8 +8,9 @@ public class Politipno extends PokeBallBase {
                 new String[]{},
                 false
         );
-        addPowerAttack("Lies", "The most powerful weapon in the world.", 10, 20);
-        addBuff("Fake News", "The most powerful weapon in the world.", 10, 20);
-        addDebuff("Truth", "The most powerful weapon in the world.", -20, 20);
+        addPowerAttack("Claims", "also know as lies", 10, 20);
+        addBuff("Its Fake News", "The most powerful weapon in the world.", 10, 20);
+        addDebuff("Propaganda", "but people are retarded", -20, 20);
+        addBuff("Embezzlement", "our money comrade", 20, 20);
     }
 }

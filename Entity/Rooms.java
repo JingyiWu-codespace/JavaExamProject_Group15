@@ -3,7 +3,9 @@ package JavaExamProject_Group15.Entity;
 import JavaExamProject_Group15.Entity.Items.Chapter0.*;
 import JavaExamProject_Group15.Entity.Items.Chapter1.*;
 import JavaExamProject_Group15.Entity.Items.Chapter2.*;
+import JavaExamProject_Group15.Entity.Items.PokeGuns.*;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
+import JavaExamProject_Group15.Entity.Items.PokeGuns.EnslavedAnimals.*;
 import JavaExamProject_Group15.Inventory;
 
 import java.util.ArrayList;
@@ -15,6 +17,29 @@ import java.util.List;
  * in different ways depending on the game's context.
  */
 public enum Rooms {
+    // Floor 0
+    AnimalEnslavatory(
+            "Animal cages",
+            "a place where animals are held captive for the purpose of total war.",
+            new String[]{"enslavatory"},
+            new ItemBase[]{new PikaTeaser(), new Politipno()}
+    ),
+
+    Arena1(
+            "Arena1",
+            "",
+            new String[]{""},
+            new ItemBase[]{}
+    ),
+
+    Arena2(
+            "Arena2",
+            "",
+            new String[]{""},
+            new ItemBase[]{}
+    ),
+
+
     // Floor 0
     ROOM_RECEPTION_DESK(
             "Reception Desk",
@@ -34,6 +59,7 @@ public enum Rooms {
             new String[]{"medicine room", "drug store"},
             new ItemBase[]{new ITEM_PHARMACY_CLERK()}
     ),
+
     ROOM_ER(
             "Emergency Room",
             "the place where you don't wanna be in",
