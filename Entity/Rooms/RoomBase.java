@@ -33,8 +33,8 @@ public class RoomBase extends BasicDataHolder {
     }
 
     public static void bidirPassage(RoomBase roomA, RoomBase roomB) {
-        RoomBase.oneWayPass(roomA,roomB);
-        RoomBase.oneWayPass(roomB,roomA);
+        RoomBase.oneWayPass(roomA, roomB);
+        RoomBase.oneWayPass(roomB, roomA);
     }
 
     public static void bidirPassage(Class<? extends RoomBase> roomA, Class<? extends RoomBase> roomB) {

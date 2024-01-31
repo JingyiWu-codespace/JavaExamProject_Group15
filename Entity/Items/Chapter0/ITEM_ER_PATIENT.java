@@ -1,9 +1,8 @@
 package JavaExamProject_Group15.Entity.Items.Chapter0;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Inventory;
-
 import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_ER;
+import JavaExamProject_Group15.Inventory;
 
 public class ITEM_ER_PATIENT extends ItemBase {
     public ITEM_ER_PATIENT() {

@@ -71,7 +71,7 @@ public class Inventory {
         return false;
     }
 
-    private static <T extends ItemBase> Boolean inRoom(Class<T> clazz, RoomBase room) {
+    public static <T extends ItemBase> Boolean inRoom(Class<T> clazz, RoomBase room) {
         return isInInv(clazz, RoomBase.getRoomInv(room));
     }
 

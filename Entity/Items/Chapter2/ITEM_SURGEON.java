@@ -2,9 +2,8 @@ package JavaExamProject_Group15.Entity.Items.Chapter2;
 
 import JavaExamProject_Group15.Entity.Items.Chapter1.ITEM_MEDICINE;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Inventory;
-
 import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_SURGERY;
+import JavaExamProject_Group15.Inventory;
 
 public class ITEM_SURGEON extends ItemBase {
     public ITEM_SURGEON() {
