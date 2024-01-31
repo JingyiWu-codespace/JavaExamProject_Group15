@@ -1,16 +1,21 @@
 package JavaExamProject_Group15.StoryTeller.Hospital;
 
 import JavaExamProject_Group15.Entity.Items.Chapter0.ITEM_BANDAGE;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_ER;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_ER_STORAGE;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 import JavaExamProject_Group15.Inventory;
+import JavaExamProject_Group15.StoryTeller.StoryTeller;
 
 public class Chapter0 extends BaseHospital {
-    public void initiateWorld() {
-        ROOM_ER.removeExit(ROOM_RECEPTION_DESK);
-        ROOM_ER.getRoomInv().forcePlaceItem(ITEM_ER_PATIENT);
-        ROOM_ER_STORAGE.getRoomInv().forcePlaceItem(ITEM_BANDAGE);
+    protected int deadlineTimer = 10;
+
+    public StoryTeller nextChapter() {
+        return new Chapter1();
+    }
+
+    public void initiateChapter() {
+//        ROOM_ER.removeExit(ROOM_RECEPTION_DESK);
+//        ROOM_ER.getRoomInv().forcePlaceItem(ITEM_ER_PATIENT);
+//        ROOM_ER_STORAGE.getRoomInv().forcePlaceItem(ITEM_BANDAGE);
     }
 
     public boolean checkVictory() {

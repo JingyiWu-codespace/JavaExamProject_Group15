@@ -1,11 +1,12 @@
-package JavaExamProject_Group15.Entity.Actions;
+package JavaExamProject_Group15.Entity.Actions.Hospital;
 
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
 import static JavaExamProject_Group15.Player.currPlayer;
 
 public class ACTION_EXITS extends ActionBase {
-    private ACTION_EXITS() {
+    public ACTION_EXITS() {
         super(
                 "exits",
                 "Show possible rooms to go to",

@@ -1,11 +1,12 @@
-package JavaExamProject_Group15.Entity.Actions;
+package JavaExamProject_Group15.Entity.Actions.Hospital;
 
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 
 import static JavaExamProject_Group15.Player.currPlayer;
 
 public class ACTION_INVENTORY_CHECK extends ActionBase {
-    private ACTION_INVENTORY_CHECK() {
+    public ACTION_INVENTORY_CHECK() {
         super(
                 "inventory",
                 "Check your bag",

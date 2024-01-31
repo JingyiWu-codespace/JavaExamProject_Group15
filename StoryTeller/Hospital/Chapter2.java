@@ -1,22 +1,26 @@
 package JavaExamProject_Group15.StoryTeller.Hospital;
 
 import JavaExamProject_Group15.Entity.Items.Chapter2.ITEM_MOTHER_PATIENT;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_ER;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_ER_STORAGE;
 import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_SURGERY;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 import JavaExamProject_Group15.Inventory;
+import JavaExamProject_Group15.StoryTeller.StoryTeller;
 
 public class Chapter2 extends BaseHospital {
+    protected int deadlineTimer = 50;
+
+    public StoryTeller nextChapter() {
+        return null;
+    }
 
     public boolean checkVictory() {
         RoomBase surgRoom = RoomBase.getRoomObj(ROOM_SURGERY.class);
         return Inventory.inRoom(ITEM_MOTHER_PATIENT.class, surgRoom);
     }
 
-    public void initiateWorld() {
-        ROOM_ER.getRoomInv().forcePlaceItem(ItemBase.ITEM_MOTHER_PATIENT);
-        ROOM_ER_STORAGE.getRoomInv().forcePlaceItem(ItemBase.ITEM_WHEEL_CHAIR);
+    public void initiateChapter() {
+//        ROOM_ER.getRoomInv().forcePlaceItem(ItemBase.ITEM_MOTHER_PATIENT);
+//        ROOM_ER_STORAGE.getRoomInv().forcePlaceItem(ItemBase.ITEM_WHEEL_CHAIR);
     }
 
     public void narrativePrint() {

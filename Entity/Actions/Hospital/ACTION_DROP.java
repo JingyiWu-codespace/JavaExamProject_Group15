@@ -1,9 +1,10 @@
-package JavaExamProject_Group15.Entity.Actions;
+package JavaExamProject_Group15.Entity.Actions.Hospital;
 
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 
 public class ACTION_DROP extends ActionBase {
-    private ACTION_DROP() {
+    public ACTION_DROP() {
         super(
                 "drop",
                 "leave something in room",

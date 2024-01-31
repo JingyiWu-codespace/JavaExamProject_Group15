@@ -1,60 +1,75 @@
 package JavaExamProject_Group15;
 
-import JavaExamProject_Group15.Entity.ActionBase;
+import JavaExamProject_Group15.Entity.Actions.Primary.ACTION_HELP;
+import JavaExamProject_Group15.Entity.Actions.Primary.ACTION_INTERACT;
+import JavaExamProject_Group15.Entity.Actions.Primary.ACTION_QUIT;
 import JavaExamProject_Group15.StoryTeller.StoryTeller;
 
 import java.io.IOException;
+import java.util.Scanner;
 
-/**
- * The GameManager class is the main class for running the game.
- * It initializes the game environment, handles the game loop, processes user input,
- * and manages the progression of the game chapters and story.
- */
+import static JavaExamProject_Group15.UserParser.userInterface;
+
 public class GameManager {
-    private static void main(String[] args) throws IOException {
-        /*
-        active userIO
-         */
-        final UserParser userIo = new UserParser();
-        /*
-        Player can choose which chapter he/she want to play
-         */
-        final StoryTeller storyTeller = new StoryTeller(userIo.askWhatChapter());
+    StoryTeller currentStoryTeller;
 
-        System.out.println("++++++++++++++++++++++++++ Welcome to the game! ++++++++++++++++++++++++++");
-        System.out.println("BASIC COMMANDS: help, pickup, move, talk, use, drop, inventory, quit");
+    protected GameManager(StoryTeller storyTeller) {
+        currentStoryTeller = storyTeller;
+        new ACTION_HELP();
+        new ACTION_INTERACT();
+        new ACTION_QUIT();
+
+        System.out.println("++++++++++++++++++++++++++ BASIC COMMANDS ++++++++++++++++++++++++++");
+        System.out.println(" > help, use, quit");
         System.out.println("\n type 'help' to get more information about accessible commands");
         System.out.println("type 'help' followed by the thing you want to know more about \n");
-        //initialize game
-        storyTeller.beginChapter();
+    }
 
-        while (true) {
-            // check for chapter completion
-            if (storyTeller.chapterComplete()) {
-                storyTeller.nextChapter();
-
-                // check for game completion
-                if (storyTeller.checkVictory()) {
-                    System.out.println("A good days work. Tomorrow is gonna be worse.");
-                    System.out.println("--- You win! ---");
-                    break;
-                }
-
-                // ask to continue
-                if (!userIo.askToContinue()) break;
-
-                // print narrative
-                storyTeller.beginChapter();
+    void mainLoop() {
+        // check for chapter completion
+        if (currentStoryTeller.checkVictory()) {
+            currentStoryTeller = currentStoryTeller.nextChapter();
+            if (currentStoryTeller == null) {
+                System.out.println("You finished the game! YAAAAY!!!");
+                System.out.println("Now go back to your miserable existence and face the fact that you will be a waste of space for the rest of your life.");
+                System.exit(0);
             }
-            //recognize player input
-            UserParser.ParsedDataHolder parsed_codes = userIo.getUserInput();
-            // Check for quit action
-            if (parsed_codes.actionCode == ActionBase.ACTION_QUIT) break;
-            // Execute action based on parsed input
-            parsed_codes.actionCode.executeAction(parsed_codes.itemCode, parsed_codes.roomCode);
 
+            // ask to continue
+            if (!askToContinue())
+                System.exit(0);
+
+            startChapter();
         }
+        if (currentStoryTeller.checkLoss()) {
+            System.out.println("You lost the game! You are a failure!");
+            System.exit(0);
+        }
+
+        //recognize player input
+        UserParser.ParsedDataHolder parsed_codes = userInterface.getUserInput();
+        // Check for quit action
+        if (parsed_codes.actionCode instanceof ACTION_QUIT) System.exit(0);
+        // Execute action based on parsed input
+        parsed_codes.actionCode.executeAction(parsed_codes.itemCode, parsed_codes.roomCode);
+
+        currentStoryTeller.nextTurn(parsed_codes.actionCode, parsed_codes.itemCode, parsed_codes.roomCode);
+    }
+
+    private boolean askToContinue() {
+        System.out.println("Would you like to continue? (y/n)");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine().toLowerCase();
+        if (!input.equals("y") && !input.equals("n") && !input.equals("yes") && !input.equals("no")) {
+            System.out.println("Please enter yes or no (y/n)");
+            return this.askToContinue();
+        }
+        return input.equals("y") || input.equals("yes");
+    }
+
+    private void startChapter() {
+        currentStoryTeller.cleanLastChapter();
+        currentStoryTeller.initiateChapter();
+        currentStoryTeller.narrativePrint();
     }
 }
-
-

@@ -1,12 +1,13 @@
-package JavaExamProject_Group15.Entity.Actions;
+package JavaExamProject_Group15.Entity.Actions.Hospital;
 
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
 import static JavaExamProject_Group15.Player.currPlayer;
 
 public class ACTION_ROOM_CHECK extends ActionBase {
-    private ACTION_ROOM_CHECK() {
+    public ACTION_ROOM_CHECK() {
         super(
                 "room",
                 "Check the current room and items in it",

@@ -15,7 +15,7 @@ public class Player {
     private final Inventory inventory;
     private RoomBase currentRoom;
 
-    Player(RoomBase startingRoom) {
+    public Player(RoomBase startingRoom) {
         // The player starts in the ER room by default.
         this.currentRoom = startingRoom; //default start in Lobby
         this.inventory = new Inventory(new ItemBase[]{}); //default empty inventory

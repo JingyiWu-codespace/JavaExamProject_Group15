@@ -1,7 +1,7 @@
 package JavaExamProject_Group15.Entity.Items.PokeGuns.EnslavedAnimals;
 
-public class Flamezard extends PokeBallBase {
-    public Flamezard() {
+public class F35Zard extends PokeBallBase {
+    public F35Zard() {
         super(
                 "Flamezard",
                 "The american version of a Charizard, shaped like a flame thrower",

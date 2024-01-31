@@ -1,5 +1,6 @@
-package JavaExamProject_Group15.Entity.Actions;
+package JavaExamProject_Group15.Entity.Actions.Primary;
 
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 import JavaExamProject_Group15.Inventory;
@@ -9,7 +10,7 @@ import java.util.List;
 import static JavaExamProject_Group15.Player.currPlayer;
 
 public class ACTION_HELP extends ActionBase {
-    private ACTION_HELP() {
+    public ACTION_HELP() {
         super(
                 "help",
                 "Show available actions and their descriptions",

@@ -1,7 +1,9 @@
-package JavaExamProject_Group15.Entity.Actions;
+package JavaExamProject_Group15.Entity.Actions.Hospital;
+
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
 
 public class ACTION_MAP extends ActionBase {
-    private ACTION_MAP() {
+    public ACTION_MAP() {
         super(
                 "map",
                 "the layout of hospital",

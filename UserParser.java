@@ -1,7 +1,7 @@
 package JavaExamProject_Group15;
 
-import JavaExamProject_Group15.Entity.Actions.ACTION_HELP;
 import JavaExamProject_Group15.Entity.Actions.ActionBase;
+import JavaExamProject_Group15.Entity.Actions.Primary.ACTION_HELP;
 import JavaExamProject_Group15.Entity.BasicDataHolder;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
@@ -25,7 +25,7 @@ public class UserParser {
      *
      * @return A ParsedDataHolder object containing the parsed action, item, and room data.
      */
-    private ParsedDataHolder getUserInput() {
+    ParsedDataHolder getUserInput() {
         ParsedDataHolder parsedContent = null;
         while (parsedContent == null) {
             System.out.print("\n\nEnter a command (verb or verb + entity): \n");
@@ -104,21 +104,6 @@ public class UserParser {
     }
 
     /**
-     * Prompts the user to decide whether to continue the game.
-     *
-     * @return true if the user wants to continue, false otherwise.
-     */
-    private boolean askToContinue() {
-        System.out.println("Would you like to continue? (y/n)");
-        String input = this.scanner.nextLine().toLowerCase();
-        if (!input.equals("y") && !input.equals("n") && !input.equals("yes") && !input.equals("no")) {
-            System.out.println("Please enter yes or no (y/n)");
-            return this.askToContinue();
-        }
-        return input.equals("y") || input.equals("yes");
-    }
-
-    /**
      * Asks the user which chapter they would like to start from.
      *
      * @return An integer representing the chosen starting chapter.
@@ -186,10 +171,10 @@ public class UserParser {
             removeCommand(this.roomWordMap, (RoomBase) thing);
     }
 
-    private static class ParsedDataHolder {
-        private final ActionBase actionCode;
-        private final ItemBase itemCode;
-        private final RoomBase roomCode;
+    public static class ParsedDataHolder {
+        final ActionBase actionCode;
+        final ItemBase itemCode;
+        final RoomBase roomCode;
 
         private ParsedDataHolder(ActionBase actionCode, ItemBase itemCode, RoomBase roomCode) {
             this.actionCode = actionCode;

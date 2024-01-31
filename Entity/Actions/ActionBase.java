@@ -10,7 +10,7 @@ import java.util.List;
 public class ActionBase extends BasicDataHolder {
     public static final List<ActionBase> actionList = new ArrayList<>();
 
-    ActionBase(String name, String description, String[] aliases) {
+    protected ActionBase(String name, String description, String[] aliases) {
         super(name, description, aliases);
         if (actionList.contains(this))
             throw new IllegalArgumentException("Action already exists");
@@ -26,7 +26,7 @@ public class ActionBase extends BasicDataHolder {
      * @param room The room involved in the action, if applicable.
      */
 
-    private void executeAction(ItemBase item, RoomBase room) {
+    public void executeAction(ItemBase item, RoomBase room) {
         if (item == null && room == null)
             executeAction();
         else if (item == null)

@@ -1,9 +1,10 @@
-package JavaExamProject_Group15.Entity.Actions;
+package JavaExamProject_Group15.Entity.Actions.Hospital;
 
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 
 public class ACTION_GRAB extends ActionBase {
-    private ACTION_GRAB() {
+    public ACTION_GRAB() {
         super(
                 "grab",
                 "Interact with an item",

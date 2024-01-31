@@ -1,12 +1,13 @@
-package JavaExamProject_Group15.Entity.Actions;
+package JavaExamProject_Group15.Entity.Actions.Primary;
 
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 import JavaExamProject_Group15.Inventory;
 
 import static JavaExamProject_Group15.Player.currPlayer;
 
 public class ACTION_INTERACT extends ActionBase {
-    private ACTION_INTERACT() {
+    public ACTION_INTERACT() {
         super(
                 "interact",
                 "Interact with an item",

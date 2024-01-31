@@ -1,12 +1,13 @@
-package JavaExamProject_Group15.Entity.Actions;
+package JavaExamProject_Group15.Entity.Actions.Hospital;
 
 
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
 import static JavaExamProject_Group15.Player.currPlayer;
 
 public class ACTION_GO extends ActionBase {
-    private ACTION_GO() {
+    public ACTION_GO() {
         super(
                 "go",
                 "Move to a different room",

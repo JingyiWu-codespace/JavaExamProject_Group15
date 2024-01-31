@@ -1,7 +1,9 @@
-package JavaExamProject_Group15.Entity.Actions;
+package JavaExamProject_Group15.Entity.Actions.Primary;
+
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
 
 public class ACTION_QUIT extends ActionBase {
-    private ACTION_QUIT() {
+    public ACTION_QUIT() {
         super(
                 "quit",
                 "quits the game, who would have thought",
