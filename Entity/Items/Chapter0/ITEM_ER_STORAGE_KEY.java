@@ -1,10 +1,11 @@
 package JavaExamProject_Group15.Entity.Items.Chapter0;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 import JavaExamProject_Group15.Inventory;
 
-import static JavaExamProject_Group15.Entity.Rooms.ROOM_ER;
-import static JavaExamProject_Group15.Entity.Rooms.ROOM_ER_STORAGE;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_ER;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_ER_STORAGE;
 
 public class ITEM_ER_STORAGE_KEY extends ItemBase {
     public ITEM_ER_STORAGE_KEY() {
@@ -20,7 +21,7 @@ public class ITEM_ER_STORAGE_KEY extends ItemBase {
         super.pickup();
         if (!Inventory.inBag(this)) return;
 
-        ROOM_ER.addExits(ROOM_ER_STORAGE);
+        RoomBase.oneWayPass(ROOM_ER.class, ROOM_ER_STORAGE.class);
         System.out.println("you also unlocked the storage room door and can go there");
     }
 }

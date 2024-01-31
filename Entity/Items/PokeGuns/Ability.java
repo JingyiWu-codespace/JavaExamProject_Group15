@@ -1,7 +1,8 @@
 package JavaExamProject_Group15.Entity.Items.PokeGuns;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms;
+import JavaExamProject_Group15.Entity.Rooms.PokeGuns.Arena1;
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
 import static JavaExamProject_Group15.Player.currPlayer;
 
@@ -22,12 +23,14 @@ public abstract class Ability extends ItemBase {
         return;
     }
 
-    protected Rooms findRivalRoom() {
-        Rooms rivalRoom;
-        if (currPlayer.getCurrentRoom() == Rooms.Arena1)
-            rivalRoom = Rooms.Arena2;
+    protected RoomBase findRivalRoom() {
+        RoomBase rivalRoom;
+        RoomBase a1 = RoomBase.getRoomObj(Arena1.class);
+        RoomBase a2 = RoomBase.getRoomObj(Arena1.class);
+        if (currPlayer.getCurrentRoom() == a1)
+            rivalRoom = a2;
         else
-            rivalRoom = Rooms.Arena1;
+            rivalRoom = a1;
         return rivalRoom;
     }
 }

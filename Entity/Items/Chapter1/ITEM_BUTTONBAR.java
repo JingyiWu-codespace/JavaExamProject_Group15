@@ -1,9 +1,11 @@
 package JavaExamProject_Group15.Entity.Items.Chapter1;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
+
 import java.util.Scanner;
 
-import static JavaExamProject_Group15.Entity.Rooms.*;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.*;
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
 public class ITEM_BUTTONBAR extends ItemBase {
     public ITEM_BUTTONBAR() {
@@ -30,19 +32,16 @@ public class ITEM_BUTTONBAR extends ItemBase {
                 System.out.println("Please enter a number between 0 and 2");
             }
 
-        ROOM_ELEVATOR.removeAllExits();
+        RoomBase.removeAllExits(ROOM_ELEVATOR.class);
         switch (floor) {
             case 0:
-                ROOM_ELEVATOR.addExits(ROOM_RECEPTION_DESK);
-                ROOM_RECEPTION_DESK.addExits(ROOM_ELEVATOR);
+                RoomBase.bidirPassage(ROOM_ELEVATOR.class, ROOM_RECEPTION_DESK.class);
                 break;
             case 1:
-                ROOM_ELEVATOR.addExits(ROOM_HALLWAY);
-                ROOM_HALLWAY.addExits(ROOM_ELEVATOR);
+                RoomBase.bidirPassage(ROOM_ELEVATOR.class, ROOM_HALLWAY.class);
                 break;
             case 2:
-                ROOM_ELEVATOR.addExits(ROOM_SURGERY);
-                ROOM_SURGERY.addExits(ROOM_ELEVATOR);
+                RoomBase.bidirPassage(ROOM_ELEVATOR.class, ROOM_SURGERY.class);
                 break;
         }
         System.out.println("you are now in floor " + floor);

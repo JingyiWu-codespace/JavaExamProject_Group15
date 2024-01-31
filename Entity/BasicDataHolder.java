@@ -1,5 +1,7 @@
 package JavaExamProject_Group15.Entity;
 
+import static JavaExamProject_Group15.UserParser.userInterface;
+
 /**
  * The BaseEntityDataHolder class serves as an abstract base class for entities in the game.
  * It holds common data elements such as name, description, and aliases. This class provides
@@ -19,13 +21,15 @@ public abstract class BasicDataHolder {
         this.name = name;
         this.description = description;
         this.aliases = aliases;
+
+        userInterface.addCommand(this);
     }
 
     public String getName() {
         return this.name;
     }
 
-    String getDescription() {
+    public String getDescription() {
         return this.description;
     }
 
@@ -51,3 +55,4 @@ public abstract class BasicDataHolder {
             System.out.print(a + ", ");
     }
 }
+

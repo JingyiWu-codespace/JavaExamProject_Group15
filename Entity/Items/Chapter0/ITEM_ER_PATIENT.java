@@ -3,7 +3,7 @@ package JavaExamProject_Group15.Entity.Items.Chapter0;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 import JavaExamProject_Group15.Inventory;
 
-import static JavaExamProject_Group15.Entity.Rooms.ROOM_ER;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_ER;
 
 public class ITEM_ER_PATIENT extends ItemBase {
     public ITEM_ER_PATIENT() {
@@ -31,7 +31,7 @@ public class ITEM_ER_PATIENT extends ItemBase {
         Inventory.removeFromAllInvs(bandage);
 
         ITEM_ER_STORAGE_KEY skey = Inventory.getFromBag(ITEM_ER_STORAGE_KEY.class);
-        Inventory.moveThisToRoom(skey, ROOM_ER);
+        Inventory.moveThisToRoom(skey, ROOM_ER.class);
     }
 }
 

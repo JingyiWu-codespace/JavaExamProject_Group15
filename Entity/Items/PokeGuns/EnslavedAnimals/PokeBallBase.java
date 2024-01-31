@@ -1,8 +1,11 @@
 package JavaExamProject_Group15.Entity.Items.PokeGuns.EnslavedAnimals;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Entity.Items.PokeGuns.*;
-import JavaExamProject_Group15.Entity.Rooms;
+import JavaExamProject_Group15.Entity.Items.PokeGuns.Ability;
+import JavaExamProject_Group15.Entity.Items.PokeGuns.AbilityAttack;
+import JavaExamProject_Group15.Entity.Items.PokeGuns.AbilityBuff;
+import JavaExamProject_Group15.Entity.Items.PokeGuns.AbilityDebuff;
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 import JavaExamProject_Group15.Inventory;
 
 import java.util.List;
@@ -11,14 +14,15 @@ import static JavaExamProject_Group15.Player.currPlayer;
 
 public abstract class PokeBallBase extends ItemBase {
     protected List<Ability> abilities;
+
     public PokeBallBase(String name, String description, String[] alias, boolean canBePickedUp) {
         super(name, description, alias, canBePickedUp);
     }
 
     public void pickup() {
-        System.out.println("You have the "+ this.getName() +" PokeBall now! use the enslaved animal in it for great powers!");
+        System.out.println("You have the " + this.getName() + " PokeBall now! use the enslaved animal in it for great powers!");
 
-        Rooms currentRoom = currPlayer.getCurrentRoom();
+        RoomBase currentRoom = currPlayer.getCurrentRoom();
         for (Ability ability : abilities) {
             Inventory.moveThisToRoom(ability, currentRoom);
         }

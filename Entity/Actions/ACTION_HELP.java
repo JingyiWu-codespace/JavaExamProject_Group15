@@ -1,22 +1,23 @@
 package JavaExamProject_Group15.Entity.Actions;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms;
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
+import JavaExamProject_Group15.Inventory;
+
+import java.util.List;
 
 import static JavaExamProject_Group15.Player.currPlayer;
 
 public class ACTION_HELP extends ActionBase {
-    ActionBase[] actionsArray;
-    private ACTION_HELP(ActionBase... actions) {
+    private ACTION_HELP() {
         super(
                 "help",
                 "Show available actions and their descriptions",
                 new String[]{"h", "commands", "what can I do", "look"}
         );
-        this.actionsArray = actions;
     }
 
-    private void executeAction(Rooms room) {
+    private void executeAction(RoomBase room) {
         room.printInformation();
         System.out.println("       aliases:");
         for (String alias : room.getAliases())
@@ -37,19 +38,21 @@ public class ACTION_HELP extends ActionBase {
 
         System.out.println(" - following commands are available:");
         System.out.print("  ");
-        for (ActionBase action : actionsArray)
+        for (ActionBase action : actionList)
             System.out.print(" " + action.getName() + ",");
         System.out.println("\n");
 
-        Rooms currentRoom = currPlayer.getCurrentRoom();
-        if (!currentRoom.getExits().isEmpty())
+        RoomBase currentRoom = currPlayer.getCurrentRoom();
+        List<RoomBase> exits = RoomBase.getExits(currentRoom);
+        if (!exits.isEmpty())
             System.out.println(" - accessible rooms");
-        for (Rooms room : currentRoom.getExits())
+        for (RoomBase room : exits)
             System.out.println("     - " + room.getName());
 
-        if (!currPlayer.getCurrentRoom().getRoomInv().getItemList().isEmpty())
+        Inventory roomInv = RoomBase.getRoomInv(currentRoom);
+        if (!roomInv.getItemList().isEmpty())
             System.out.println(" - accessible entities in this room");
-        for (ItemBase item : currPlayer.getCurrentRoom().getRoomInv().getItemList())
+        for (ItemBase item : roomInv.getItemList())
             System.out.println("     - " + item.getName());
 
         if (!currPlayer.getInventory().getItemList().isEmpty())
@@ -58,7 +61,7 @@ public class ACTION_HELP extends ActionBase {
             System.out.println("     - " + item.getName());
     }
 
-    private void executeAction(ActionBase action) {
+    public void executeAction(ActionBase action) {
         action.printInformation();
         System.out.println("       aliases:");
         for (String alias : action.getAliases())

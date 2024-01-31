@@ -1,6 +1,7 @@
 package JavaExamProject_Group15.Entity.Items.Chapter2;
 
-import JavaExamProject_Group15.Entity.Items.Chapter1.*;
+import JavaExamProject_Group15.Entity.Items.Chapter1.ITEM_FILLED_REGISTER_FORM;
+import JavaExamProject_Group15.Entity.Items.Chapter1.ITEM_REGISTER_FORM;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 import JavaExamProject_Group15.Inventory;
 

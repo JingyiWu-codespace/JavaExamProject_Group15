@@ -1,7 +1,7 @@
 package JavaExamProject_Group15;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms;
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
 /**
  * The Player enum represents the player in the game. It maintains the state of the player,
@@ -13,21 +13,26 @@ public class Player {
     public static Player currPlayer;
 
     private final Inventory inventory;
-    private Rooms currentRoom;
+    private RoomBase currentRoom;
 
-    Player(Rooms startingRoom) {
+    Player(RoomBase startingRoom) {
         // The player starts in the ER room by default.
         this.currentRoom = startingRoom; //default start in Lobby
         this.inventory = new Inventory(new ItemBase[]{}); //default empty inventory
     }
 
-    public Rooms getCurrentRoom() {
+    public RoomBase getCurrentRoom() {
         return this.currentRoom;
-    };
+    }
 
-    public void setCurrentRoom(Rooms newRoom) {
+    public void setCurrentRoom(RoomBase newRoom) {
+        newRoom.playerEnter();
         this.currentRoom = newRoom;
-    };
+    }
+
+    public void setCurrentRoom(Class<? extends RoomBase> newRoom) {
+        this.setCurrentRoom(RoomBase.getRoomObj(newRoom));
+    }
 
     public Inventory getInventory() {
         return this.inventory;

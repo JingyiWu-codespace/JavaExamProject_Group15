@@ -1,9 +1,8 @@
 package JavaExamProject_Group15;
 
 import JavaExamProject_Group15.Entity.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms;
 
-import static JavaExamProject_Group15.Entity.Rooms.*;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.*;
 
 /**
  * The StoryTeller class manages the narrative and progression of the game's chapters.

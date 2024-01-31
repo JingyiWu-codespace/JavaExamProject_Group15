@@ -59,5 +59,4 @@ public class ItemBase extends BasicDataHolder {
         this.description = description;
         this.aliases = aliases;
     }
-
 }

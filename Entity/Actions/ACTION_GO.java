@@ -1,6 +1,7 @@
 package JavaExamProject_Group15.Entity.Actions;
 
-import JavaExamProject_Group15.Entity.Rooms;
+
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
 import static JavaExamProject_Group15.Player.currPlayer;
 
@@ -13,12 +14,10 @@ public class ACTION_GO extends ActionBase {
         );
     }
 
-    private void executeAction(Rooms room) {
-        for (Rooms r : currPlayer.getCurrentRoom().getExits())
+    private void executeAction(RoomBase room) {
+        for (RoomBase r : RoomBase.getExits(currPlayer.getCurrentRoom()))
             if (r == room) {
                 currPlayer.setCurrentRoom(r);
-                System.out.println("-> You move to the " + r.getName());
-                System.out.println("        description:  " + r.getDescription());
                 return;
             }
 

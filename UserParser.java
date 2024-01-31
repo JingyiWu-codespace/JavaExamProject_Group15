@@ -1,8 +1,10 @@
 package JavaExamProject_Group15;
 
-import JavaExamProject_Group15.Entity.ActionBase;
-import JavaExamProject_Group15.Entity.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms;
+import JavaExamProject_Group15.Entity.Actions.ACTION_HELP;
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
+import JavaExamProject_Group15.Entity.BasicDataHolder;
+import JavaExamProject_Group15.Entity.Items.ItemBase;
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
 import java.util.*;
 
@@ -11,56 +13,12 @@ import java.util.*;
  * It converts user input strings into game actions, items, and rooms, facilitating
  */
 public class UserParser {
-    private final Map<String, ItemBase> itemWordMap;
-    private final Map<String, Rooms> roomWordMap;
-    private final Map<String, ActionBase> actionWordMap;
+    public final static UserParser userInterface = new UserParser();
+
+    private final Map<String, ItemBase> itemWordMap = new HashMap<>();
+    private final Map<String, RoomBase> roomWordMap = new HashMap<>();
+    private final Map<String, ActionBase> actionWordMap = new HashMap<>();
     private final Scanner scanner = new Scanner(System.in);
-
-    /**
-     * Constructs a UserParser and initializes maps to associate string representations
-     * with game entities like actions, items, and rooms. It populates these maps using
-     * the aliases provided in the enums. The constructor also checks for duplicate keys
-     * across these maps and reports them if the debug flag is set in the Player class.
-     */
-    private UserParser() {
-        // Initialize the maps   ******************************
-        this.itemWordMap = new HashMap<String, ItemBase>();
-        for (ItemBase item : ItemBase.values())
-            for (String word : item.getAliases())
-                if (!this.itemWordMap.containsKey(word))
-                    this.itemWordMap.put(word, item);
-                else if (Player.debug_flag)
-                    System.out.println("Duplicate item key: " + word);
-
-        this.roomWordMap = new HashMap<String, Rooms>();
-        for (Rooms room : Rooms.values())
-            for (String word : room.getAliases())
-                if (!this.roomWordMap.containsKey(word))
-                    this.roomWordMap.put(word, room);
-                else if (Player.debug_flag)
-                    System.out.println("Duplicate room key: " + word);
-
-        this.actionWordMap = new HashMap<String, ActionBase>();
-        for (ActionBase action : ActionBase.values())
-            for (String word : action.getAliases())
-                if (!this.actionWordMap.containsKey(word))
-                    this.actionWordMap.put(word, action);
-                else if (Player.debug_flag)
-                    System.out.println("Duplicate action key: " + word);
-        // Finished Initializing the maps   **********************
-
-        // Check for duplicate keys    *******************
-        for (String key : this.actionWordMap.keySet()) {
-            if (this.itemWordMap.containsKey(key) && Player.debug_flag)
-                System.out.println("Duplicate action key: " + key);
-            if (this.roomWordMap.containsKey(key) && Player.debug_flag)
-                System.out.println("Duplicate action key: " + key);
-        }
-        for (String key : this.itemWordMap.keySet())
-            if (this.roomWordMap.containsKey(key) && Player.debug_flag)
-                System.out.println("Duplicate item key: " + key);
-        // Finished Check for duplicate keys    *************
-    }
 
     /**
      * Waits for and processes user input, converting it into actionable game data.
@@ -74,7 +32,7 @@ public class UserParser {
             String input = this.scanner.nextLine().toLowerCase();
             List<String> wordlist = new ArrayList<>(Arrays.asList(input.split(" ")));
 
-            if (wordlist.size() == 0) {
+            if (wordlist.isEmpty()) {
                 System.out.print("nothing was received\n");
                 continue;
             }
@@ -92,7 +50,7 @@ public class UserParser {
     private ParsedDataHolder parseUserString(List<String> wordlist) {
         ActionBase action = null;
         ItemBase item = null;
-        Rooms room = null;
+        RoomBase room = null;
 
         int start = 0;
         int seq_end = wordlist.size();
@@ -108,8 +66,9 @@ public class UserParser {
                 item = this.itemWordMap.get(word);
 
                 //special help case
-            else if (action == ActionBase.ACTION_HELP && this.actionWordMap.containsKey(word)) {
-                ActionBase.ACTION_HELP.executeAction(this.actionWordMap.get(word));
+            else if (action instanceof ACTION_HELP actionHelp && this.actionWordMap.containsKey(word)) {
+                ActionBase otherAction = this.actionWordMap.get(word);
+                actionHelp.executeAction(otherAction);
                 return this.getUserInput();
             } else if (seq_end - 1 == start) {
                 seq_end = wordlist.size();
@@ -180,12 +139,59 @@ public class UserParser {
         return chapter;
     }
 
+    private <T extends BasicDataHolder> void addCommand(Map<String, T> wordMap, T thing) {
+        String name = thing.getName();
+        List<String> aliases = Arrays.asList(thing.getAliases());
+        aliases.add(name);
+
+        for (String alias : aliases) {
+            if (wordMap.containsKey(alias) && !(wordMap.get(alias) instanceof T)) {
+                if (Player.debug_flag)
+                    System.out.println("debug > duplicate key: " + alias);
+                continue;
+            }
+            wordMap.put(alias, thing);
+        }
+    }
+
+    public <T extends BasicDataHolder> void addCommand(T thing) {
+        if (thing instanceof ActionBase)
+            addCommand(this.actionWordMap, (ActionBase) thing);
+        else if (thing instanceof ItemBase)
+            addCommand(this.itemWordMap, (ItemBase) thing);
+        else if (thing instanceof RoomBase)
+            addCommand(this.roomWordMap, (RoomBase) thing);
+        else
+            throw new IllegalArgumentException("thing is not an instance of ActionBase, ItemBase, or RoomBase");
+    }
+
+    private <T extends BasicDataHolder> void removeCommand(Map<String, T> wordMap, T thing) {
+        String name = thing.getName();
+        List<String> aliases = Arrays.asList(thing.getAliases());
+        aliases.add(name);
+
+        for (String alias : aliases) {
+            if (wordMap.containsKey(alias)) {
+                wordMap.remove(alias);
+            }
+        }
+    }
+
+    public <T extends BasicDataHolder> void removeCommand(T thing) {
+        if (thing instanceof ActionBase)
+            removeCommand(this.actionWordMap, (ActionBase) thing);
+        else if (thing instanceof ItemBase)
+            removeCommand(this.itemWordMap, (ItemBase) thing);
+        else if (thing instanceof RoomBase)
+            removeCommand(this.roomWordMap, (RoomBase) thing);
+    }
+
     private static class ParsedDataHolder {
         private final ActionBase actionCode;
         private final ItemBase itemCode;
-        private final Rooms roomCode;
+        private final RoomBase roomCode;
 
-        private ParsedDataHolder(ActionBase actionCode, ItemBase itemCode, Rooms roomCode) {
+        private ParsedDataHolder(ActionBase actionCode, ItemBase itemCode, RoomBase roomCode) {
             this.actionCode = actionCode;
             this.itemCode = itemCode;
             this.roomCode = roomCode;

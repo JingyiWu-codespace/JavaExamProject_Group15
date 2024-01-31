@@ -3,7 +3,7 @@ package JavaExamProject_Group15.Entity.Items.Chapter1;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 import JavaExamProject_Group15.Inventory;
 
-import static JavaExamProject_Group15.Entity.Rooms.ROOM_RECEPTION_DESK;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_RECEPTION_DESK;
 
 public class ITEM_REGISTER_FORM extends ItemBase {
     public ITEM_REGISTER_FORM() {
@@ -16,7 +16,7 @@ public class ITEM_REGISTER_FORM extends ItemBase {
     }
 
     private void pickUp() {
-        if (Inventory.getFromRoom(ITEM_REGISTER_FORM.class, ROOM_RECEPTION_DESK) != null)
+        if (Inventory.inRoom(ITEM_REGISTER_FORM.class, ROOM_RECEPTION_DESK.class))
             new ITEM_REGISTER_FORM().pickup();
         else if (!Inventory.inBag(ITEM_REGISTER_FORM.class))
             this.pickup();

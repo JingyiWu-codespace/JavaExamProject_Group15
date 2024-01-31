@@ -2,11 +2,19 @@ package JavaExamProject_Group15.Entity.Actions;
 
 import JavaExamProject_Group15.Entity.BasicDataHolder;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms;
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActionBase extends BasicDataHolder {
+    public static final List<ActionBase> actionList = new ArrayList<>();
+
     ActionBase(String name, String description, String[] aliases) {
         super(name, description, aliases);
+        if (actionList.contains(this))
+            throw new IllegalArgumentException("Action already exists");
+        actionList.add(this);
     }
 
     /**
@@ -18,7 +26,7 @@ public class ActionBase extends BasicDataHolder {
      * @param room The room involved in the action, if applicable.
      */
 
-    private void executeAction(ItemBase item, Rooms room) {
+    private void executeAction(ItemBase item, RoomBase room) {
         if (item == null && room == null)
             executeAction();
         else if (item == null)
@@ -44,7 +52,7 @@ public class ActionBase extends BasicDataHolder {
      *
      * @param room The room involved in the action.
      */
-    private void executeAction(Rooms room) {
+    private void executeAction(RoomBase room) {
         System.out.println("doing " + this.getName() + ": what am I suppose to do to " + room.getName());
     }
 

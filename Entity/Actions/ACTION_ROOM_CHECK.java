@@ -1,7 +1,7 @@
 package JavaExamProject_Group15.Entity.Actions;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms;
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
 import static JavaExamProject_Group15.Player.currPlayer;
 
@@ -15,11 +15,11 @@ public class ACTION_ROOM_CHECK extends ActionBase {
     }
 
     private void executeAction() {
-        Rooms currentRoom = currPlayer.getCurrentRoom();
+        RoomBase currentRoom = currPlayer.getCurrentRoom();
         System.out.println("You are in the " + currentRoom.getName());
 
         System.out.println("\nThe following entities are in this room:");
-        for (ItemBase temp : currentRoom.getRoomInv().getItemList())
+        for (ItemBase temp : RoomBase.getRoomInv(currentRoom).getItemList())
             temp.printInformation();
     }
 
