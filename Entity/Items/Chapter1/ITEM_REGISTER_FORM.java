@@ -1,7 +1,7 @@
 package JavaExamProject_Group15.Entity.Items.Chapter1;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_RECEPTION_DESK;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter1.ROOM_RECEPTION_DESK;
 import JavaExamProject_Group15.Inventory;
 
 public class ITEM_REGISTER_FORM extends ItemBase {

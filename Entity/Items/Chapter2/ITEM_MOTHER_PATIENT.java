@@ -15,15 +15,15 @@ public class ITEM_MOTHER_PATIENT extends ItemBase {
         );
     }
 
-    public void interaction() {
+    public boolean interaction() {
         if (!Inventory.inBag(ITEM_REGISTER_FORM.class) && !Inventory.inBag(ITEM_WHEEL_CHAIR.class)) {
             System.out.println("you don't have the register form nor the wheel chair");
-            return;
+            return false;
         }
         if (!Inventory.inBag(ITEM_REGISTER_FORM.class)) {
             System.out.println("the register form is not enough, you should take the patient to the doctor");
             System.out.println("one was just brought to the storage room");
-            return;
+            return false;
         }
 
         System.out.println("you give the form to the patient\n" +
@@ -57,6 +57,7 @@ public class ITEM_MOTHER_PATIENT extends ItemBase {
 
         Inventory.removeFromAllInvs(this);
         this.pickup();
+        return false;
     }
 
     public void dropItem() {

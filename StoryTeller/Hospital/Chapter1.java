@@ -1,12 +1,22 @@
 package JavaExamProject_Group15.StoryTeller.Hospital;
 
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
+import JavaExamProject_Group15.Entity.Items.Chapter1.ITEM_NURSE;
 import JavaExamProject_Group15.Entity.Items.Chapter1.ITEM_PATIENT_MEDICINE;
+import JavaExamProject_Group15.Entity.Items.ItemBase;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter0.ROOM_ER;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter1.ROOM_OFFICE;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter1.ROOM_PHARMACY;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter1.ROOM_RECEPTION_DESK;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 import JavaExamProject_Group15.Inventory;
 import JavaExamProject_Group15.StoryTeller.StoryTeller;
 
 public class Chapter1 extends BaseHospital {
-    protected int deadlineTimer = 20;
+    Chapter1() {
+        super();
+        deadlineTimer = 20;
+    }
 
     public StoryTeller nextChapter() {
         return new Chapter2();
@@ -21,10 +31,19 @@ public class Chapter1 extends BaseHospital {
         return true;
     }
 
-    public void initiateChapter() {
-//        ROOM_ER.getRoomInv().forcePlaceItem(ItemBase.ITEM_PATIENT_MEDICINE);
-//        ROOM_ER.getRoomInv().forcePlaceItem(ItemBase.ITEM_NURSE);
+    public void roomInitiate() {
+        RoomBase er = RoomBase.getRoomObj(ROOM_ER.class);
+        Inventory.moveThisToRoom(new ITEM_PATIENT_MEDICINE(), er);
+        Inventory.moveThisToRoom(new ITEM_NURSE(), er);
+
+        new ROOM_OFFICE();
+        new ROOM_PHARMACY();
+        new ROOM_RECEPTION_DESK();
     }
+
+    public void actionInitiate() { }
+
+    public void playerInitiate() { }
 
     public void narrativePrint() {
         System.out.println(

@@ -56,7 +56,7 @@ public class UserParser {
         int seq_end = wordlist.size();
         List<String> reco_sequences = new ArrayList<String>();
         while (start != seq_end && reco_sequences.size() != 2) {
-            String word = String.join(" ", wordlist.subList(start, seq_end));
+            String word = String.join(" ", wordlist.subList(start, seq_end)).toLowerCase();
 
             if (action == null && this.actionWordMap.containsKey(word))
                 action = this.actionWordMap.get(word);
@@ -126,8 +126,12 @@ public class UserParser {
 
     private <T extends BasicDataHolder> void addCommand(Map<String, T> wordMap, T thing) {
         String name = thing.getName();
-        List<String> aliases = Arrays.asList(thing.getAliases());
-        aliases.add(name);
+        String[] temp = thing.getAliases();
+        String[] aliases = new String[temp.length + 1];
+        System.arraycopy(temp, 0, aliases, 0, temp.length);
+        aliases[aliases.length - 1] = name;
+        for(int i = 0; i < aliases.length; i++)
+            aliases[i] = aliases[i].toLowerCase();
 
         for (String alias : aliases) {
             if (wordMap.containsKey(alias) && !(wordMap.get(alias) instanceof T)) {
@@ -152,14 +156,15 @@ public class UserParser {
 
     private <T extends BasicDataHolder> void removeCommand(Map<String, T> wordMap, T thing) {
         String name = thing.getName();
-        List<String> aliases = Arrays.asList(thing.getAliases());
-        aliases.add(name);
+        String[] temp = thing.getAliases();
+        String[] aliases = new String[temp.length + 1];
+        System.arraycopy(temp, 0, aliases, 0, temp.length);
+        aliases[aliases.length - 1] = name;
+        for(int i = 0; i < aliases.length; i++)
+            aliases[i] = aliases[i].toLowerCase();
 
-        for (String alias : aliases) {
-            if (wordMap.containsKey(alias)) {
-                wordMap.remove(alias);
-            }
-        }
+        for (String alias : aliases)
+            wordMap.remove(alias);
     }
 
     public <T extends BasicDataHolder> void removeCommand(T thing) {

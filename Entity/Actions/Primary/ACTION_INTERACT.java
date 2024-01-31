@@ -15,13 +15,13 @@ public class ACTION_INTERACT extends ActionBase {
         );
     }
 
-    private void executeAction(ItemBase item) {
+    public boolean executeAction(ItemBase item) {
         if (Inventory.inBag(item) || Inventory.inRoom(item, currPlayer.getCurrentRoom()))
-            item.interaction();
+            return item.interaction();
         else
             System.out.println("the entity is not accessible");
+        return false;
     }
-
 }
 
     

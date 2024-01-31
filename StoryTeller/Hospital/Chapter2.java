@@ -1,13 +1,20 @@
 package JavaExamProject_Group15.StoryTeller.Hospital;
 
+import JavaExamProject_Group15.Entity.Items.Chapter1.ITEM_NURSE;
+import JavaExamProject_Group15.Entity.Items.Chapter2.ITEM_WHEEL_CHAIR;
 import JavaExamProject_Group15.Entity.Items.Chapter2.ITEM_MOTHER_PATIENT;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_SURGERY;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter0.ROOM_ER;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter0.ROOM_ER_STORAGE;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter2.*;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 import JavaExamProject_Group15.Inventory;
 import JavaExamProject_Group15.StoryTeller.StoryTeller;
 
 public class Chapter2 extends BaseHospital {
-    protected int deadlineTimer = 50;
+    Chapter2() {
+        super();
+        this.deadlineTimer = 35;
+    }
 
     public StoryTeller nextChapter() {
         return null;
@@ -18,10 +25,24 @@ public class Chapter2 extends BaseHospital {
         return Inventory.inRoom(ITEM_MOTHER_PATIENT.class, surgRoom);
     }
 
-    public void initiateChapter() {
-//        ROOM_ER.getRoomInv().forcePlaceItem(ItemBase.ITEM_MOTHER_PATIENT);
-//        ROOM_ER_STORAGE.getRoomInv().forcePlaceItem(ItemBase.ITEM_WHEEL_CHAIR);
+    public void roomInitiate() {
+        RoomBase er = RoomBase.getRoomObj(ROOM_ER.class);
+        Inventory.moveThisToRoom(new ITEM_MOTHER_PATIENT(), er);
+
+        RoomBase erS = RoomBase.getRoomObj(ROOM_ER_STORAGE.class);
+        Inventory.moveThisToRoom(new ITEM_WHEEL_CHAIR(), erS);
+
+        new ROOM_ELEVATOR();
+        new ROOM_HALLWAY();
+        new ROOM_LABORATORY();
+        new ROOM_SURGERY();
+        new ROOM_ULTRASOUND();
+        new ROOM_WARD();
     }
+
+    public void actionInitiate() { }
+
+    public void playerInitiate() { }
 
     public void narrativePrint() {
         System.out.println(
@@ -39,4 +60,5 @@ public class Chapter2 extends BaseHospital {
                         "\n interpreting ultrasound results and preparing for the surgical procedure itself."
         );
     }
+
 }

@@ -1,7 +1,7 @@
 package JavaExamProject_Group15.Entity.Items.Chapter0;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_ER;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter0.ROOM_ER;
 import JavaExamProject_Group15.Inventory;
 
 public class ITEM_ER_PATIENT extends ItemBase {
@@ -14,10 +14,10 @@ public class ITEM_ER_PATIENT extends ItemBase {
         );
     }
 
-    public void interaction() {
+    public boolean interaction() {
         if (!Inventory.inBag(ITEM_BANDAGE.class)) {
             System.out.println("you don't have the bandage");
-            return;
+            return false;
         }
 
         System.out.println("you give the bandage to the patient\n" +
@@ -31,6 +31,7 @@ public class ITEM_ER_PATIENT extends ItemBase {
 
         ITEM_ER_STORAGE_KEY skey = Inventory.getFromBag(ITEM_ER_STORAGE_KEY.class);
         Inventory.moveThisToRoom(skey, ROOM_ER.class);
+        return false;
     }
 }
 

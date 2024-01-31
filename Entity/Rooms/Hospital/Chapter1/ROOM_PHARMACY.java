@@ -1,4 +1,4 @@
-package JavaExamProject_Group15.Entity.Rooms.Hospital;
+package JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter1;
 
 import JavaExamProject_Group15.Entity.Items.Chapter1.ITEM_PHARMACY_CLERK;
 import JavaExamProject_Group15.Entity.Items.ItemBase;

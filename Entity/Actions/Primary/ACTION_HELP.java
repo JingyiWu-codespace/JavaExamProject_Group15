@@ -18,22 +18,24 @@ public class ACTION_HELP extends ActionBase {
         );
     }
 
-    private void executeAction(RoomBase room) {
+    public boolean executeAction(RoomBase room) {
         room.printInformation();
         System.out.println("       aliases:");
         for (String alias : room.getAliases())
             System.out.println("            - " + alias);
+        return false;
     }
 
-    private void executeAction(ItemBase item) {
+    public boolean executeAction(ItemBase item) {
         item.printInformation();
         System.out.println("       aliases:");
         for (String alias : item.getAliases())
             System.out.println("            - " + alias);
 
+        return false;
     }
 
-    private void executeAction() {
+    public boolean executeAction() {
         System.out.println("type help followed by the thing you want to know more about");
         System.out.println("this entities are available here:");
 
@@ -60,13 +62,15 @@ public class ACTION_HELP extends ActionBase {
             System.out.println(" - Inventory");
         for (ItemBase item : currPlayer.getInventory().getItemList())
             System.out.println("     - " + item.getName());
+        return false;
     }
 
-    public void executeAction(ActionBase action) {
+    public boolean executeAction(ActionBase action) {
         action.printInformation();
         System.out.println("       aliases:");
         for (String alias : action.getAliases())
             System.out.println("            - " + alias);
+        return false;
     }
 
 }

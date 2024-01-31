@@ -5,18 +5,30 @@ import JavaExamProject_Group15.Entity.Actions.ActionBase;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
-public interface StoryTeller {
+public abstract class StoryTeller implements StoryTellerInterface {
+    public void initiateChapter() {
+        roomInitiate();
+        playerInitiate();
+        actionInitiate();
+    }
+}
+
+interface StoryTellerInterface {
     boolean checkVictory();
 
     boolean checkLoss();
 
-    void cleanLastChapter();
-
     void initiateChapter();
+
+    void roomInitiate();
+
+    void actionInitiate();
+
+    void playerInitiate();
 
     void narrativePrint();
 
-    void nextTurn(ActionBase prevActionCode, ItemBase prevItemCode, RoomBase prevRoomCode);
+    void endTurnPostAction(ActionBase prevActionCode, ItemBase prevItemCode, RoomBase prevRoomCode, boolean actionReturn);
 
     StoryTeller nextChapter();
 }

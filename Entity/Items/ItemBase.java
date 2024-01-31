@@ -13,8 +13,9 @@ public class ItemBase extends BasicDataHolder {
         this.stationary = stationary;
     }
 
-    public void interaction() {
+    public boolean interaction() {
         System.out.println("Can't figure out any interaction");
+        return false;
     }
 
     public void dropItem() {

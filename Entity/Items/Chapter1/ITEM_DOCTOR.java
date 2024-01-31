@@ -13,12 +13,12 @@ public class ITEM_DOCTOR extends ItemBase {
         );
     }
 
-    public void interaction() {
+    public boolean interaction() {
         if (!Inventory.inBag(ITEM_FILLED_REGISTER_FORM.class)) {
             System.out.println("the doctor is busy, he looks at you with a frown and says: \n" +
                     "I can't help you if you don't have the right documents, stop wasting time");
             System.out.println("you don't have the specific documents, like FILLED register form, test report...");
-            return;
+            return false;
         }
 
         System.out.println("you give the form to the doctor\n" +
@@ -41,6 +41,7 @@ public class ITEM_DOCTOR extends ItemBase {
 
         ITEM_PRESCRIPTION createdPrescription = new ITEM_PRESCRIPTION();
         createdPrescription.pickup();
+        return false;
     }
 }
 

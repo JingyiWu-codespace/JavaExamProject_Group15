@@ -26,15 +26,15 @@ public class ActionBase extends BasicDataHolder {
      * @param room The room involved in the action, if applicable.
      */
 
-    public void executeAction(ItemBase item, RoomBase room) {
+    public boolean executeAction(ItemBase item, RoomBase room) {
         if (item == null && room == null)
-            executeAction();
+            return executeAction();
         else if (item == null)
-            executeAction(room);
+            return executeAction(room);
         else if (room == null)
-            executeAction(item);
+            return executeAction(item);
         else
-            System.out.println("ERROR: BOTH ROOM AND ITEM ARE OBJECTS");
+            throw new IllegalArgumentException("Cannot execute action");
     }
 
     /**
@@ -43,8 +43,9 @@ public class ActionBase extends BasicDataHolder {
      * @param item The item involved in the action.
      */
 
-    private void executeAction(ItemBase item) {
+    public boolean executeAction(ItemBase item) {
         System.out.println("doing " + this.getName() + ": I cant figure anything to do with " + item.getName());
+        return false;
     }
 
     /**
@@ -52,18 +53,21 @@ public class ActionBase extends BasicDataHolder {
      *
      * @param room The room involved in the action.
      */
-    private void executeAction(RoomBase room) {
+    public boolean executeAction(RoomBase room) {
         System.out.println("doing " + this.getName() + ": what am I suppose to do to " + room.getName());
+        return false;
     }
 
     /**
      * Executes an action that does not require a specific item or room context.
      */
-    private void executeAction() {
+    public boolean executeAction() {
         System.out.println("doing " + this.getName() + ":this action in isolation is not possible");
+        return false;
     }
 
-    private void executeAction(ActionBase action) {
+    public boolean executeAction(ActionBase action) {
         System.out.println("what to do, what not to do, that is the question");
+        return false;
     }
 }

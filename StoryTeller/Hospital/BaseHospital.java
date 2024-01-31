@@ -1,20 +1,22 @@
 package JavaExamProject_Group15.StoryTeller.Hospital;
 
+import JavaExamProject_Group15.Entity.Actions.ActionBase;
+import JavaExamProject_Group15.Entity.Items.ItemBase;
+import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 import JavaExamProject_Group15.StoryTeller.StoryTeller;
 
-public abstract class BaseHospital implements StoryTeller {
+public abstract class BaseHospital extends StoryTeller {
     protected int deadlineTimer;
 
-    public void cleanLastChapter() {
-//        ROOM_ER.getRoomInv().forceRemove(ItemBase.ITEM_ER_PATIENT, ItemBase.ITEM_PATIENT_MEDICINE, ItemBase.ITEM_MOTHER_PATIENT, ItemBase.ITEM_NURSE);
-//        ROOM_ER.addExit(ROOM_RECEPTION_DESK);
-    }
-
     public boolean checkLoss() {
-        return this.deadlineTimer <= 0;
+        boolean loss= this.deadlineTimer <= 0;
+        if (loss)
+            System.out.println("You have run out of time. the patient died.");
+        return loss;
     }
 
-    public void singleEpoch() {
+
+    public void endTurnPostAction(ActionBase prevActionCode, ItemBase prevItemCode, RoomBase prevRoomCode, boolean prevActionSuccess) {
         this.deadlineTimer--;
     }
 }

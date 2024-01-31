@@ -5,7 +5,6 @@ import JavaExamProject_Group15.Entity.Actions.Primary.ACTION_INTERACT;
 import JavaExamProject_Group15.Entity.Actions.Primary.ACTION_QUIT;
 import JavaExamProject_Group15.StoryTeller.StoryTeller;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 import static JavaExamProject_Group15.UserParser.userInterface;
@@ -15,6 +14,7 @@ public class GameManager {
 
     protected GameManager(StoryTeller storyTeller) {
         currentStoryTeller = storyTeller;
+        startChapter();
         new ACTION_HELP();
         new ACTION_INTERACT();
         new ACTION_QUIT();
@@ -51,9 +51,9 @@ public class GameManager {
         // Check for quit action
         if (parsed_codes.actionCode instanceof ACTION_QUIT) System.exit(0);
         // Execute action based on parsed input
-        parsed_codes.actionCode.executeAction(parsed_codes.itemCode, parsed_codes.roomCode);
+        boolean ret = parsed_codes.actionCode.executeAction(parsed_codes.itemCode, parsed_codes.roomCode);
 
-        currentStoryTeller.nextTurn(parsed_codes.actionCode, parsed_codes.itemCode, parsed_codes.roomCode);
+        currentStoryTeller.endTurnPostAction(parsed_codes.actionCode, parsed_codes.itemCode, parsed_codes.roomCode, ret);
     }
 
     private boolean askToContinue() {
@@ -68,7 +68,6 @@ public class GameManager {
     }
 
     private void startChapter() {
-        currentStoryTeller.cleanLastChapter();
         currentStoryTeller.initiateChapter();
         currentStoryTeller.narrativePrint();
     }

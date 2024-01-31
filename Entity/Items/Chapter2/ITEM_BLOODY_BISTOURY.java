@@ -13,10 +13,10 @@ public class ITEM_BLOODY_BISTOURY extends ItemBase {
         );
     }
 
-    public void interaction() {
+    public boolean interaction() {
         if (!Inventory.inBag(ITEM_ALCOHOL.class)) {
             System.out.println("this knifes are bloody, better not touch them without disinfecting them with alcohol first");
-            return;
+            return false;
         }
         System.out.println("you got the clean bistoury now");
         Inventory.removeFromAllInvs(this);
@@ -24,6 +24,7 @@ public class ITEM_BLOODY_BISTOURY extends ItemBase {
         Inventory.removeFromAllInvs(alcohol);
         ITEM_BISTOURY knife = new ITEM_BISTOURY();
         knife.pickup();
+        return false;
     }
 
     public void pickup() {

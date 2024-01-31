@@ -2,7 +2,7 @@ package JavaExamProject_Group15.Entity.Items.Chapter2;
 
 import JavaExamProject_Group15.Entity.Items.Chapter1.ITEM_MEDICINE;
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_SURGERY;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter2.ROOM_SURGERY;
 import JavaExamProject_Group15.Inventory;
 
 public class ITEM_SURGEON extends ItemBase {
@@ -15,7 +15,7 @@ public class ITEM_SURGEON extends ItemBase {
         );
     }
 
-    public void interaction() {
+    public boolean interaction() {
 //        if (!(ITEM_TEST_RESULT.checkAccessibilityToPlayer()
 //                && ITEM_ULTRA_REPORT.checkAccessibilityToPlayer()
 //                && ITEM_MEDICINE.checkAccessibilityToPlayer()
@@ -27,7 +27,7 @@ public class ITEM_SURGEON extends ItemBase {
                         && Inventory.inBag(ITEM_BISTOURY.class)
         )) {
             System.out.println("the surgeon tells you to get 3 documents first, test result, ultra report and drugs,you need disinfect the bistory");
-            return;
+            return false;
         }
         System.out.println("You give the documents to the surgeon\n The surgeon takes the patient. \n\n");
 
@@ -37,6 +37,7 @@ public class ITEM_SURGEON extends ItemBase {
         Inventory.removeFromAllInvs(Inventory.getFromBag(ITEM_TEST_RESULT.class));
         Inventory.removeFromAllInvs(Inventory.getFromBag(ITEM_ULTRASOUND_REPORT.class));
         Inventory.removeFromAllInvs(Inventory.getFromBag(ITEM_MEDICINE.class));
+        return false;
     }
 
 }

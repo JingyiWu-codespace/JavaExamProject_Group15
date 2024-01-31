@@ -11,9 +11,10 @@ public class ITEM_BANDAGE extends ItemBase {
                 false);
     }
 
-    public void interaction() {
+    public boolean interaction() {
         this.pickup();
         System.out.println("Take the bandage to the patient in the ER room.");
+        return true;
     }
 }
 

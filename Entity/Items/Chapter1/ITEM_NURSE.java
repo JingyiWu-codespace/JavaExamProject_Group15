@@ -13,10 +13,10 @@ public class ITEM_NURSE extends ItemBase {
         );
     }
 
-    public void interaction() {
+    public boolean interaction() {
         if (!Inventory.inBag(ITEM_MEDICINE.class)) {
             System.out.println("you are not in Emergency room or do not have medicine");
-            return;
+            return false;
         }
         System.out.println("You give the medicine to the nurse\n" +
                 "The patient receives the right treatment and is send elsewhere \n\n");
@@ -27,6 +27,7 @@ public class ITEM_NURSE extends ItemBase {
         Inventory.removeFromAllInvs(med);
         Inventory.removeFromAllInvs(patientMed);
         Inventory.removeFromAllInvs(nurse);
+        return false;
     }
 
 }

@@ -15,13 +15,14 @@ public class ACTION_ROOM_CHECK extends ActionBase {
         );
     }
 
-    private void executeAction() {
+    public boolean executeAction() {
         RoomBase currentRoom = currPlayer.getCurrentRoom();
         System.out.println("You are in the " + currentRoom.getName());
 
         System.out.println("\nThe following entities are in this room:");
         for (ItemBase temp : RoomBase.getRoomInv(currentRoom).getItemList())
             temp.printInformation();
+        return false;
     }
 
 }

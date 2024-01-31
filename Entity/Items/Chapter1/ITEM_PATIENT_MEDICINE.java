@@ -15,16 +15,16 @@ public class ITEM_PATIENT_MEDICINE extends ItemBase {
         );
     }
 
-    public void interaction() {
+    public boolean interaction() {
         if (Inventory.inBag(ITEM_MEDICINE.class)) {
             ITEM_NURSE nurse = Inventory.getFromRoom(ITEM_NURSE.class, currPlayer.getCurrentRoom());
             nurse.interaction();
-            return;
+            return false;
         }
         if (Inventory.inBag(ITEM_PRESCRIPTION.class) ||
                 Inventory.inBag(ITEM_FILLED_REGISTER_FORM.class)) {
             System.out.println("the patient needs medicine, not paperwork");
-            return;
+            return false;
         }
 
         System.out.println("you start asking stuff from the patient\n" +
@@ -45,6 +45,7 @@ public class ITEM_PATIENT_MEDICINE extends ItemBase {
 
         ITEM_FILLED_REGISTER_FORM filledRegisterForm = new ITEM_FILLED_REGISTER_FORM();
         Inventory.moveThisToBag(filledRegisterForm);
+        return false;
     }
 
 }

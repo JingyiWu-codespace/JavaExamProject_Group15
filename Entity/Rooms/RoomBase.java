@@ -41,7 +41,7 @@ public class RoomBase extends BasicDataHolder {
         RoomBase.bidirPassage(RoomBase.getRoomObj(roomA), RoomBase.getRoomObj(roomB));
     }
 
-    protected static void oneWayPass(RoomBase roomA, RoomBase roomB) {
+    public static void oneWayPass(RoomBase roomA, RoomBase roomB) {
         if (roomA.exits.contains(roomB)) return;
         roomA.exits.add(roomB);
     }

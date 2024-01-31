@@ -13,11 +13,11 @@ public class ITEM_PHARMACY_CLERK extends ItemBase {
         );
     }
 
-    public void interaction() {
+    public boolean interaction() {
         if (!Inventory.inBag(ITEM_PRESCRIPTION.class)) {
             System.out.println("the clerk is busy, he asks you what you want. \n" +
                     "then he notices you don't have the prescription and attends others\n");
-            return;
+            return false;
         }
         System.out.println("You give the prescription to the pharmacy clerk\n" +
                 "The clerk gives you the medicine \n\n");
@@ -27,6 +27,7 @@ public class ITEM_PHARMACY_CLERK extends ItemBase {
 
         ITEM_MEDICINE medication = new ITEM_MEDICINE();
         Inventory.moveThisToBag(medication);
+        return false;
     }
 }
 

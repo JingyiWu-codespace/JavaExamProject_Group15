@@ -12,8 +12,9 @@ public class ACTION_GRAB extends ActionBase {
         );
     }
 
-    private void executeAction(ItemBase item) {
+    public boolean executeAction(ItemBase item) {
         item.pickup();
+        return false;
     }
 
 }

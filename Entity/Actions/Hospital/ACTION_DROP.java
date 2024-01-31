@@ -12,8 +12,9 @@ public class ACTION_DROP extends ActionBase {
         );
     }
 
-    private void executeAction(ItemBase item) {
+    public boolean executeAction(ItemBase item) {
         item.dropItem();
+        return false;
     }
 }
 

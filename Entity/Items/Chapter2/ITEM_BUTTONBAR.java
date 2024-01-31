@@ -1,10 +1,10 @@
-package JavaExamProject_Group15.Entity.Items.Chapter1;
+package JavaExamProject_Group15.Entity.Items.Chapter2;
 
 import JavaExamProject_Group15.Entity.Items.ItemBase;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_ELEVATOR;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_HALLWAY;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_RECEPTION_DESK;
-import JavaExamProject_Group15.Entity.Rooms.Hospital.ROOM_SURGERY;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter2.ROOM_ELEVATOR;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter2.ROOM_HALLWAY;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter1.ROOM_RECEPTION_DESK;
+import JavaExamProject_Group15.Entity.Rooms.Hospital.Chapter2.ROOM_SURGERY;
 import JavaExamProject_Group15.Entity.Rooms.RoomBase;
 
 import java.util.Scanner;
@@ -19,7 +19,7 @@ public class ITEM_BUTTONBAR extends ItemBase {
         );
     }
 
-    public void interaction() {
+    public boolean interaction() {
         System.out.println("you can choose the floor you want to go");
         System.out.println("0. Ground floor (Reception)");
         System.out.println("1. floor 1 (Hallway)");
@@ -47,6 +47,7 @@ public class ITEM_BUTTONBAR extends ItemBase {
                 break;
         }
         System.out.println("you are now in floor " + floor);
+        return false;
     }
 }
 

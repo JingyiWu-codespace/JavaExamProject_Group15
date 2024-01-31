@@ -12,13 +12,22 @@ public class Player {
     public static final boolean debug_flag = true;
     public static Player currPlayer;
 
+    private final String playerName;
     private final Inventory inventory;
     private RoomBase currentRoom;
 
     public Player(RoomBase startingRoom) {
-        // The player starts in the ER room by default.
-        this.currentRoom = startingRoom; //default start in Lobby
-        this.inventory = new Inventory(new ItemBase[]{}); //default empty inventory
+        this(startingRoom, null);
+    }
+
+    public Player(RoomBase startingRoom, String playerName) {
+        this.currentRoom = startingRoom;
+        this.inventory = new Inventory(new ItemBase[]{});
+        this.playerName = playerName;
+    }
+
+    public String getPlayerName() {
+        return this.playerName;
     }
 
     public RoomBase getCurrentRoom() {

@@ -14,11 +14,12 @@ public class ACTION_EXITS extends ActionBase {
         );
     }
 
-    private void executeAction() {
+    public boolean executeAction() {
         System.out.println("You can try to DIRECTLY walk to these exits\n" +
                 "   some exits require interaction with entities:");
         for (RoomBase room : RoomBase.getExits(currPlayer.getCurrentRoom()))
             room.printInformation();
+        return false;
     }
 }
 

@@ -13,10 +13,10 @@ public class ITEM_TEST_RESULT extends ItemBase {
         );
     }
 
-    public void interaction() {
+    public boolean interaction() {
         if (!Inventory.inBag(ITEM_MOTHER_PATIENT.class)) {
             System.out.println("you should take your patient do the test");
-            return;
+            return false;
         }
         System.out.println("Medical staff are drawing blood.......  \n\n");
 
@@ -45,6 +45,7 @@ public class ITEM_TEST_RESULT extends ItemBase {
         System.out.println("The Blood test report is out");
 
         this.pickup();
+        return false;
     }
 
 }

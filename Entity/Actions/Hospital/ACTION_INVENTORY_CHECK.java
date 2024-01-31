@@ -14,10 +14,11 @@ public class ACTION_INVENTORY_CHECK extends ActionBase {
         );
     }
 
-    private void executeAction() {
+    public boolean executeAction() {
         System.out.println("Items are in your bag:");
         for (ItemBase temp : currPlayer.getInventory().getItemList())
             temp.printInformation();
+        return false;
     }
 
 }

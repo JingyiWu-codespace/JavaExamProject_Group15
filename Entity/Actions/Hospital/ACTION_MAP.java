@@ -11,7 +11,7 @@ public class ACTION_MAP extends ActionBase {
         );
     }
 
-    private void executeAction() {
+    public boolean executeAction() {
         System.out.println(
                 " --- floor 0 --- " +
                         "\n  - 'reception desk -> leads to'" +
@@ -33,5 +33,6 @@ public class ACTION_MAP extends ActionBase {
                 "\n --- floor 2 --- " +
                         "\n  - 'surgery room'"
         );
+        return false;
     }
 }
